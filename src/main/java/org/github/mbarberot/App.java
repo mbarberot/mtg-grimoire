@@ -11,6 +11,7 @@ import static spark.Spark.staticFiles;
 public interface App {
     static void main(String[] args) {
         staticFiles.location("/public");
+        port(8080);
                 
         get("/", (request, response) -> new ModelAndView(emptyMap(), "pages/index"), new JadeTemplateEngine());
     }

@@ -12,7 +12,10 @@ public interface App {
     static void main(String[] args) {
         staticFiles.location("/public");
         port(8080);
-                
-        get("/", (request, response) -> new ModelAndView(emptyMap(), "pages/index"), new JadeTemplateEngine());
+
+        JadeTemplateEngine jadeTemplateEngine = new JadeTemplateEngine();
+        
+        get("/search", (request, response)  -> new ModelAndView(emptyMap(), "pages/search"), jadeTemplateEngine);
+        get("/", (request, response)        -> new ModelAndView(emptyMap(), "pages/index"), jadeTemplateEngine);
     }
 }

@@ -1,11 +1,13 @@
 apply plugin: 'java'
-apply plugin: 'application'
+apply plugin: 'war'
 
 repositories {
     jcenter()
 }
 
-mainClassName = "org.github.mbarberot.App"
+war {
+    baseName = 'ROOT'
+}
 
 dependencies {
     // The production code uses the SLF4J logging API at compile time

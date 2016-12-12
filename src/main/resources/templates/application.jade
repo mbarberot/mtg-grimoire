@@ -6,8 +6,11 @@ html
         link(rel="stylesheet", type="text/css", href="/css/magic-view.css")
         
     body
-        .ui.fixed.inverted.menu
-            .brand.item Magic View
+        .ui.violet.inverted.menu
+            .ui.container
+                a.brand.active.item(href="/") Magic View
+                a.item(href="/search") Search
             
         #main
-            block main
+            .ui.four.column.centered.grid
+                block main

@@ -4,6 +4,10 @@
 
 Yet another app for Magic card game.
 
+## Demo
+
+- [On Heroku](https://mtg-grimoire.herokuapp.com)
+
 ## Features
 
 - [ ] Main page

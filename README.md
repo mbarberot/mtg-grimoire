@@ -1,4 +1,4 @@
-# Magic Viewer
+# MTG-Grimoire
 
 Yet another app for Magic card game.
 
@@ -13,25 +13,29 @@ Yet another app for Magic card game.
 
 ## Built with 
 
-- Java 8
-- Spark micro-framework
-- Jade/Pug templates (with jade4j)
-- Semantic UI
-- Tomcat 8
-- Gradle
+- Love <3,
+- Java 8, 
+- Spark micro-framework,
+- Jade/Pug templates (with jade4j),
+- Semantic UI,
+- Gradle,
+- Heroku,
+- Docker
 
 ## How to run
 
 ```bash
-./gradlew clean build
+./gradlew stage
 
 docker run \
-  --rm \
-  -it \
-  -v "./build/libs:/usr/local/tomcat/webapps" \ 
-  -p 8080:8080 \
-  --name tomcat \
-  tomcat:8-jre8-alpine
+    --rm \
+    -it \
+    --name webserver \
+    -p 8080:8080 \
+    -v "$PWD/build/libs:/app" \
+    -w /app \
+    java:8-alpine \
+    java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar mtg-grimoire-distrib.jar
 ```
 
 Go to [http://localhost:8080](http://localhost:8080)

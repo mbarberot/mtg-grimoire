@@ -1,17 +1,28 @@
-apply plugin: 'java'
-apply plugin: 'war'
+plugins {
+    id "com.github.johnrengelman.shadow" version "1.2.4"
+    id "java"
+}
 
 repositories {
     jcenter()
 }
 
-war {
-    baseName = 'ROOT'
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.github.mbarberot.App'
+    }
+}
+
+shadowJar {
+    baseName = 'mtg-grimoire'
+    classifier = null
+    version = 'distrib'
 }
 
 dependencies {
     // The production code uses the SLF4J logging API at compile time
     compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'org.slf4j:slf4j-simple:1.7.21'
 
     compile "com.sparkjava:spark-core:2.5.2"
     compile "com.sparkjava:spark-template-jade:2.3"
@@ -20,3 +31,6 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
 }
+
+task stage(dependsOn: ['clean', 'build', 'shadowJar'])
+build.mustRunAfter clean

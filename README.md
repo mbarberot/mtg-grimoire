@@ -1,5 +1,7 @@
 # MTG-Grimoire
 
+[![Build Status](https://travis-ci.org/mbarberot/mtg-grimoire.svg?branch=master)](https://travis-ci.org/mbarberot/mtg-grimoire)
+
 Yet another app for Magic card game.
 
 ## Features

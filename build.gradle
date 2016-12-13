@@ -9,7 +9,7 @@ repositories {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'org.github.mbarberot.App'
+        attributes 'Main-Class': 'org.github.mbarberot.mtg.grimoire.App'
     }
 }
 

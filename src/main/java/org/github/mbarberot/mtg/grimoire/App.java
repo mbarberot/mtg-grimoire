@@ -1,4 +1,4 @@
-package org.github.mbarberot;
+package org.github.mbarberot.mtg.grimoire;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

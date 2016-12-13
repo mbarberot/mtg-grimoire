@@ -3,7 +3,7 @@ package org.github.mbarberot.mtg.grimoire;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import spark.ModelAndView;
-import spark.servlet.SparkApplication;
+import spark.TemplateEngine;
 import spark.template.jade.JadeTemplateEngine;
 
 import static java.lang.Integer.valueOf;
@@ -11,30 +11,33 @@ import static java.util.Collections.emptyMap;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static spark.Spark.*;
 
-public class App implements SparkApplication {
+interface App {
+    int DEFAULT_PORT = 8080;
+    Log LOGGER = LogFactory.getLog(App.class.getName());
 
-    public static final int DEFAULT_PORT = 8080;
-    private static final Log LOGGER = LogFactory.getLog(App.class.getName());
-
-    public static void main(String[] args) {
-        App app = new App();
-        app.init();
+    static void main(String[] args) {
+        configure();
+        declareRoutes();
     }
 
-    @Override
-    public void init() {
-        staticFiles.location("/public");
+    static void declareRoutes() {
+        TemplateEngine templateEngine = initTemplateEngine();
 
+        get("/search", (request, response) -> new ModelAndView(emptyMap(), "pages/search"), templateEngine);
+        get("/cards/:id", (request, response) -> new ModelAndView(emptyMap(), "pages/cards/card"), templateEngine);
+        get("/", (request, response) -> new ModelAndView(emptyMap(), "pages/index"), templateEngine);
+    }
+
+    static JadeTemplateEngine initTemplateEngine() {
+        return new JadeTemplateEngine();
+    }
+
+    static void configure() {
         port(getPort());
-
-        JadeTemplateEngine jadeTemplateEngine = new JadeTemplateEngine();
-
-        get("/search", (request, response) -> new ModelAndView(emptyMap(), "pages/search"), jadeTemplateEngine);
-        get("/cards/:id", (request, response) -> new ModelAndView(emptyMap(), "pages/cards/card"), jadeTemplateEngine);
-        get("/", (request, response) -> new ModelAndView(emptyMap(), "pages/index"), jadeTemplateEngine);
+        staticFiles.location("/public");
     }
 
-    private int getPort() {
+    static int getPort() {
         String givenPort = System.getProperty("server.port");
         if (isNotBlank(givenPort)) {
             try {

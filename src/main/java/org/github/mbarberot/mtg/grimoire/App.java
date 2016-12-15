@@ -1,7 +1,12 @@
 package org.github.mbarberot.mtg.grimoire;
 
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoDatabase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jongo.Jongo;
+import org.jongo.JongoNative;
 import spark.ModelAndView;
 import spark.TemplateEngine;
 import spark.template.jade.JadeTemplateEngine;
@@ -22,10 +27,17 @@ interface App {
 
     static void declareRoutes() {
         TemplateEngine templateEngine = initTemplateEngine();
+        JongoNative dbClient = initDatabaseClient();
 
         get("/search", (request, response) -> new ModelAndView(emptyMap(), "pages/search"), templateEngine);
         get("/cards/:id", (request, response) -> new ModelAndView(emptyMap(), "pages/cards/card"), templateEngine);
         get("/", (request, response) -> new ModelAndView(emptyMap(), "pages/index"), templateEngine);
+    }
+
+    static JongoNative initDatabaseClient() {
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(System.getProperty("db.uri")));
+        MongoDatabase database = mongoClient.getDatabase(System.getProperty("db.name"));
+        return new JongoNative(database);
     }
 
     static JadeTemplateEngine initTemplateEngine() {

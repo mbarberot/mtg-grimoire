@@ -5,6 +5,7 @@ plugins {
 
 repositories {
     jcenter()
+    maven { url 'https://jitpack.io' }
 }
 
 jar {
@@ -20,14 +21,13 @@ shadowJar {
 }
 
 dependencies {
-    // The production code uses the SLF4J logging API at compile time
     compile 'org.slf4j:slf4j-api:1.7.21'
     compile 'org.slf4j:slf4j-simple:1.7.21'
-
-    compile "com.sparkjava:spark-core:2.5.2"
-    compile "com.sparkjava:spark-template-jade:2.3"
-
+    compile 'com.sparkjava:spark-core:2.5.2'
+    compile 'com.sparkjava:spark-template-jade:2.3'
     compile 'com.google.guava:guava:20.0'
+    compile 'org.mongodb:mongodb-driver:3.4.0'
+    compile 'com.github.bguerout:jongo:1.4-early-20160606-0118'
 
     testCompile 'junit:junit:4.12'
 }

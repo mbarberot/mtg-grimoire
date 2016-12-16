@@ -2,6 +2,7 @@ package org.github.mbarberot.mtg.grimoire;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,7 +36,7 @@ interface App {
     }
 
     static JongoNative initDatabaseClient() {
-        MongoClient mongoClient = new MongoClient(new MongoClientURI(System.getProperty("db.uri")));
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(System.getProperty("db.url")));
         MongoDatabase database = mongoClient.getDatabase(System.getProperty("db.name"));
         return new JongoNative(database);
     }

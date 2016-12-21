@@ -20,7 +20,7 @@ Yet another app for Magic card game.
 ## Built with 
 
 - Love <3,
-- Java 8, 
+- Kotlin, 
 - Spark micro-framework,
 - Jade/Pug templates (with jade4j),
 - Semantic UI,

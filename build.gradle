@@ -1,26 +1,15 @@
-plugins {
-    id "com.github.johnrengelman.shadow" version "1.2.4"
-    id "java"
-}
+apply plugin: 'kotlin'
+apply plugin: 'application'
+
 
 repositories {
     jcenter()
     maven { url 'https://jitpack.io' }
 }
 
-jar {
-    manifest {
-        attributes 'Main-Class': 'org.github.mbarberot.mtg.grimoire.App'
-    }
-}
-
-shadowJar {
-    baseName = 'mtg-grimoire'
-    classifier = null
-    version = 'distrib'
-}
-
 dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
     compile 'org.slf4j:slf4j-api:1.7.21'
     compile 'org.slf4j:slf4j-simple:1.7.21'
     compile 'com.sparkjava:spark-core:2.5.2'
@@ -32,5 +21,22 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-task stage(dependsOn: ['clean', 'build', 'shadowJar'])
+task stage(dependsOn: ['clean', 'build', 'installDist'])
 build.mustRunAfter clean
+
+buildscript {
+    ext.kotlin_version = '1.0.5-3'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+}
+
+mainClassName = 'org.github.mbarberot.mtg.grimoire.App'

@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -Ddb.url=$DB_URL -Ddb.name=$DB_NAME $JAVA_OPTS -jar build/libs/mtg-grimoire-distrib.jar
+web: ./build/install/app/bin/app

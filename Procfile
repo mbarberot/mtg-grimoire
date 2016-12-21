@@ -1,1 +1,1 @@
-web: ./build/install/app/bin/app
+web: ./build/install/mtg-grimoire/bin/mtg-grimoire

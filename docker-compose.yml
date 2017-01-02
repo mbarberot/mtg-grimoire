@@ -1,0 +1,19 @@
+version: '2'
+services: 
+  database:
+    image: mongo:3
+  
+  grimoire:
+    image: java:8
+    links:
+      - database
+    environment:
+      DB_URL: "mongodb://test:test@database/mtg_grimoire"
+      DB_NAME: "mtg_grimoire"
+      PORT: "8080"
+    ports:
+      - 8080:8080
+    volumes:
+      - ./build/install/mtg-grimoire:/app
+    working_dir: /app
+    command: /app/bin/mtg-grimoire

@@ -3,6 +3,7 @@ package org.github.mbarberot.mtg.grimoire
 import com.mongodb.MongoClient
 import com.mongodb.MongoClientURI
 import org.apache.commons.lang3.StringUtils
+import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 import org.jongo.JongoNative
 import spark.ModelAndView
@@ -12,7 +13,7 @@ import java.util.*
 
 object App {
     val DEFAULT_PORT = 8080
-    val LOGGER = LogFactory.getLog(App::class.java.name)
+    val LOGGER: Log = LogFactory.getLog(App::class.java.name)
 
     @JvmStatic fun main(args: Array<String>) {
         configure()

@@ -1,0 +1,13 @@
+.ui.segment
+    .ui.left.aligned.container
+        h2 Results
+        .ui.divider
+        .ui.items
+            for card in cards
+                .item
+                    .ui.tiny.image
+                        img(src="#{card.imageUrl}")
+                    .content
+                        a.header(href="##{card.name}") #{card.name}
+            else
+                h3 No results

@@ -3,13 +3,20 @@ extends ../application.jade
 block main
     .ui.segment
         .ui.container
-            form.ui.form
+            form.ui.form(
+                ic-post-to="/ic/search", 
+                ic-target="#search-results",
+                ic-trigger-from="#search",
+                ic-trigger-delay="500ms"
+            )
                 .field
                     .ui.left.icon.input
                         input.prompt(
-                            type=text, name="q", placeholder="ie: Liliana Vess",
-                            ic-post-to="/ic/search", ic-target="#search-results", ic-trigger-on="keypress"
-                        )
+                            type=text, 
+                            name="q", 
+                            placeholder="ie: Liliana Vess",
+                            ic-trigger-on="keyup changed"
+                        )#search
                         i.search.icon
     
     #search-results

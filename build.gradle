@@ -19,13 +19,14 @@ dependencies {
     compile 'com.github.bguerout:jongo:1.4-early-20160606-0118'
 
     testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-core:2.+"
 }
 
 task stage(dependsOn: ['clean', 'build', 'installDist'])
 build.mustRunAfter clean
 
 buildscript {
-    ext.kotlin_version = '1.0.5-3'
+    ext.kotlin_version = '1.0.6'
 
     repositories {
         mavenCentral()
@@ -39,4 +40,4 @@ sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
 }
 
-mainClassName = 'org.github.mbarberot.mtg.grimoire.App'
+mainClassName = 'org.github.mbarberot.mtg.grimoire.spark.App'

@@ -28,7 +28,7 @@ object App {
         post("/ic/search", { req, res ->
             val query = req.queryParams("q")
             ModelAndView(
-                    mapOf(Pair("cards", cardManager.getCards().filter { card -> card.name.toLowerCase().startsWith(query.toLowerCase()) })),
+                    mapOf(Pair("cards", if (query.isNotEmpty()) cardManager.getCards().filter { card -> card.name.toLowerCase().startsWith(query.toLowerCase()) } else emptyList())),
                     "parts/search-results"
             )
         }, templateEngine)

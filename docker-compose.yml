@@ -1,12 +1,14 @@
 version: '2'
 services: 
-  database:
-    image: mongo:3
+#  database:
+#    image: mongo:3
+#    container_name: mtg_grimoire_database
   
   grimoire:
     image: java:8
-    links:
-      - database
+    container_name: mtg_grimoire_app
+#    links:
+#      - database
     environment:
       DB_URL: "mongodb://test:test@database/mtg_grimoire"
       DB_NAME: "mtg_grimoire"

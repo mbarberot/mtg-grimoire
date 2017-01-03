@@ -3,10 +3,13 @@ extends ../application.jade
 block main
     .ui.segment
         .ui.container
-            form.ui.form(action="/search", method="get")
+            form.ui.form
                 .field
-                    .ui.left.icon.action.input
-                        input.prompt(type=text, name="q", placeholder="ie: Liliana Vess")
+                    .ui.left.icon.input
+                        input.prompt(
+                            type=text, name="q", placeholder="ie: Liliana Vess",
+                            ic-post-to="/ic/search", ic-target="#search-results", ic-trigger-on="keypress"
+                        )
                         i.search.icon
-                        button.ui.primary.button(type="submit") Search !
     
+    #search-results

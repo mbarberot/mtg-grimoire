@@ -25,16 +25,14 @@ object App {
 
     private fun declareRoutes(config: Configuration) {
         val templateEngine = JadeTemplateEngine()
-        val dbClient = initDatabaseClient(config)
-
-        get("/search", { request, response -> ModelAndView(Collections.emptyMap<Any, Any>(), "pages/search") }, templateEngine)
-        get("/cards/:id", { request, response -> ModelAndView(Collections.emptyMap<Any, Any>(), "pages/cards/card") }, templateEngine)
+        //val dbClient = initDatabaseClient(config)
+        
         get("/", { request, response -> ModelAndView(Collections.emptyMap<Any, Any>(), "pages/index") }, templateEngine)
     }
 
-    fun initDatabaseClient(config: Configuration): JongoNative {
+    /*fun initDatabaseClient(config: Configuration): JongoNative {
         val mongoClient = MongoClient(MongoClientURI(config.getDatabaseURL()))
         val database = mongoClient.getDatabase(config.getDatabaseName())
         return JongoNative(database)
-    }
+    }*/
 }

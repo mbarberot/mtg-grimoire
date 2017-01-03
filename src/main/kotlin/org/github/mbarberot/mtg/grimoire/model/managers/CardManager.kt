@@ -14,4 +14,11 @@ class CardManager {
         )
     }
 
+    fun searchCards(query: String): Collection<Card> {
+        return if (query.isNotEmpty()) {
+            getCards().filter { card -> card.name.toLowerCase().startsWith(query.toLowerCase()) }
+        } else {
+            emptyList()
+        }
+    }
 }

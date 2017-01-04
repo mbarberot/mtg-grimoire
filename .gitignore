@@ -2,3 +2,4 @@
 .idea
 build
 classes
+docker/db/*

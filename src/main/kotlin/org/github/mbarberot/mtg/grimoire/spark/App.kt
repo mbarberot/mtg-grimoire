@@ -1,7 +1,7 @@
 package org.github.mbarberot.mtg.grimoire.spark
 
 import org.github.mbarberot.mtg.grimoire.misc.config.Configuration
-import org.github.mbarberot.mtg.grimoire.model.managers.CardManager
+import org.github.mbarberot.mtg.grimoire.model.ManagerFactory
 import spark.ModelAndView
 import spark.Spark.*
 import spark.template.jade.JadeTemplateEngine
@@ -13,7 +13,7 @@ object App {
         val config = Configuration()
 
         configure(config)
-        declareRoutes()
+        declareRoutes(config)
     }
 
     private fun configure(config: Configuration) {
@@ -21,9 +21,11 @@ object App {
         staticFiles.location("/public")
     }
 
-    private fun declareRoutes() {
+    private fun declareRoutes(config: Configuration) {
         val templateEngine = JadeTemplateEngine()
-        val cardManager = CardManager()
+        val managerFactory = ManagerFactory(config)
+
+        val cardManager = managerFactory.getCardManager()
 
         post("/ic/search", { req, res ->
             val query = req.queryParams("q")
@@ -34,7 +36,6 @@ object App {
         }, templateEngine)
 
         get("/", { request, response -> ModelAndView(Collections.emptyMap<Any, Any>(), "pages/index") }, templateEngine)
-
     }
 }
 

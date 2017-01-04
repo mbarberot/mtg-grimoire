@@ -1,10 +1,11 @@
 package org.github.mbarberot.mtg.grimoire.model.managers
 
 import org.github.mbarberot.mtg.grimoire.model.beans.Card
+import org.jongo.JongoNative
 
-class CardManager {
+class CardManager(val dbClient: JongoNative) {
     fun getCards(): Collection<Card> {
-        return listOf(
+       return listOf(
                 Card("Ajani Goldmane"),
                 Card("Archangel Avacyn"),
                 Card("Arlin Kord"),

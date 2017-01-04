@@ -6,12 +6,12 @@ import org.jongo.JongoNative
 class CardManager(val dbClient: JongoNative) {
     fun getCards(): Collection<Card> {
        return listOf(
-                Card("Ajani Goldmane"),
-                Card("Archangel Avacyn"),
-                Card("Arlin Kord"),
-                Card("Ashlok, NightMare Weaver"),
-                Card("Ashling the Pilgrim"),
-                Card("Ashling, the Extinguisher")
+                Card("Ajani Goldmane", "222369"),
+                Card("Archangel Avacyn", "411061"),
+                Card("Arlin Kord", "411327"),
+                Card("Ashlok, NightMare Weaver", "374496"),
+                Card("Ashling the Pilgrim", "155366"),
+                Card("Ashling, the Extinguisher", "181741")
         )
     }
 

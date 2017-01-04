@@ -6,8 +6,8 @@
             for card in cards
                 .item
                     .ui.tiny.image
-                        img(src="#{card.imageUrl}")
-                    .content
+                        img(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=#{card.multiverseId}&type=card")
+                    .middle.aligned.content
                         a.header(href="##{card.name}") #{card.name}
             else
                 h3 No results

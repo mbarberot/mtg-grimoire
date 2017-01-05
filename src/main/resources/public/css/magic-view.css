@@ -3,7 +3,10 @@ body {
     background-color: #4E342E;
 }
 
-div#main {
-    margin-top: 50px;
-    margin-bottom: 50px;
+.ui.main.segment {
+    padding:1em 1.5em
+}
+
+.menu .item .ui.main.button {
+    margin-left:0.5em
 }

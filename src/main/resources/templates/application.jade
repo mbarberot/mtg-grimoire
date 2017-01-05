@@ -1,18 +1,24 @@
 doctype html
 html
     head
-        title Magic View 
+        title MTG : Grimoire
         link(rel="stylesheet", type="text/css", href="/css/semantic.css")
         link(rel="stylesheet", type="text/css", href="/css/magic-view.css")
         
     body
-        .ui.teal.inverted.menu
-            .ui.container
-                a.brand.active.item(href="/") Magic View
-            
+        .ui.main.inverted.vertical.segment
+            .ui.fluid.container
+                h2 Magic The Gathering : Grimoire
+            .ui.large.inverted.secondary.pointing.menu
+                a.active.item(href="/") Search
+                a.item(href="#") Sets
+                a.item(href="#") Decks
+                .right.item
+                    a.ui.main.inverted.button(href="#") Log in
+                    a.ui.main.inverted.button(href="#") Sign up
+
         #main
-            .ui.four.column.centered.grid
-                block main
+            block main
                 
         script(src="https://code.jquery.com/jquery-1.10.2.min.js")
         script(src="https://intercoolerreleases-leaddynocom.netdna-ssl.com/intercooler-1.0.3.min.js")

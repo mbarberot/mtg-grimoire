@@ -1,22 +1,23 @@
 extends ../application.jade
 
 block main
-    .ui.segment
-        .ui.container
+    .ui.main.inverted.fluid.vertical.segment
+        .ui.inverted.divider
+        .ui.main.inverted.fluid.vertical.segment
             form.ui.form(
-                ic-post-to="/ic/search", 
+                ic-post-to="/ic/search",
                 ic-target="#search-results",
                 ic-trigger-from="#search",
                 ic-trigger-delay="500ms"
-            )
+                )
                 .field
-                    .ui.left.icon.input
+                    .ui.inverted.transparent.left.icon.input
                         input.prompt(
-                            type=text, 
-                            name="q", 
+                            type=text,
+                            name="q",
                             placeholder="ie: Liliana Vess",
                             ic-trigger-on="keyup changed"
                         )#search
                         i.search.icon
-    
+
     #search-results

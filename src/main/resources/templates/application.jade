@@ -7,15 +7,15 @@ html
         
     body
         .ui.main.inverted.vertical.segment
-            .ui.fluid.container
-                h2 Magic The Gathering : Grimoire
-            .ui.large.inverted.secondary.pointing.menu
+            .ui.inverted.secondary.pointing.menu
+                .brand.item Magic The Gathering : Grimoire
                 a.active.item(href="/") Search
                 a.item(href="#") Sets
                 a.item(href="#") Decks
+                a.item(href="#") Collection
                 .right.item
-                    a.ui.main.inverted.button(href="#") Log in
-                    a.ui.main.inverted.button(href="#") Sign up
+                    a.ui.main.secondary.inverted.violet.button(href="#") Log in
+                    a.ui.main.secondary.inverted.violet.button(href="#") Sign up
 
         #main
             block main

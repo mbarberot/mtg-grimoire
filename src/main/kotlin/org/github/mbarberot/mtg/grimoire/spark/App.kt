@@ -35,6 +35,14 @@ object App {
             )
         }, templateEngine)
 
+        post("/ic/card/:id", { req, res ->
+            val id = req.params(":id")
+            ModelAndView(
+                    mapOf(Pair("card", cardManager.getCardById(id))),
+                    "parts/card"
+            )
+        }, templateEngine)
+
         get("/", { request, response -> ModelAndView(Collections.emptyMap<Any, Any>(), "pages/index") }, templateEngine)
     }
 

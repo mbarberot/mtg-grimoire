@@ -22,7 +22,7 @@ object App {
     }
 
     private fun declareRoutes(config: Configuration) {
-        val templateEngine = JadeTemplateEngine()
+        val templateEngine = initTemplateEngine()
         val managerFactory = ManagerFactory(config)
 
         val cardManager = managerFactory.getCardManager()
@@ -36,6 +36,12 @@ object App {
         }, templateEngine)
 
         get("/", { request, response -> ModelAndView(Collections.emptyMap<Any, Any>(), "pages/index") }, templateEngine)
+    }
+
+    private fun initTemplateEngine(): JadeTemplateEngine {
+        val templateEngine = JadeTemplateEngine()
+        templateEngine.configuration().isPrettyPrint = true
+        return templateEngine
     }
 }
 

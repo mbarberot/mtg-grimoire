@@ -27,7 +27,7 @@ Yet another app for Magic card game.
 - [x] Search view
 - [x] Use intercooler.js for easy ajax handling
 - [x] Cleaner view
-- [ ] Show a card
+- [x] Show a card
 - [ ] Code coverage
 - [ ] Code quality
 - [ ] Show sets

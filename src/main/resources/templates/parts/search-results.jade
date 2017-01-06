@@ -4,7 +4,7 @@ if cards
             for card in cards
                 .ui.card
                     .content
-                        .header(href="##{card.name}") #{card.name}
+                        .header #{card.name}
                     .content
                         img.left.floated.small.ui.image(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=#{card.multiverseId}&type=card")
                         .ui.violet.labels
@@ -12,7 +12,10 @@ if cards
                             .ui.label dolor sit amet
                             .ui.label consectetuer
                             .ui.label adipiscing elit
-                    .ui.bottom.attached.button View details
+                    .ui.bottom.attached.button(
+                        ic-post-to="/ic/card/#{card.multiverseId}",
+                        ic-target="#card"
+                        ) View details
                         i.angle.double.right.icon
 
 else

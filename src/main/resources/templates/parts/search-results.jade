@@ -1,13 +1,18 @@
-.ui.segment
-    .ui.left.aligned.container
-        h2 Results
-        .ui.divider
-        .ui.items
+if cards
+    .ui.main.fluid.vertical.segment
+        .ui.three.cards
             for card in cards
-                .item
-                    .ui.tiny.image
-                        img(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=#{card.multiverseId}&type=card")
-                    .middle.aligned.content
-                        a.header(href="##{card.name}") #{card.name}
-            else
-                h3 No results
+                .ui.card
+                    .content
+                        .header(href="##{card.name}") #{card.name}
+                    .content
+                        img.left.floated.small.ui.image(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=#{card.multiverseId}&type=card")
+                        .ui.purple.labels
+                            .ui.label lorem ipsum
+                            .ui.label dolor sit amet
+                            .ui.label consectetuer 
+                            .ui.label adipiscing elit
+
+else
+    .ui.main.fluid.vertical.segment
+        .ui.purple.message No results

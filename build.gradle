@@ -1,5 +1,6 @@
 apply plugin: 'kotlin'
 apply plugin: 'application'
+apply plugin: 'jacoco'
 
 
 repositories {
@@ -44,3 +45,10 @@ sourceSets {
 
 //noinspection GroovyUnusedAssignment
 mainClassName = 'org.github.mbarberot.mtg.grimoire.spark.App'
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled true
+    }
+}

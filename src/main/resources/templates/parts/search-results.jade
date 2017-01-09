@@ -7,11 +7,10 @@ if cards
                         .header #{card.name}
                     .content
                         img.left.floated.small.ui.image(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=#{card.multiverseId}&type=card")
-                        .ui.violet.labels
-                            .ui.label lorem ipsum
-                            .ui.label dolor sit amet
-                            .ui.label consectetuer
-                            .ui.label adipiscing elit
+                        if card.tags
+                            .ui.violet.labels
+                                for tag in card.tags
+                                    .ui.label #{tag}
                     .ui.bottom.attached.button(
                         ic-post-to="/ic/card/#{card.multiverseId}",
                         ic-target="#card"

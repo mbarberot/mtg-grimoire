@@ -5,11 +5,10 @@
                 .header #{card.name}
             .content
                 img.left.floated.little.ui.image(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=#{card.multiverseId}&type=card")
-                .ui.violet.labels
-                    .ui.label lorem ipsum
-                    .ui.label dolor sit amet
-                    .ui.label consectetuer
-                    .ui.label adipiscing elit
+                if card.tags
+                    .ui.violet.labels
+                        for tag in card.tags
+                            .ui.label #{tag}
             .extra.content
                 .ui.two.buttons
                     .ui.basic.violet.button

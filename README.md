@@ -16,6 +16,8 @@ Yet another app for Magic card game.
 ## To do
 ### Road to v1.0
 
+Goal : App setup, basic search, view cards
+
 - [x] Create project
 - [x] Continuous integration (with travis)
 - [x] Continuous deployment (with heroku)
@@ -30,19 +32,21 @@ Yet another app for Magic card game.
 - [x] Cleaner view
 - [x] Show a card
 - [x] Code coverage
-- [ ] Code quality
-- [ ] Show sets
-- [ ] Show card by sets
-- [ ] Load MTG.json data
-- [ ] Generate labels
-- [ ] Search with labels
+- [ ] Cleanup
 
 ### Road to v1.1
 
+Goal : Tags, auto updating database
+
+- [ ] Search with tags
+- [ ] Load MTG.json data
+- [ ] Generate tags
 - [ ] Handle database version
 - [ ] Automatically fetching MTG.json data and updating database at app startup with site lock
 
 ### Road to v1.2
+
+Goal : Account, deck and collection
 
 - [ ] Create(Sign up)/Edit/Remove account
 - [ ] Login/Logout
@@ -53,6 +57,14 @@ Yet another app for Magic card game.
 - [ ] Create/Edit/Remove collection
 - [ ] Add/remove card from/to collection
 - [ ] Search into collection
+
+### Road to v1.3
+
+Goal : Other features (view sets and card by sets)
+
+- [ ] Code quality
+- [ ] Show sets
+- [ ] Show card by sets
 
 -----
 

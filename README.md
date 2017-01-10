@@ -32,7 +32,7 @@ Goal : App setup, basic search, view cards
 - [x] Cleaner view
 - [x] Show a card
 - [x] Code coverage
-- [ ] Cleanup
+- [x] Cleanup
 
 ### Road to v1.1
 

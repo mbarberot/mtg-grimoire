@@ -29,5 +29,6 @@ services:
       - 5005:5005
     volumes:
       - ./build/install/mtg-grimoire:/app
+      - ./docker/json:/data
     working_dir: /app
     command: /app/bin/mtg-grimoire

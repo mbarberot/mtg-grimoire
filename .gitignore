@@ -3,3 +3,4 @@
 build
 classes
 docker/db/*
+docker/json/*

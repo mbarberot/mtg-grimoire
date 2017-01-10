@@ -19,6 +19,10 @@ dependencies {
 
     compile 'org.mongodb:mongodb-driver:3.4.0'
     compile 'com.github.bguerout:jongo:1.4-early-20160606-0118'
+    
+    compile 'com.fasterxml.jackson.core:jackson-core:2.8.4'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.4'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.4'
     compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.8.4'
 
     testCompile 'junit:junit:4.12'

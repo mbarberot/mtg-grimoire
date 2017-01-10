@@ -38,11 +38,16 @@ Goal : App setup, basic search, view cards
 
 Goal : Tags, auto updating database
 
-- [ ] Search with tags
 - [ ] Load MTG.json data
+  - [x] First impl with json files (dev env only, will not work with heroku)
+  - [ ] Fetch data from MTG.json to have the app working in heroku
+  - [ ] Fetch all interesting fields
 - [ ] Generate tags
-- [ ] Handle database version
-- [ ] Automatically fetching MTG.json data and updating database at app startup with site lock
+- [ ] Search with tags
+- [ ] Smartest database update
+  - [ ] Handle database version
+  - [ ] Do not remove all cards, just add changes from last version
+  - [ ] Display a waiting message during update
 
 ### Road to v1.2
 

@@ -1,7 +1,8 @@
 package org.github.mbarberot.mtg.grimoire.spark
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.fasterxml.jackson.module.kotlin.readValue
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.apache.commons.logging.LogFactory
 import org.github.mbarberot.mtg.grimoire.misc.config.Configuration
 import org.github.mbarberot.mtg.grimoire.model.ManagerFactory
@@ -60,19 +61,17 @@ object App {
     private fun loadCards(cardManager: CardManager) {
         val dataDir = File("/data")
         if (dataDir.exists()) {
-            val mapper = ObjectMapper()
-            mapper.registerModule(KotlinModule())
+            val mapper = ObjectMapper().registerKotlinModule()
 
             cardManager.removeAll()
 
-            dataDir.listFiles({ dir, fileName -> fileName.endsWith(".json") })
-                    .forEach { file ->
-                        mapper.readValue(file, MTGSet::class.java)
-                                .cards.forEach { card ->
+            mapper.readValue<List<MTGSet>>(File(dataDir.path, "AllSetsArray.json")).forEach { set ->
+                set.cards
+                        .filter({ card -> card.multiverseid != 0 })
+                        .forEach { card ->
                             cardManager.addCard(Card(card.name, card.multiverseid.toString(), emptyList()))
-                            LOG.info("Adding card ${card.name}/${card.multiverseid}")
                         }
-                    }
+            }
         }
     }
 

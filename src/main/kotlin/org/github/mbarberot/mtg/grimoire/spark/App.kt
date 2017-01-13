@@ -22,21 +22,13 @@ object App {
     @JvmStatic fun main(args: Array<String>) {
         val config = Configuration()
 
-        configure(config)
-        declareRoutes(config)
-    }
-
-    private fun configure(config: Configuration) {
         port(config.getServerPort())
         staticFiles.location("/public")
-    }
 
-    private fun declareRoutes(config: Configuration) {
         val templateEngine = initTemplateEngine()
-        val managerFactory = Model(config)
 
-        val cardManager = managerFactory.getCardManager()
-
+        val model = Model(config)
+        val cardManager = model.getCardManager()
         loadCards(cardManager)
 
         post("/ic/search", { req, res ->

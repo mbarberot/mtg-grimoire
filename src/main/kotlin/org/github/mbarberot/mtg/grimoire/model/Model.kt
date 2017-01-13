@@ -8,7 +8,7 @@ import org.github.mbarberot.mtg.grimoire.model.managers.CardManager
 import org.jongo.JongoNative
 import org.jongo.marshall.jackson.JacksonMapper
 
-class ManagerFactory(config: Configuration) {
+class Model(config: Configuration) {
     val dbClient: JongoNative
     
     init {

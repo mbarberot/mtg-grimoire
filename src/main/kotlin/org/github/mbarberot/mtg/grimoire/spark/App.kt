@@ -5,7 +5,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.apache.commons.logging.LogFactory
 import org.github.mbarberot.mtg.grimoire.misc.config.Configuration
-import org.github.mbarberot.mtg.grimoire.model.ManagerFactory
+import org.github.mbarberot.mtg.grimoire.model.Model
 import org.github.mbarberot.mtg.grimoire.model.beans.Card
 import org.github.mbarberot.mtg.grimoire.model.json.MTGSet
 import org.github.mbarberot.mtg.grimoire.model.managers.CardManager
@@ -33,7 +33,7 @@ object App {
 
     private fun declareRoutes(config: Configuration) {
         val templateEngine = initTemplateEngine()
-        val managerFactory = ManagerFactory(config)
+        val managerFactory = Model(config)
 
         val cardManager = managerFactory.getCardManager()
 

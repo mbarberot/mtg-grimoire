@@ -33,4 +33,16 @@ class ConfigurationTest {
         doReturn("1111").`when`(environment).get("PORT")
         assertEquals(1111, configuration.getServerPort())
     }
+
+    @Test
+    fun getDatabaseNameByEnvironment() {
+        doReturn("foo").`when`(environment).get("DB_NAME")
+        assertEquals("foo", configuration.getDatabaseName())
+    }
+
+    @Test
+    fun getDatabaseURLByEnvironment() {
+        doReturn("foo").`when`(environment).get("DB_URL")
+        assertEquals("foo", configuration.getDatabaseURL())
+    }
 }

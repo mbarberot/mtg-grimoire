@@ -1,8 +1,8 @@
 package org.github.mbarberot.mtg.grimoire.misc.config
 
 
-class Configuration(val env: Environment = Environment()) {
-    val DEFAULT_PORT = 8080
+class Configuration(private val env: Environment = Environment()) {
+    private val DEFAULT_PORT = 8080
 
     fun getServerPort(): Int {
         return env.get("PORT")?.toInt() ?: DEFAULT_PORT
@@ -15,6 +15,5 @@ class Configuration(val env: Environment = Environment()) {
     fun getDatabaseName(): String? {
         return env.get("DB_NAME")
     }
-    
 }
 

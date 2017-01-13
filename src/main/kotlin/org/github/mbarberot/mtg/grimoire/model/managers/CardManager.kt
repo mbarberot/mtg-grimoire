@@ -7,7 +7,7 @@ class CardManager(val jongo: JongoNative) {
     fun searchCards(query: String): Collection<Card> {
         return if (query.isNotEmpty()) {
             getCollection()
-                    .find(jongo.query("{name: {\$regex: #, \$options: 'i'}}", "^$query"))
+                    .find(jongo.query("{name: {\$regex: #, \$options: 'i'}}", ".*$query.*"))
                     .toList()
         } else {
             emptyList()

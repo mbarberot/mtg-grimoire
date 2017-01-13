@@ -31,6 +31,4 @@ class CardManager(val jongo: JongoNative) {
     }
 
     private fun getCollection() = jongo.getCollection("cards", Card::class.java)
-
-
 }

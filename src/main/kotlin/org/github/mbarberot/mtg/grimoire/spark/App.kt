@@ -12,7 +12,7 @@ import org.github.mbarberot.mtg.grimoire.model.managers.CardManager
 import spark.ModelAndView
 import spark.Spark.*
 import spark.template.jade.JadeTemplateEngine
-import java.io.File
+import java.net.URL
 import java.util.*
 
 object App {
@@ -59,13 +59,10 @@ object App {
     }
 
     private fun loadCards(cardManager: CardManager) {
-        val dataDir = File("/data")
-        if (dataDir.exists()) {
-            val mapper = ObjectMapper().registerKotlinModule()
-
-            cardManager.removeAll()
-
-            mapper.readValue<List<MTGSet>>(File(dataDir.path, "AllSetsArray.json")).forEach { set ->
+        val mapper = ObjectMapper().registerKotlinModule()
+        cardManager.removeAll()
+        URL("http://mtgjson.com/json/AllSetsArray.json").openStream().use { stream ->
+            mapper.readValue<List<MTGSet>>(stream).forEach { set ->
                 set.cards
                         .filter({ card -> card.multiverseid != 0 })
                         .forEach { card ->

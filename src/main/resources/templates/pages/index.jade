@@ -3,7 +3,7 @@ extends ../application.jade
 block main
     .ui.main.fluid.violet.secondary.inverted.vertical.segment
         form(
-            ic-post-to="/ic/search",
+            ic-get-from="/api/cards",
             ic-target="#search-results",
             ic-trigger-from="#search",
             ic-trigger-delay="500ms"

@@ -12,7 +12,7 @@ if cards
                                 for tag in card.tags
                                     .ui.label #{tag}
                     .ui.bottom.attached.button(
-                        ic-post-to="/ic/card/#{card.multiverseId}",
+                        ic-get-from="/api/cards/#{card.multiverseId}",
                         ic-target="#card"
                         ) View details
                         i.angle.double.right.icon

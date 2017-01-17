@@ -24,20 +24,20 @@ class SparkApp(configuration: Configuration, val model: Model) {
 
     fun declareRoutes() {
         val cardManager = model.getCardManager()
-
-        post("/ic/search", { req, res ->
-            val query = req.queryParams("q")
-            ModelAndView(
-                    mapOf(Pair("cards", cardManager.searchCards(query))),
-                    "parts/search-results"
-            )
-        }, templateEngine)
-
-        post("/ic/card/:id", { req, res ->
+        
+        get("/api/cards/:id", { req, res ->
             val id = req.params(":id")
             ModelAndView(
                     mapOf(Pair("card", cardManager.getCardById(id))),
                     "parts/card"
+            )
+        }, templateEngine)
+        
+        get("/api/cards", { req, res ->
+            val query = req.queryParams("q")
+            ModelAndView(
+                    mapOf(Pair("cards", cardManager.searchCards(query))),
+                    "parts/search-results"
             )
         }, templateEngine)
 

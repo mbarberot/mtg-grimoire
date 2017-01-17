@@ -1,46 +1,48 @@
 package org.github.mbarberot.mtg.grimoire.spark
 
+import com.google.common.io.Resources.getResource
+import de.neuland.jade4j.Jade4J.render
+import de.neuland.jade4j.JadeConfiguration
+import de.neuland.jade4j.template.ClasspathTemplateLoader
+import de.neuland.jade4j.template.FileTemplateLoader
 import org.github.mbarberot.mtg.grimoire.misc.config.Configuration
 import org.github.mbarberot.mtg.grimoire.model.Model
-import spark.ModelAndView
+import org.github.mbarberot.mtg.grimoire.view.GrimoireTemplateLoader
 import spark.Spark.*
-import spark.template.jade.JadeTemplateEngine
-import java.util.*
 
 class SparkApp(configuration: Configuration, val model: Model) {
-
-    val templateEngine = initTemplateEngine()
 
     init {
         staticFiles.location("/public")
         port(configuration.getServerPort())
     }
 
-    private fun initTemplateEngine(): JadeTemplateEngine {
-        val templateEngine = JadeTemplateEngine()
-        templateEngine.configuration().isPrettyPrint = true
-        return templateEngine
-    }
-
     fun declareRoutes() {
         val cardManager = model.getCardManager()
+        val jade = JadeConfiguration()
         
-        get("/api/cards/:id", { req, res ->
-            val id = req.params(":id")
-            ModelAndView(
-                    mapOf(Pair("card", cardManager.getCardById(id))),
-                    "parts/card"
-            )
-        }, templateEngine)
-        
-        get("/api/cards", { req, res ->
-            val query = req.queryParams("q")
-            ModelAndView(
-                    mapOf(Pair("cards", cardManager.searchCards(query))),
-                    "parts/search-results"
-            )
-        }, templateEngine)
+        jade.templateLoader = GrimoireTemplateLoader("/templates/")
+        jade.isPrettyPrint = true
 
-        get("/", { request, response -> ModelAndView(Collections.emptyMap<Any, Any>(), "pages/index") }, templateEngine)
+        get("/api/cards/:id", { req, res ->
+            jade.renderTemplate(
+                    jade.getTemplate("parts/card"),
+                    mapOf(Pair("card", cardManager.getCardById(req.params(":id"))))
+            )
+        })
+
+        get("/api/cards", { req, res ->
+            jade.renderTemplate(
+                    jade.getTemplate("parts/search-results"),
+                    mapOf(Pair("cards", cardManager.searchCards(req.queryParams("q"))))
+            )
+        })
+
+        get("/", { req, res ->
+            jade.renderTemplate(
+                    jade.getTemplate("pages/index"),
+                    emptyMap()
+            )
+        })
     }
 }

@@ -13,9 +13,10 @@ dependencies {
 
     compile 'org.slf4j:slf4j-api:1.7.21'
     compile 'org.slf4j:slf4j-simple:1.7.21'
-    compile 'com.sparkjava:spark-core:2.5.2'
-    compile 'com.sparkjava:spark-template-jade:2.3'
     compile 'com.google.guava:guava:20.0'
+
+    compile 'com.sparkjava:spark-core:2.5.2'
+    compile 'de.neuland-bfi:jade4j:1.2.5'
 
     compile 'org.mongodb:mongodb-driver:3.4.0'
     compile 'com.github.bguerout:jongo:1.4-early-20160606-0118'

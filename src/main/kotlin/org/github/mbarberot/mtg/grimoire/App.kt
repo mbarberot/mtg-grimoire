@@ -4,7 +4,7 @@ import org.github.mbarberot.mtg.grimoire.business.updates.Updater
 import org.github.mbarberot.mtg.grimoire.controller.Controller
 import org.github.mbarberot.mtg.grimoire.misc.config.Configuration
 import org.github.mbarberot.mtg.grimoire.model.Model
-import org.github.mbarberot.mtg.grimoire.spark.SparkApp
+import org.github.mbarberot.mtg.grimoire.spark.SparkWrapper
 
 class App(val configuration: Configuration) {
 
@@ -13,7 +13,7 @@ class App(val configuration: Configuration) {
 
     fun start() {
         update()
-        SparkApp(configuration, controller)
+        SparkWrapper(configuration, controller)
                 .declareRoutes()
     }
 

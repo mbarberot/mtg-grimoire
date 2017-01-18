@@ -5,7 +5,7 @@ import org.github.mbarberot.mtg.grimoire.misc.config.Configuration
 import org.github.mbarberot.mtg.grimoire.view.View
 import spark.Spark.*
 
-class SparkApp(configuration: Configuration, val controller: Controller) {
+class SparkWrapper(configuration: Configuration, val controller: Controller) {
 
     init {
         staticFiles.location("/public")

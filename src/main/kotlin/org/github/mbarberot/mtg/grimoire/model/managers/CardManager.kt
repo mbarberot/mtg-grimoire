@@ -14,21 +14,14 @@ class CardManager(val jongo: JongoNative) {
         }
     }
 
-    fun getCardById(id: String): Card {
-        return getCollection()
-                .find(jongo.query("{ multiverseId: '$id'}"))
-                .first()
-    }
+    fun getCardById(id: String): Card =
+            getCollection()
+                    .find(jongo.query("{ multiverseId: '$id'}"))
+                    .first()
 
-    fun removeAll() {
-        getCollection()
-                .deleteMany(jongo.query("{}"))
-    }
+    fun addCard(card: Card) = getCollection().insertOne(card)
 
-    fun addCard(card: Card) {
-        getCollection()
-                .insertOne(card)
-    }
+    fun removeAll() = getCollection().deleteMany(jongo.query("{}"))
 
     private fun getCollection() = jongo.getCollection("cards", Card::class.java)
 }

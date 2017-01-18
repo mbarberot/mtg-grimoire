@@ -1,21 +1,21 @@
 if cards
     .ui.main.fluid.vertical.segment
-        .ui.three.cards
-            for card in cards
-                .ui.card
-                    .content
-                        .header #{card.name}
-                    .content
-                        img.left.floated.small.ui.image(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=#{card.multiverseId}&type=card")
-                        if card.tags
-                            .ui.violet.labels
-                                for tag in card.tags
-                                    .ui.label #{tag}
-                    .ui.bottom.attached.button(
-                        ic-get-from="/api/cards/#{card.multiverseId}",
-                        ic-target="#card"
-                        ) View details
-                        i.angle.double.right.icon
+        table.ui.very.basic.single.line.table
+            tbody
+                for card in cards
+                    tr
+                        td.collapsing #{card.name}
+                        td
+                           if card.tags
+                               .ui.violet.labels
+                                   for tag in card.tags
+                                       .ui.label #{tag}
+                        td.collapsing
+                            .ui.primary.button(
+                                ic-get-from="/api/cards/#{card.multiverseId}",
+                                ic-target="#card"
+                                ) View details
+                                i.angle.double.right.icon
 
 else
     .ui.main.fluid.vertical.segment

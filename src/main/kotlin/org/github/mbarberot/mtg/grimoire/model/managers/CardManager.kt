@@ -5,24 +5,16 @@ import org.jongo.JongoNative
 
 class CardManager(val jongo: JongoNative) {
     fun searchCards(query: String, page: Long = 1, size: Int = 10): Collection<Card> {
-        return if (query.isNotEmpty()) {
-            val offset = (page - 1) * size
-            getCollection()
-                    .find(jongo.query("{name: {\$regex: #, \$options: 'i'}}", ".*$query.*"))
-                    .skip(offset.toInt())
-                    .limit(size)
-                    .toList()
-        } else {
-            emptyList()
-        }
+        val offset = (page - 1) * size
+        return getCollection()
+                .find(jongo.query("{name: {\$regex: #, \$options: 'i'}}", ".*$query.*"))
+                .skip(offset.toInt())
+                .limit(size)
+                .toList()
     }
 
     fun countCards(query: String): Long {
-        return if (query.isNotEmpty()) {
-            getCollection().count(jongo.query("{name: {\$regex: #, \$options: 'i'}}", ".*$query.*"))
-        } else {
-            0
-        }
+        return getCollection().count(jongo.query("{name: {\$regex: #, \$options: 'i'}}", ".*$query.*"))
     }
 
     fun getCardById(id: String): Card =

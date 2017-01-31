@@ -4,12 +4,12 @@ import org.github.mbarberot.mtg.grimoire.model.beans.Card
 import org.jongo.JongoNative
 
 class CardManager(val jongo: JongoNative) {
-    fun searchCards(query: String, page: Int = 1, size: Int = 10): Collection<Card> {
+    fun searchCards(query: String, page: Long = 1, size: Int = 10): Collection<Card> {
         return if (query.isNotEmpty()) {
             val offset = (page - 1) * size
             getCollection()
                     .find(jongo.query("{name: {\$regex: #, \$options: 'i'}}", ".*$query.*"))
-                    .skip(offset)
+                    .skip(offset.toInt())
                     .limit(size)
                     .toList()
         } else {

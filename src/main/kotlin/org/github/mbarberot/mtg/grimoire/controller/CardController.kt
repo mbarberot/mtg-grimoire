@@ -1,18 +1,16 @@
 package org.github.mbarberot.mtg.grimoire.controller
 
+import org.github.mbarberot.mtg.grimoire.business.searches.CardSearch
 import org.github.mbarberot.mtg.grimoire.model.managers.CardManager
 import org.github.mbarberot.mtg.grimoire.view.View
 
-class CardController(val cardManager: CardManager) : AbstractController() {
-    fun getCard(id: String, view: View): Any = render(view, "parts/card", "card", cardManager.getCardById(id))
-    fun getCards(query: String, view: View): Any =
-            render(
-                    view,
-                    "parts/search-results",
-                    mapOf(
-                            Pair("cards", cardManager.searchCards(query)),
-                            Pair("pages", cardManager.countCards(query))
-                    )
-            )
+class CardController(val cardManager: CardManager) {
+    fun getCard(id: String, view: View): Any {
+        return view.cardView(cardManager.getCardById(id))
+    }
+
+    fun getCards(query: String, page: Long, view: View): Any {
+        return view.cardsView(CardSearch(cardManager).search(query, page))
+    }
 }
 

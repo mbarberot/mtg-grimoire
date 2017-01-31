@@ -16,7 +16,27 @@ if cards
                                 ic-target="#card"
                                 ) View details
                                 i.angle.double.right.icon
-
+            tfoot
+                tr
+                    th(colspan="3")
+                        .ui.right.floated.metadata.menu
+                            if metadata.pagination
+                                a.icon.item(
+                                    ic-get-from!=metadata.pagination.first.href
+                                    ic-target="#search-results"
+                                    )
+                                    i.step.backward.icon
+                                for link in metadata.pagination.pages
+                                    a.item(
+                                        ic-get-from!=link.href
+                                        ic-target="#search-results"
+                                        class=link.currentPage ? "active" : ""
+                                    ) #{link.name}
+                                a.icon.item(
+                                    ic-get-from!=metadata.pagination.last.href
+                                    ic-target="#search-results"
+                                    ) 
+                                    i.step.forward.icon
 else
     .ui.main.fluid.vertical.segment
         .ui.violet.message No results

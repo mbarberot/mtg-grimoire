@@ -8,7 +8,7 @@ if cards
                         td!= mana.mana(card.manaCost)
                         td
                            if card.tags
-                               .ui.violet.labels
+                               .ui.blue.labels
                                    for tag in card.tags
                                        .ui.label #{tag}
                         td.collapsing
@@ -40,4 +40,4 @@ if cards
                                     i.step.forward.icon
 else
     .ui.main.fluid.vertical.segment
-        .ui.violet.message No results
+        .ui.blue.message No results

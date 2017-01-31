@@ -37,6 +37,7 @@ class CardUpdaterTest {
         val card = mock<MTGCard> {
             on { name } doReturn "foo"
             on { multiverseid } doReturn 111222
+            on { manaCost } doReturn "{1}{W}{U}"
         }
         val set = mock<MTGSet> { on { cards } doReturn singletonList(card) }
 
@@ -44,7 +45,7 @@ class CardUpdaterTest {
 
         updater.updateCards()
 
-        verify(cardManager, times(1)).addCard(Card("foo", "111222", emptyList()))
+        verify(cardManager, times(1)).addCard(Card("foo", "111222", "{1}{W}{U}", emptyList()))
     }
 }
 

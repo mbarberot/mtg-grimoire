@@ -5,6 +5,7 @@ if cards
                 for card in cards
                     tr
                         td.collapsing #{card.name}
+                        td!= mana.mana(card.manaCost)
                         td
                            if card.tags
                                .ui.violet.labels

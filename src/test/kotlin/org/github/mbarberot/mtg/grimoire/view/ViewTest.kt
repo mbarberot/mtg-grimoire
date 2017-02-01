@@ -8,13 +8,16 @@ import org.junit.Test
 class ViewTest {
     @Test
     fun testSearchView() {
-        val html = View().cardsView(
+        println(View().cardsView(
                 SearchResult(
-                        listOf(Card("Foo", "1", null, "Kaladesh", "Some text", "4", "5", "Creature", emptyList())),
+                        listOf(Card("Foo", "1", "{1}", "Kaladesh", "Some text", "4", "5", "Creature", emptyList())),
                         SearchMetadata(30, 10, 2, "toto")
                 )
-        )
-        println(html)
+        ))
     }
-    
+
+    @Test
+    fun testCardView() {
+        println(View().cardView(Card("Foo", "1", "{1}", "Kaladesh", "Some text", "4", "5", "Creature", emptyList())))
+    }
 }

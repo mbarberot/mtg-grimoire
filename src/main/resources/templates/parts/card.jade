@@ -2,9 +2,13 @@
     .ui.one.cards
         .ui.card
             .content
-                .header #{card.name}
+                .header
+                    h1 #{card.name}
+                        .right.floated !{mana.mana(card.manaCost)}
             .content
                 img.left.floated.little.ui.image(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=#{card.multiverseId}&type=card")
+                p= card.set
+                p= card.type
                 if card.tags
                     .ui.blue.labels
                         for tag in card.tags

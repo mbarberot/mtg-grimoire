@@ -13,7 +13,7 @@ if cards
                 for card in cards
                     tr
                         td.collapsing #{card.name}
-                        td.collapsing!= mana.mana(card.manaCost)
+                        td.collapsing!= mana.mana2x(card.manaCost)
                         td.collapsing #{card.set}
                         td.collapsing #{card.type}
                         td

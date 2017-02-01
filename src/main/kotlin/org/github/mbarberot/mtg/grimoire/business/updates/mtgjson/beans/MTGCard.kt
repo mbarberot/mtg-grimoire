@@ -6,5 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 data class MTGCard(
         val multiverseid: Int,
         val name: String,
-        val manaCost : String?
+        val manaCost : String?,
+        val power: String?,
+        val thoughness: String?,
+        val type: String,
+        val text: String?
 )

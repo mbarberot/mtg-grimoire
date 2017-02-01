@@ -38,14 +38,32 @@ class CardUpdaterTest {
             on { name } doReturn "foo"
             on { multiverseid } doReturn 111222
             on { manaCost } doReturn "{1}{W}{U}"
+            on { text } doReturn "Some text"
+            on { power } doReturn "4"
+            on { thoughness } doReturn "5"
+            on { type } doReturn "Creature"
         }
-        val set = mock<MTGSet> { on { cards } doReturn singletonList(card) }
+        
+        val set = mock<MTGSet> {
+            on { name } doReturn "Kaladesh"
+            on { cards } doReturn singletonList(card) 
+        }
 
         doReturn(listOf(set)).whenever(reader).read()
 
         updater.updateCards()
 
-        verify(cardManager, times(1)).addCard(Card("foo", "111222", "{1}{W}{U}", emptyList()))
+        verify(cardManager, times(1)).addCard(Card(
+                "foo",
+                "111222",
+                "{1}{W}{U}",
+                "Kaladesh",
+                "Some text",
+                "4",
+                "5",
+                "Creature",
+                emptyList()
+        ))
     }
 }
 

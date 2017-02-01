@@ -10,7 +10,7 @@ class ViewTest {
     fun testSearchView() {
         val html = View().cardsView(
                 SearchResult(
-                        listOf(Card("Foo", "1", "", emptyList())),
+                        listOf(Card("Foo", "1", null, "Kaladesh", "Some text", "4", "5", "Creature", emptyList())),
                         SearchMetadata(30, 10, 2, "toto")
                 )
         )

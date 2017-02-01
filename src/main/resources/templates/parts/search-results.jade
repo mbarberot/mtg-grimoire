@@ -1,16 +1,26 @@
 if cards
     .ui.main.fluid.vertical.segment
-        table.ui.very.basic.single.line.table
+        table.ui.celled.table
+            thead
+                tr
+                    th Name
+                    th.center.aligned Mana cost
+                    th.center.aligned Set
+                    th Type
+                    th Tags
+                    th
             tbody
                 for card in cards
                     tr
                         td.collapsing #{card.name}
-                        td!= mana.mana(card.manaCost)
+                        td.collapsing!= mana.mana(card.manaCost)
+                        td.collapsing #{card.set}
+                        td.collapsing #{card.type}
                         td
-                           if card.tags
-                               .ui.blue.labels
-                                   for tag in card.tags
-                                       .ui.label #{tag}
+                            if card.tags
+                                .ui.blue.labels
+                                    for tag in card.tags
+                                        .ui.label #{tag}
                         td.collapsing
                             .ui.primary.button(
                                 ic-get-from="/api/cards/#{card.multiverseId}",
@@ -19,7 +29,7 @@ if cards
                                 i.angle.double.right.icon
             tfoot
                 tr
-                    th(colspan="3")
+                    th(colspan="6")
                         .ui.right.floated.metadata.menu
                             if metadata.pagination
                                 a.icon.item(

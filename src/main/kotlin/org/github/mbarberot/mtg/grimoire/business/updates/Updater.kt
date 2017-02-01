@@ -13,6 +13,6 @@ class Updater(
         isReady = true
     }
 
-    fun needUpdate(): Boolean = false
+    fun needUpdate(): Boolean = true
 }
 

@@ -6,8 +6,8 @@ import com.nhaarman.mockito_kotlin.whenever
 import org.github.mbarberot.mtg.grimoire.business.updates.mtgjson.MTGReader
 import org.github.mbarberot.mtg.grimoire.business.updates.mtgjson.beans.MTGCard
 import org.github.mbarberot.mtg.grimoire.business.updates.mtgjson.beans.MTGSet
+import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
 import org.github.mbarberot.mtg.grimoire.model.beans.Card
-import org.github.mbarberot.mtg.grimoire.model.managers.CardManager
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,14 +22,14 @@ class CardUpdaterTest {
     lateinit var updater: CardUpdater
 
     @Mock
-    lateinit var cardManager: CardManager
+    lateinit var cardStore: CardStore
 
     @Mock
     lateinit var reader: MTGReader
 
     @Before
     fun setUp() {
-        updater = CardUpdater(cardManager, reader)
+        updater = CardUpdater(cardStore, reader)
     }
 
     @Test
@@ -43,17 +43,17 @@ class CardUpdaterTest {
             on { thoughness } doReturn "5"
             on { type } doReturn "Creature"
         }
-        
+
         val set = mock<MTGSet> {
             on { name } doReturn "Kaladesh"
-            on { cards } doReturn singletonList(card) 
+            on { cards } doReturn singletonList(card)
         }
 
         doReturn(listOf(set)).whenever(reader).read()
 
         updater.updateCards()
 
-        verify(cardManager, times(1)).addCard(Card(
+        verify(cardStore, times(1)).addCard(Card(
                 "foo",
                 "111222",
                 "{1}{W}{U}",

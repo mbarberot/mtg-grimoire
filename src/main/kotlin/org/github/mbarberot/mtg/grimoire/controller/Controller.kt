@@ -1,9 +1,11 @@
 package org.github.mbarberot.mtg.grimoire.controller
 
-import org.github.mbarberot.mtg.grimoire.model.Model
+import com.github.salomonbrys.kodein.Kodein
+import com.github.salomonbrys.kodein.conf.global
+import com.github.salomonbrys.kodein.instance
 
-class Controller(val model: Model) {
-    fun getCardController() = CardController(model.getCardManager())
+class Controller {
+    fun getCardController() = CardController(Kodein.global.instance())
     fun getIndexController() = IndexController()
 }
 

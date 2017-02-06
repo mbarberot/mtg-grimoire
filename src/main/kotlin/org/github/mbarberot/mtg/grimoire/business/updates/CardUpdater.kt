@@ -3,16 +3,16 @@ package org.github.mbarberot.mtg.grimoire.business.updates
 import org.github.mbarberot.mtg.grimoire.business.updates.mtgjson.MTGReader
 import org.github.mbarberot.mtg.grimoire.business.updates.mtgjson.beans.MTGCard
 import org.github.mbarberot.mtg.grimoire.business.updates.mtgjson.beans.MTGSet
+import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
 import org.github.mbarberot.mtg.grimoire.model.beans.Card
-import org.github.mbarberot.mtg.grimoire.model.managers.CardManager
 
 class CardUpdater(
-        private val cardManager: CardManager,
+        private val cardStore: CardStore,
         private val reader: MTGReader
 ) {
 
     fun updateCards() {
-        cardManager.removeAll()
+        cardStore.removeAll()
         reader.read().forEach { set -> loadCards(set, set.cards) }
     }
 
@@ -22,7 +22,7 @@ class CardUpdater(
     }
 
     private fun loadCard(set: MTGSet, card: MTGCard) {
-        cardManager.addCard(Card(
+        cardStore.addCard(Card(
                 card.name,
                 card.multiverseid.toString(),
                 card.manaCost,

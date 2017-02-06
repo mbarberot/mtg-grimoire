@@ -1,9 +1,9 @@
-package org.github.mbarberot.mtg.grimoire.model.managers
+package org.github.mbarberot.mtg.grimoire.components.cards
 
 import org.github.mbarberot.mtg.grimoire.model.beans.Card
 import org.jongo.JongoNative
 
-class CardManager(val jongo: JongoNative) {
+class CardStore(val jongo: JongoNative) {
     fun searchCards(query: String, page: Long = 1, size: Int = 10): Collection<Card> {
         val offset = (page - 1) * size
         return getCollection()

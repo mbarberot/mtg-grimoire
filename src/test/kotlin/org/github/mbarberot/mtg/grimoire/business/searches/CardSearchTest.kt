@@ -2,7 +2,7 @@ package org.github.mbarberot.mtg.grimoire.business.searches
 
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
-import org.github.mbarberot.mtg.grimoire.model.beans.Card
+import org.github.mbarberot.mtg.grimoire.components.cards.Card
 import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
 import org.junit.Assert.assertEquals
 import org.junit.Test

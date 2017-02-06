@@ -2,7 +2,7 @@ package org.github.mbarberot.mtg.grimoire.view
 
 import de.neuland.jade4j.JadeConfiguration
 import org.github.mbarberot.mtg.grimoire.business.searches.SearchResult
-import org.github.mbarberot.mtg.grimoire.model.beans.Card
+import org.github.mbarberot.mtg.grimoire.components.cards.Card
 import org.github.mbarberot.mtg.grimoire.view.jade.CardView
 import org.github.mbarberot.mtg.grimoire.view.jade.CardsView
 import org.github.mbarberot.mtg.grimoire.view.jade.IndexView

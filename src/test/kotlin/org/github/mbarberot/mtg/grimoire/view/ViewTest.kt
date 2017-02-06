@@ -2,7 +2,7 @@ package org.github.mbarberot.mtg.grimoire.view
 
 import org.github.mbarberot.mtg.grimoire.business.searches.SearchMetadata
 import org.github.mbarberot.mtg.grimoire.business.searches.SearchResult
-import org.github.mbarberot.mtg.grimoire.model.beans.Card
+import org.github.mbarberot.mtg.grimoire.components.cards.Card
 import org.junit.Test
 
 class ViewTest {

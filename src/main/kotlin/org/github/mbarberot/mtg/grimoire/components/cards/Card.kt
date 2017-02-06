@@ -1,4 +1,4 @@
-package org.github.mbarberot.mtg.grimoire.model.beans
+package org.github.mbarberot.mtg.grimoire.components.cards
 
 data class Card(
         val name: String,

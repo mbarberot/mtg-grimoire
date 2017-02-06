@@ -13,5 +13,4 @@ class CardComponent : Component {
             bind<CardStore>() with provider { CardStore(instance()) }
         })
     }
-
 }

@@ -7,7 +7,7 @@ import org.github.mbarberot.mtg.grimoire.business.updates.mtgjson.MTGReader
 import org.github.mbarberot.mtg.grimoire.business.updates.mtgjson.beans.MTGCard
 import org.github.mbarberot.mtg.grimoire.business.updates.mtgjson.beans.MTGSet
 import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
-import org.github.mbarberot.mtg.grimoire.model.beans.Card
+import org.github.mbarberot.mtg.grimoire.components.cards.Card
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

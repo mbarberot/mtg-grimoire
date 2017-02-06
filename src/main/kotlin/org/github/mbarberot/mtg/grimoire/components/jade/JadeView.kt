@@ -1,4 +1,4 @@
-package org.github.mbarberot.mtg.grimoire.view.jade
+package org.github.mbarberot.mtg.grimoire.components.jade
 
 import de.neuland.jade4j.JadeConfiguration
 

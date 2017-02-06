@@ -3,7 +3,7 @@ package org.github.mbarberot.mtg.grimoire.components.cards
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.conf.global
 import com.github.salomonbrys.kodein.instance
-import org.github.mbarberot.mtg.grimoire.view.jade.CardView
+import org.github.mbarberot.mtg.grimoire.components.cards.CardView
 import spark.Request
 import spark.Response
 import spark.Route

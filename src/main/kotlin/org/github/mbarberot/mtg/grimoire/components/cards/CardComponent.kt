@@ -15,6 +15,7 @@ class CardComponent : Component {
         })
 
         Spark.get("/api/cards/:id", GetCardRoute(Kodein.global.instance()))
+        Spark.get("/api/cards", GetCardsRoute(Kodein.global.instance()))
     }
 }
 

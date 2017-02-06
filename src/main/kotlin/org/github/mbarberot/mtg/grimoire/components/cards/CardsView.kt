@@ -1,10 +1,11 @@
-package org.github.mbarberot.mtg.grimoire.view.jade
+package org.github.mbarberot.mtg.grimoire.components.cards
 
 import de.neuland.jade4j.JadeConfiguration
 import org.github.mbarberot.mtg.grimoire.business.searches.SearchMetadata
 import org.github.mbarberot.mtg.grimoire.business.searches.SearchResult
 import org.github.mbarberot.mtg.grimoire.view.beans.Link
 import org.github.mbarberot.mtg.grimoire.view.beans.Pagination
+import org.github.mbarberot.mtg.grimoire.view.jade.JadeView
 
 class CardsView(jade: JadeConfiguration) : JadeView(jade) {
     fun render(search: SearchResult): String {

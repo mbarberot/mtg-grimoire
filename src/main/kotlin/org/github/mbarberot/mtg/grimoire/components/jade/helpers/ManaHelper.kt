@@ -1,4 +1,4 @@
-package org.github.mbarberot.mtg.grimoire.view.jade.helpers
+package org.github.mbarberot.mtg.grimoire.components.jade.helpers
 
 class ManaHelper {
 

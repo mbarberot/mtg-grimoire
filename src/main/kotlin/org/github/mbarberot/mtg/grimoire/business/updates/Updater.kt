@@ -12,6 +12,6 @@ class Updater(var isReady: Boolean = false) {
         isReady = true
     }
 
-    fun needUpdate(): Boolean = true
+    fun needUpdate(): Boolean = false
 }
 

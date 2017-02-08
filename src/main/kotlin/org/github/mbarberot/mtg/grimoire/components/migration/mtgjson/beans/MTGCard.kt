@@ -1,4 +1,4 @@
-package org.github.mbarberot.mtg.grimoire.business.updates.mtgjson.beans
+package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.beans
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 

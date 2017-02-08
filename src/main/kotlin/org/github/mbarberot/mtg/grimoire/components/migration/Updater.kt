@@ -1,9 +1,9 @@
-package org.github.mbarberot.mtg.grimoire.business.updates
+package org.github.mbarberot.mtg.grimoire.components.migration
 
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.conf.global
 import com.github.salomonbrys.kodein.instance
-import org.github.mbarberot.mtg.grimoire.business.updates.mtgjson.MTGReader
+import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGReader
 import java.net.URL
 
 class Updater(var isReady: Boolean = false) {

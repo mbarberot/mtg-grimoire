@@ -1,6 +1,5 @@
 package org.github.mbarberot.mtg.grimoire.components.cards
 
-import org.github.mbarberot.mtg.grimoire.components.cards.Card
 import org.jongo.JongoNative
 
 class CardStore(val jongo: JongoNative) {

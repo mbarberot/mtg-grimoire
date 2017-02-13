@@ -3,8 +3,6 @@ package org.github.mbarberot.mtg.grimoire.components.cards
 import de.neuland.jade4j.JadeConfiguration
 import org.github.mbarberot.mtg.grimoire.business.searches.SearchMetadata
 import org.github.mbarberot.mtg.grimoire.business.searches.SearchResult
-import org.github.mbarberot.mtg.grimoire.view.beans.Link
-import org.github.mbarberot.mtg.grimoire.view.beans.Pagination
 import org.github.mbarberot.mtg.grimoire.components.jade.JadeView
 
 class CardsView(jade: JadeConfiguration) : JadeView(jade) {
@@ -24,15 +22,25 @@ class CardsView(jade: JadeConfiguration) : JadeView(jade) {
         )
     }
 
-    private fun generateLinks(metadata: SearchMetadata): Pagination {
+    private fun generateLinks(metadata: SearchMetadata): Map<String, Any> {
         val pageCount = getPageCount(metadata)
         val start = Math.max(1, metadata.currentPage - 3)
         val end = Math.min(metadata.currentPage + 3, pageCount)
+        
+        return mapOf(
+                Pair("first", link(metadata.query, 1)),
+                Pair("last", link(metadata.query, pageCount)),
+                Pair("pages", (start..end).map {
+                    link(metadata.query, it, "$it", it == metadata.currentPage)
+                })
+        )
+    }
 
-        return Pagination(
-                Link("/api/cards?q=${metadata.query}&page=1", "", false),
-                Link("/api/cards?q=${metadata.query}&page=$pageCount", "", false),
-                (start..end).map { Link("/api/cards?q=${metadata.query}&page=$it", "$it", it == metadata.currentPage) }
+    private fun link(query: String, page: Long, name: String = "", isCurrentPage: Boolean = false): Any {
+        return mapOf(
+                Pair("href", "/api/cards?q=$query&page=$page"),
+                Pair("name", name),
+                Pair("currentPage", isCurrentPage)
         )
     }
 

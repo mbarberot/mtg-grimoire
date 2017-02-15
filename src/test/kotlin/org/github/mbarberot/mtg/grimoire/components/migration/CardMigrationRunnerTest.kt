@@ -3,12 +3,12 @@ package org.github.mbarberot.mtg.grimoire.components.migration
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGReader
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.beans.MTGCard
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.beans.MTGSet
+import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGApi
+import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGCard
+import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGSet
 import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
 import org.github.mbarberot.mtg.grimoire.components.cards.Card
-import org.github.mbarberot.mtg.grimoire.components.migration.CardUpdater
+import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.CardUpdater
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -19,18 +19,15 @@ import org.mockito.junit.MockitoJUnitRunner
 import java.util.Collections.singletonList
 
 @RunWith(MockitoJUnitRunner::class)
-class CardUpdaterTest {
+class CardMigrationRunnerTest {
     lateinit var updater: CardUpdater
 
     @Mock
     lateinit var cardStore: CardStore
 
-    @Mock
-    lateinit var reader: MTGReader
-
     @Before
     fun setUp() {
-        updater = CardUpdater(cardStore, reader)
+        updater = CardUpdater(cardStore)
     }
 
     @Test
@@ -50,9 +47,7 @@ class CardUpdaterTest {
             on { cards } doReturn singletonList(card)
         }
 
-        doReturn(listOf(set)).whenever(reader).read()
-
-        updater.updateCards()
+        updater.updateCards(listOf(set))
 
         verify(cardStore, times(1)).addCard(Card(
                 "foo",

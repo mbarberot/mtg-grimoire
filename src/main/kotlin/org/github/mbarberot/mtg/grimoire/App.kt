@@ -9,7 +9,7 @@ import org.github.mbarberot.mtg.grimoire.components.database.DatabaseComponent
 import org.github.mbarberot.mtg.grimoire.components.index.IndexComponent
 import org.github.mbarberot.mtg.grimoire.components.jade.JadeComponent
 import org.github.mbarberot.mtg.grimoire.components.migration.MigrationComponent
-import org.github.mbarberot.mtg.grimoire.components.migration.Updater
+import org.github.mbarberot.mtg.grimoire.components.migration.MigrationRunner
 import org.github.mbarberot.mtg.grimoire.components.spark.SparkComponent
 
 object App {
@@ -27,8 +27,8 @@ object App {
         runMigrations()
     }
 
-    private fun runMigrations(runner : Updater = Kodein.global.instance()) {
-        runner.update()
+    private fun runMigrations(runner : MigrationRunner = Kodein.global.instance()) {
+        runner.runMigrations()
     }
 }
 

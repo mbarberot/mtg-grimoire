@@ -52,7 +52,7 @@ sourceSets {
 }
 
 //noinspection GroovyUnusedAssignment
-mainClassName = 'org.github.mbarberot.mtg.grimoire.Main'
+mainClassName = 'org.github.mbarberot.mtg.grimoire.App'
 
 jacocoTestReport {
     reports {

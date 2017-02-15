@@ -8,7 +8,7 @@ import org.github.mbarberot.mtg.grimoire.components.jade.JadeComponent
 import org.github.mbarberot.mtg.grimoire.components.migration.MigrationComponent
 import org.github.mbarberot.mtg.grimoire.components.spark.SparkComponent
 
-class App {
+object App {
     private val components : List<Component> = listOf(
             SparkComponent(),
             DatabaseComponent(),
@@ -17,8 +17,8 @@ class App {
             CardComponent(),
             MigrationComponent()
     )
-
-    fun start() {
+    
+    @JvmStatic fun main(args: Array<String>) {
         components.forEach { it.initialize() }
     }
 }

@@ -1,0 +1,16 @@
+package org.github.mbarberot.mtg.grimoire.components.migration
+
+import org.jongo.JongoNative
+
+
+class VersionStore(val jongo: JongoNative) {
+    fun getVersion() = getCollection().find().first() ?: createVersion()
+
+    private fun createVersion(): Version {
+        val version = Version("1.0.0", "0.0.0")
+        getCollection().insertOne(version)
+        return version
+    }
+
+    private fun getCollection() = jongo.getCollection("version", Version::class.java)
+}

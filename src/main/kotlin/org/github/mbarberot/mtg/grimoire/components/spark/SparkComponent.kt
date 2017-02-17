@@ -10,4 +10,7 @@ class SparkComponent : Component {
         Spark.staticFiles.location("/public")
         Spark.port(System.getenv("PORT")?.toInt() ?: DEFAULT_PORT)
     }
+
+    override fun declareRoutes() {
+    }
 }

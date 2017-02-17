@@ -5,6 +5,9 @@ import spark.Spark.get
 
 class IndexComponent : Component {
     override fun initialize() {
+    }
+
+    override fun declareRoutes() {
         get("/", IndexRoute())
     }
 }

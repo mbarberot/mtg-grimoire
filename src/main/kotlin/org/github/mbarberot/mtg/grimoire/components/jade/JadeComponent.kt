@@ -22,4 +22,7 @@ class JadeComponent : Component {
         jade.sharedVariables = mapOf(Pair("mana", ManaHelper()))
         return jade
     }
+
+    override fun declareRoutes() {
+    }
 }

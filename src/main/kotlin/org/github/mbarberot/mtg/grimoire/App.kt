@@ -1,8 +1,5 @@
 package org.github.mbarberot.mtg.grimoire
 
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.conf.global
-import com.github.salomonbrys.kodein.instance
 import org.github.mbarberot.mtg.grimoire.api.Component
 import org.github.mbarberot.mtg.grimoire.components.cards.CardComponent
 import org.github.mbarberot.mtg.grimoire.components.database.DatabaseComponent
@@ -24,11 +21,8 @@ object App {
 
     @JvmStatic fun main(args: Array<String>) {
         components.forEach { it.initialize() }
-        runMigrations()
-    }
-
-    private fun runMigrations(runner : MigrationRunner = Kodein.global.instance()) {
-        runner.runMigrations()
+        components.forEach { it.declareRoutes() }
+        MigrationRunner().runMigrations()
     }
 }
 

@@ -7,15 +7,18 @@ import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.provider
 import org.github.mbarberot.mtg.grimoire.api.Component
 import spark.Spark
+import spark.Spark.*
 
 class CardComponent : Component {
     override fun initialize() {
         Kodein.global.addImport(Kodein.Module {
             bind<CardStore>() with provider { CardStore(instance()) }
         })
+    }
 
-        Spark.get("/api/cards/:id", GetCardRoute(Kodein.global.instance()))
-        Spark.get("/api/cards", GetCardsRoute(Kodein.global.instance()))
+    override fun declareRoutes() {
+        get("/api/cards/:id", GetCardRoute(Kodein.global.instance()))
+        get("/api/cards", GetCardsRoute(Kodein.global.instance()))
     }
 }
 

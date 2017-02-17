@@ -25,4 +25,7 @@ class DatabaseComponent : Component {
 
         return JongoNative(database, mapper)
     }
+
+    override fun declareRoutes() {
+    }
 }

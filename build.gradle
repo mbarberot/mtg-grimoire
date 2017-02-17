@@ -9,25 +9,30 @@ repositories {
 }
 
 dependencies {
+    // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'com.github.salomonbrys.kodein:kodein:3.2.0'
     compile 'com.github.salomonbrys.kodein:kodein-conf:3.2.0'
 
+    // Utils
     compile 'org.slf4j:slf4j-api:1.7.21'
     compile 'org.slf4j:slf4j-simple:1.7.21'
     compile 'com.google.guava:guava:20.0'
-
-    compile 'com.sparkjava:spark-core:2.5.2'
-    compile 'de.neuland-bfi:jade4j:1.2.5'
-
-    compile 'org.mongodb:mongodb-driver:3.4.0'
-    compile 'com.github.bguerout:jongo:1.4-early-20160606-0118'
-    
     compile 'com.fasterxml.jackson.core:jackson-core:2.8.4'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.4'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.8.4'
     compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.8.4'
+    compile 'com.github.zafarkhaja:java-semver:0.9.0'
+    
+    // Framework
+    compile 'com.sparkjava:spark-core:2.5.2'
+    compile 'de.neuland-bfi:jade4j:1.2.5'
 
+    // Database
+    compile 'org.mongodb:mongodb-driver:3.4.0'
+    compile 'com.github.bguerout:jongo:1.4-early-20160606-0118'
+    
+    // Test
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:2.+"
     testCompile 'com.nhaarman:mockito-kotlin:1.2.0'

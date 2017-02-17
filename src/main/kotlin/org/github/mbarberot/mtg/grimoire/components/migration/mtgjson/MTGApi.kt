@@ -3,7 +3,6 @@ package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGSet
 import java.io.InputStreamReader
 import java.net.URL
 
@@ -19,4 +18,5 @@ class MTGApi(
             URL("http://mtgjson.com/json/version.json").openStream().use { stream ->
                 return InputStreamReader(stream).readText().replace("\"", "")
             }
+
 }

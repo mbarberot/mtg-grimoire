@@ -7,9 +7,16 @@ class VersionStore(val jongo: JongoNative) {
     fun getVersion() = getCollection().find().first() ?: createVersion()
 
     private fun createVersion(): Version {
-        val version = Version("1.0.0", "0.0.0")
+        val version = Version(null, "1.0.0", "0.0.0")
         getCollection().insertOne(version)
         return version
+    }
+
+    fun updateVersion(version: Version) {
+        getCollection().replaceOne(
+                jongo.query("{ _id: # }", version._id),
+                version
+        )
     }
 
     private fun getCollection() = jongo.getCollection("version", Version::class.java)

@@ -38,7 +38,7 @@ class CardMigrationRunnerTest {
             on { manaCost } doReturn "{1}{W}{U}"
             on { text } doReturn "Some text"
             on { power } doReturn "4"
-            on { thoughness } doReturn "5"
+            on { toughness } doReturn "5"
             on { type } doReturn "Creature"
         }
 

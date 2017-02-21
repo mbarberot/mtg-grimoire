@@ -8,7 +8,7 @@ data class MTGCard(
         val name: String,
         val manaCost : String?,
         val power: String?,
-        val thoughness: String?,
+        val toughness: String?,
         val type: String,
         val text: String?
 )

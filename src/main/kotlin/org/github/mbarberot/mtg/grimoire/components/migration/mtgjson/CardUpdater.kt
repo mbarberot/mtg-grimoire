@@ -5,8 +5,6 @@ import com.github.salomonbrys.kodein.conf.global
 import com.github.salomonbrys.kodein.instance
 import org.github.mbarberot.mtg.grimoire.components.cards.Card
 import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGCard
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGSet
 
 class CardUpdater(private val cardStore: CardStore = Kodein.global.instance()) {
 
@@ -28,10 +26,9 @@ class CardUpdater(private val cardStore: CardStore = Kodein.global.instance()) {
                 set.name,
                 card.text,
                 card.power,
-                card.thoughness,
+                card.toughness,
                 card.type,
                 emptyList()
         ))
     }
-
 }

@@ -7,7 +7,7 @@ data class Card(
         val set: String,
         val text: String?,
         val power: String?,
-        val thoughness: String?,
+        val toughness: String?,
         val type: String,
         val tags: Collection<String>
 )

@@ -6,12 +6,12 @@ import com.github.salomonbrys.kodein.instance
 import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGMigration
 import java.util.logging.Logger
 
-class MigrationRunner(val versionStore: VersionStore = Kodein.global.instance()) {
+class MigrationRunner(val versionStore: VersionStore = Kodein.global.instance()) : Runnable {
     companion object {
         val LOG = Logger.getLogger(MigrationRunner::class.java.name)
     }
     
-    fun runMigrations() {
+    override fun run() {
         var version = versionStore.getVersion()
         
         version = MTGMigration(version).run()

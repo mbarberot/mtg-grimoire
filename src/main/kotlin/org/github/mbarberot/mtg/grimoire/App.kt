@@ -22,7 +22,8 @@ object App {
     @JvmStatic fun main(args: Array<String>) {
         components.forEach { it.initialize() }
         components.forEach { it.declareRoutes() }
-        MigrationRunner().runMigrations()
+        
+        Thread(MigrationRunner()).run()
     }
 }
 

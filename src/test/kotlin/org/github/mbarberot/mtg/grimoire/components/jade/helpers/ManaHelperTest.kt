@@ -37,4 +37,19 @@ class ManaHelperTest {
                 manaHelper.mana("{1}{U}{w}")
         )
     }
+
+    @Test
+    fun testManaHybrid() {
+        assertEquals("<i class=\"ms ms-ub ms-split ms-cost ms-2x\"/>", manaHelper.mana2x("{U/B}"))
+    }
+
+    @Test
+    fun testManaPhyrexian() {
+        assertEquals("<i class=\"ms ms-up ms-cost ms-2x\"/>", manaHelper.mana2x("{U/P}"))
+    }
+    
+    @Test
+    fun testManaColorless() {
+        assertEquals("<i class=\"ms ms-c ms-cost ms-2x\"/>", manaHelper.mana2x("{C}"))
+    }
 }

@@ -13,3 +13,6 @@
                     .ui.blue.labels
                         for tag in card.tags
                             .ui.label #{tag}
+                p= card.text
+                if card.power || card.toughness
+                    p #{card.power}/#{card.toughness}

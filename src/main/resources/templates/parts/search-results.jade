@@ -5,22 +5,22 @@ if cards
                 tr
                     th Name
                     th.center.aligned Mana cost
-                    th.center.aligned Set
                     th Type
                     th Tags
+                    th.center.aligned Set
                     th
             tbody
                 for card in cards
                     tr
                         td.collapsing #{card.name}
                         td.collapsing!= mana.mana2x(card.manaCost)
-                        td.collapsing #{card.set}
                         td.collapsing #{card.type}
                         td
                             if card.tags
                                 .ui.blue.labels
                                     for tag in card.tags
                                         .ui.label #{tag}
+                        td.collapsing #{card.set}                                        
                         td.collapsing
                             .ui.primary.button(
                                 ic-get-from="/api/cards/#{card.multiverseId}",

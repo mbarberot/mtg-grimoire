@@ -14,7 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner
 import java.util.Collections.singletonList
 
 @RunWith(MockitoJUnitRunner::class)
-class CardMigrationRunnerTest {
+class CardUpdaterTest {
     lateinit var updater: CardUpdater
 
     @Mock

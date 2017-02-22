@@ -1,14 +1,9 @@
-package org.github.mbarberot.mtg.grimoire.components.migration
+package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.whenever
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGApi
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGCard
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGSet
-import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
 import org.github.mbarberot.mtg.grimoire.components.cards.Card
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.CardUpdater
+import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

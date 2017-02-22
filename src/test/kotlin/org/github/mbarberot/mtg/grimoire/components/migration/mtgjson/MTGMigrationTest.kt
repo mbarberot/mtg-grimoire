@@ -1,11 +1,8 @@
-package org.github.mbarberot.mtg.grimoire.components.migration
+package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 
 import com.nhaarman.mockito_kotlin.*
 import org.bson.types.ObjectId
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.CardUpdater
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGApi
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGMigration
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGSet
+import org.github.mbarberot.mtg.grimoire.components.migration.Version
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

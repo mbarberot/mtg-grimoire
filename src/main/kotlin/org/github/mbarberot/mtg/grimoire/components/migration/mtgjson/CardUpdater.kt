@@ -6,7 +6,10 @@ import com.github.salomonbrys.kodein.instance
 import org.github.mbarberot.mtg.grimoire.components.cards.Card
 import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
 
-class CardUpdater(private val cardStore: CardStore = Kodein.global.instance()) {
+class CardUpdater(
+        private val cardStore: CardStore = Kodein.global.instance(),
+        private val tagGenerator: TagGenerator = TagGenerator()
+) {
 
     fun updateCards(sets: List<MTGSet>) {
         cardStore.removeAll()
@@ -18,17 +21,17 @@ class CardUpdater(private val cardStore: CardStore = Kodein.global.instance()) {
                 .forEach { loadCard(set, it) }
     }
 
-    private fun loadCard(set: MTGSet, card: MTGCard) {
+    private fun loadCard(set: MTGSet, mtgCard: MTGCard) {
         cardStore.addCard(Card(
-                card.name,
-                card.multiverseid.toString(),
-                card.manaCost,
+                mtgCard.name,
+                mtgCard.multiverseid.toString(),
+                mtgCard.manaCost,
                 set.name,
-                card.text,
-                card.power,
-                card.toughness,
-                card.type,
-                emptyList()
+                mtgCard.text,
+                mtgCard.power,
+                mtgCard.toughness,
+                mtgCard.type,
+                tagGenerator.generateTags(mtgCard)
         ))
     }
 }

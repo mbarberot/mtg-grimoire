@@ -1,13 +1,12 @@
 package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 
+import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import org.github.mbarberot.mtg.grimoire.components.cards.Card
 import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
@@ -15,16 +14,6 @@ import java.util.Collections.singletonList
 
 @RunWith(MockitoJUnitRunner::class)
 class CardUpdaterTest {
-    lateinit var updater: CardUpdater
-
-    @Mock
-    lateinit var cardStore: CardStore
-
-    @Before
-    fun setUp() {
-        updater = CardUpdater(cardStore)
-    }
-
     @Test
     fun testLoadCards() {
         val card = mock<MTGCard> {
@@ -42,7 +31,13 @@ class CardUpdaterTest {
             on { cards } doReturn singletonList(card)
         }
 
-        updater.updateCards(listOf(set))
+        val tagGenerator = mock<TagGenerator> {
+            on { generateTags(any()) } doReturn emptyList<String>()
+        }
+        
+        val cardStore = mock<CardStore>()
+
+        CardUpdater(cardStore, tagGenerator).updateCards(listOf(set))
 
         verify(cardStore, times(1)).addCard(Card(
                 "foo",

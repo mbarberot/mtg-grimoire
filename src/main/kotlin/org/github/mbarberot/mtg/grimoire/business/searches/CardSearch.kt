@@ -1,6 +1,6 @@
 package org.github.mbarberot.mtg.grimoire.business.searches
 
-import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
+import org.github.mbarberot.mtg.grimoire.stores.CardStore
 
 class CardSearch(val cardStore: CardStore) {
     fun search(query: String, page: Long = 1, size: Int = 10): SearchResult {

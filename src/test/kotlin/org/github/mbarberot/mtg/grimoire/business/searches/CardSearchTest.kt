@@ -2,8 +2,8 @@ package org.github.mbarberot.mtg.grimoire.business.searches
 
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
-import org.github.mbarberot.mtg.grimoire.components.cards.Card
-import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
+import org.github.mbarberot.mtg.grimoire.models.Card
+import org.github.mbarberot.mtg.grimoire.stores.CardStore
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.*

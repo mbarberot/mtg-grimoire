@@ -16,4 +16,4 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'mtg-grimoire'
+rootProject.name = 'mtg-grimoire-api'

@@ -2,6 +2,8 @@ package org.github.mbarberot.mtg.grimoire.migration.mtgjson
 
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
+import org.github.mbarberot.mtg.grimoire.api.migration.mtgjson.MTGCard
+import org.github.mbarberot.mtg.grimoire.api.migration.mtgjson.TagGenerator
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test

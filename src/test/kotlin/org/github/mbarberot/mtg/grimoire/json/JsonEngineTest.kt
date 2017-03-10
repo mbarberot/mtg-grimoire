@@ -5,6 +5,7 @@ import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
+import org.github.mbarberot.mtg.grimoire.api.json.JsonEngine
 import org.junit.Assert.*
 import org.junit.Test
 

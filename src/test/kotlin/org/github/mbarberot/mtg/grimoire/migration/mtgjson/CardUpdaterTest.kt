@@ -3,8 +3,12 @@ package org.github.mbarberot.mtg.grimoire.migration.mtgjson
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
-import org.github.mbarberot.mtg.grimoire.models.Card
-import org.github.mbarberot.mtg.grimoire.stores.CardStore
+import org.github.mbarberot.mtg.grimoire.api.migration.mtgjson.CardUpdater
+import org.github.mbarberot.mtg.grimoire.api.migration.mtgjson.MTGCard
+import org.github.mbarberot.mtg.grimoire.api.migration.mtgjson.MTGSet
+import org.github.mbarberot.mtg.grimoire.api.migration.mtgjson.TagGenerator
+import org.github.mbarberot.mtg.grimoire.api.models.Card
+import org.github.mbarberot.mtg.grimoire.api.stores.CardStore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.times

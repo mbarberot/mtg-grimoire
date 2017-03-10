@@ -5,7 +5,8 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import junit.framework.TestCase.assertEquals
-import org.github.mbarberot.mtg.grimoire.json.JsonEngine
+import org.github.mbarberot.mtg.grimoire.api.json.JsonEngine
+import org.github.mbarberot.mtg.grimoire.api.view.JsonView
 import org.junit.Test
 import spark.Response
 

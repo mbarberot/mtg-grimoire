@@ -20,8 +20,9 @@ class CardUpdater(
 
     private fun loadCard(set: MTGSet, mtgCard: MTGCard) {
         cardStore.addCard(Card(
-                mtgCard.name,
+                null,
                 mtgCard.multiverseid.toString(),
+                mtgCard.name,
                 mtgCard.manaCost,
                 set.name,
                 mtgCard.text,

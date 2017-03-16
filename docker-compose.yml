@@ -16,7 +16,7 @@ services:
   
   grimoire:
     image: java:8
-    container_name: mtg_grimoire_app
+    container_name: mtg_grimoire_api
     links:
       - database:mongo
     environment:
@@ -28,6 +28,6 @@ services:
       - 8080:8080
       - 5005:5005
     volumes:
-      - ./build/install/mtg-grimoire:/app
+      - ./build/install/mtg-grimoire-api:/app
     working_dir: /app
-    command: /app/bin/mtg-grimoire
+    command: /app/bin/mtg-grimoire-api

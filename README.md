@@ -35,7 +35,20 @@ Yet another app for Magic card game.
 ### Run with Docker
 
 ```bash
+# Build jar :
 ./gradlew stage
+
+# Mount DB container :
+docker-compose up database
+
+# In another shell
+# Init db :
+./docker/import/init.sh
+
+# Back to first shell
+# CTRL+C
+# And then mount the whole app :
+docker-compose down
 docker-compose up
 ```
 

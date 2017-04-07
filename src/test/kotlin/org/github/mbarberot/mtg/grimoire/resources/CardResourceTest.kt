@@ -1,4 +1,4 @@
-package org.github.mbarberot.mtg.grimoire.api.components.cards
+package org.github.mbarberot.mtg.grimoire.resources
 
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock

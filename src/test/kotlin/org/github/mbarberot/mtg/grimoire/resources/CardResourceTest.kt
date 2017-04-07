@@ -26,10 +26,18 @@ class CardResourceTest {
 
         val store = mock<CardStore> {
             on { searchCards("some-id", 1, 10) } doReturn listOf(card)
+            on { countCards("some-id") } doReturn 1000L
         }
 
         assertEquals(
-                listOf(card),
+                mapOf(
+                        Pair("cards", listOf(card)),
+                        Pair("meta", mapOf(
+                                Pair("total", 1000L),
+                                Pair("size", 10),
+                                Pair("current_page", 1L)
+                        ))
+                ),
                 CardResource(store).getCards("some-id", 1, 10)
         )
     }

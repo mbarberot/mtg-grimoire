@@ -22,18 +22,17 @@ class Router(val http: spark.Service, val services: Kodein) {
 
         http.get("/api/cards", { request, response ->
             jsonView(response).render {
-                val cards = cardResource.getCards(
+                cardResource.getCards(
                         request.queryParams("query") ?: "",
                         request.queryParams("page")?.toLong() ?: 1,
                         request.queryParams("size")?.toInt() ?: 10
                 )
-                mapOf(Pair("cards", cards))
             }
         })
     }
 
     private fun apiIndexRoute() {
-        http.get("/api", { request, response ->
+        http.get("/api", { _, response ->
             jsonView(response).render {
                 mapOf(
                         Pair("version", "1.0.0"),

@@ -8,10 +8,12 @@ import org.github.mbarberot.mtg.grimoire.core.migration.mtgjson.MTGMigration
 import org.github.mbarberot.mtg.grimoire.core.stores.VersionStore
 import java.util.logging.Logger
 
-class MigrationRunner(val versionStore: VersionStore, val services: Kodein) : Runnable {
+class MigrationRunner(val services: Kodein) : Runnable {
     companion object {
         val LOG: Logger = Logger.getLogger(MigrationRunner::class.java.name)
     }
+
+    val versionStore : VersionStore = services.instance()
 
     override fun run() {
         var version = versionStore.getVersion()

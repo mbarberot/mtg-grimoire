@@ -1,15 +1,15 @@
 package org.github.mbarberot.mtg.grimoire.apps.rest
 
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.instance
-import org.github.mbarberot.mtg.grimoire.core.resources.CardResource
+import org.github.mbarberot.mtg.grimoire.apps.rest.json.JsonEngine
 import org.github.mbarberot.mtg.grimoire.apps.rest.json.JsonView
+import org.github.mbarberot.mtg.grimoire.core.Grimoire
 import spark.Service as Spark
 
-class Router(val inject: Kodein) {
+class Router(val grimoire: Grimoire) {
 
     private val DEFAULT_PORT = 8080
     private val http = spark.Service.ignite()
+    private val jsonEngine = JsonEngine()
 
     fun initialize() {
         setup()
@@ -22,7 +22,7 @@ class Router(val inject: Kodein) {
             staticFiles.location("/public")
             port(System.getenv("PORT")?.toInt() ?: DEFAULT_PORT)
 
-            before({ request, response ->
+            before({ _, response ->
                 response.header("Access-Control-Allow-Origin", "*")
                 response.header("Access-Control-Request-Method", "*")
                 response.header("Access-Control-Allow-Headers", "*")
@@ -31,7 +31,7 @@ class Router(val inject: Kodein) {
     }
 
     private fun apiCardsRoutes() {
-        val cardResource = CardResource(inject.instance())
+        val cardResource = grimoire.getCardResource()
         with(http) {
             get("/api/cards/:id", { request, response ->
                 jsonView(response).render { cardResource.getCard(request.params("id")) }
@@ -62,5 +62,5 @@ class Router(val inject: Kodein) {
         }
     }
 
-    private fun jsonView(response: spark.Response): JsonView = JsonView(response, inject.instance())
+    private fun jsonView(response: spark.Response): JsonView = JsonView(response, jsonEngine)
 }

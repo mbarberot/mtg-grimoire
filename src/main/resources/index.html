@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MTG : Grimoire</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"/>
+    <style>
+        #main {
+            padding-top: 20px;
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#hello").click(function() {
+                $("#result").text("" + GrimoireApi.sayHello("Roger"));
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="main">
+    <div class="ui container">
+        <a href="#" class="ui primary button" id="hello">Say hello</a>
+        <div id="result" class="ui blue message">
+            Click a button !
+        </div>
+    </div>
+</div>
+</body>
+</html>

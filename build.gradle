@@ -26,7 +26,7 @@ dependencies {
     
     // Framework
     compile 'com.sparkjava:spark-core:2.5.2'
-    compile 'de.neuland-bfi:jade4j:1.2.5'
+    compile 'no.tornado:tornadofx:1.7.3'
 
     // Database
     compile 'org.mongodb:mongodb-driver:3.4.0'
@@ -42,7 +42,7 @@ task stage(dependsOn: ['clean', 'build', 'installDist'])
 build.mustRunAfter clean
 
 buildscript {
-    ext.kotlin_version = '1.1.1'
+    ext.kotlin_version = '1.1.2'
 
     repositories {
         mavenCentral()
@@ -57,7 +57,7 @@ sourceSets {
 }
 
 //noinspection GroovyUnusedAssignment
-mainClassName = 'org.github.mbarberot.mtg.grimoire.api.App'
+mainClassName = 'org.github.mbarberot.mtg.grimoire.apps.rest.RestApp'
 
 jacocoTestReport {
     reports {

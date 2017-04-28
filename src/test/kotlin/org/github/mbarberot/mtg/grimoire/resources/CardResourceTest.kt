@@ -2,9 +2,9 @@ package org.github.mbarberot.mtg.grimoire.resources
 
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
-import org.github.mbarberot.mtg.grimoire.api.models.Card
-import org.github.mbarberot.mtg.grimoire.api.resources.CardResource
-import org.github.mbarberot.mtg.grimoire.api.stores.CardStore
+import org.github.mbarberot.mtg.grimoire.core.models.Card
+import org.github.mbarberot.mtg.grimoire.core.resources.CardResource
+import org.github.mbarberot.mtg.grimoire.core.stores.CardStore
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

@@ -1,0 +1,15 @@
+version: "3"
+services:
+  build_app:
+    image: rburgst/java8-openjfx-docker
+    command: ./gradlew build
+    volumes:
+      - ".gradle:/root/.gradle"
+      - "../../../mtg-grimoire:/app"
+    working_dir: /app
+    container_name: "build_app"
+    dns: 8.8.8.8
+
+networks:
+  default:
+    driver: bridge

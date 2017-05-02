@@ -1,65 +1,48 @@
 # MTG-Grimoire
 
-[![Build Status](https://travis-ci.org/mbarberot/mtg-grimoire-api.svg?branch=master)](https://travis-ci.org/mbarberot/mtg-grimoire-api)
-[![codecov](https://codecov.io/gh/mbarberot/mtg-grimoire-api/branch/master/graph/badge.svg)](https://codecov.io/gh/mbarberot/mtg-grimoire-api)
+[![Build Status](https://travis-ci.org/mbarberot/mtg-grimoire.svg?branch=master)](https://travis-ci.org/mbarberot/mtg-grimoire)
+[![codecov](https://codecov.io/gh/mbarberot/mtg-grimoire/branch/master/graph/badge.svg)](https://codecov.io/gh/mbarberot/mtg-grimoire)
 
 Yet another app for Magic card game.
 
 -----
 
-## Demo
-
-- [On Heroku](https://mtg-grimoire.herokuapp.com)
-
------
-
 ## Built with 
 
-- Love <3,
 - Kotlin, 
-- Spark micro-framework,
-- Jade/Pug templates (with jade4j),
-- MongoDB,
-- Jongo,
-- Semantic UI,
-- Gradle,
-- Heroku,
-- MLab,
+- OpenJFX (aka JavaFX) and TornadoFX for embedded browser,
+- H2 database,
+- Gradle
+
+- Typescript,
+- GlimmerJS framework,
+- Semantic UI
+
 - Docker,
 - Docker Compose
 
+- Love <3,
+
 -----
 
-## How to use
+## Build
 
-### Run with Docker
+### With docker
 
-```bash
-# Build jar :
-./gradlew stage
+Requires : 
+- docker
+- docker-compose
 
-# Mount DB container :
-docker-compose up database
-
-# In another shell
-# Init db :
-./docker/import/init.sh
-
-# Back to first shell
-# CTRL+C
-# And then mount the whole app :
-docker-compose down
-docker-compose up
+```
+docker-compose -f .docker/build/docker-compose.yml up
 ```
 
-- [App at http://localhost:8080](http://localhost:8080)
-- [Mongo UI at http://localhost:8081](http://localhost:8081)
-- Java Debug port set to 5005 
+### With the build tools
 
-### Init
+Requires : 
+- openjdk
+- openjfx
 
-Run the init script to create the test user in the database
-```bash
-./docker/import/init.sh
 ```
-
+./gradlew build
+```

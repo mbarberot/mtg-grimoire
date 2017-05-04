@@ -23,7 +23,6 @@ class MTGMigration(
         }
 
         return Version(
-                version._id,
                 version.dbVersion,
                 lastMtgVersion.toString()
         )

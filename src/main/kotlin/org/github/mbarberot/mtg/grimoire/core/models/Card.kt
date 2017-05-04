@@ -1,11 +1,6 @@
 package org.github.mbarberot.mtg.grimoire.core.models
 
-import org.jongo.marshall.jackson.oid.MongoObjectId
-
 data class Card(
-        @MongoObjectId
-        val _id: String?,
-
         val id: String,
         val name: String,
         val manaCost: String?,

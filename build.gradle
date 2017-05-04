@@ -25,12 +25,7 @@ dependencies {
     compile 'com.github.zafarkhaja:java-semver:0.9.0'
     
     // Framework
-    compile 'com.sparkjava:spark-core:2.5.2'
     compile 'no.tornado:tornadofx:1.7.3'
-
-    // Database
-    compile 'org.mongodb:mongodb-driver:3.4.0'
-    compile 'com.github.bguerout:jongo:1.4-early-20160606-0118'
     
     // Test
     testCompile 'junit:junit:4.12'
@@ -57,7 +52,7 @@ sourceSets {
 }
 
 //noinspection GroovyUnusedAssignment
-mainClassName = 'org.github.mbarberot.mtg.grimoire.apps.desktop.DesktopAppKt'
+mainClassName = 'org.github.mbarberot.mtg.grimoire.app.DesktopAppKt'
 
 jacocoTestReport {
     reports {

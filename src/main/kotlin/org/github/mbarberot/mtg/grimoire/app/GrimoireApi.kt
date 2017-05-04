@@ -1,4 +1,4 @@
-package org.github.mbarberot.mtg.grimoire.apps.desktop
+package org.github.mbarberot.mtg.grimoire.app
 
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.conf.global

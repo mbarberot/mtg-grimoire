@@ -1,7 +1,6 @@
 package org.github.mbarberot.mtg.grimoire.migration.mtgjson
 
 import com.nhaarman.mockito_kotlin.*
-import org.bson.types.ObjectId
 import org.github.mbarberot.mtg.grimoire.core.migration.mtgjson.CardUpdater
 import org.github.mbarberot.mtg.grimoire.core.migration.mtgjson.MTGApi
 import org.github.mbarberot.mtg.grimoire.core.migration.mtgjson.MTGMigration
@@ -21,13 +20,12 @@ class MTGMigrationTest {
         }
         val cardUpdater = mock<CardUpdater>()
         val version = mock<Version> {
-            on { _id } doReturn ObjectId("58a7254f4849f576c48263dc")
             on { mtgVersion } doReturn "0.0.0"
             on { dbVersion } doReturn "1.0.0"
         }
 
         assertEquals(
-                Version(ObjectId("58a7254f4849f576c48263dc"), "1.0.0", "4.5.6"),
+                Version("1.0.0", "4.5.6"),
                 MTGMigration(version, mtgApi, cardUpdater).run()
         )
 
@@ -41,13 +39,12 @@ class MTGMigrationTest {
         }
         val cardUpdater = mock<CardUpdater>()
         val version = mock<Version> {
-            on { _id } doReturn ObjectId("58a7254f4849f576c48263de")
             on { mtgVersion } doReturn "4.5.6"
             on { dbVersion } doReturn "1.0.0"
         }
 
         assertEquals(
-                Version(ObjectId("58a7254f4849f576c48263de"), "1.0.0", "4.5.6"),
+                Version("1.0.0", "4.5.6"),
                 MTGMigration(version, mtgApi, cardUpdater).run()
         )
 

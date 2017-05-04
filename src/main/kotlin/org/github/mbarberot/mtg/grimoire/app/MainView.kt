@@ -1,10 +1,9 @@
-package org.github.mbarberot.mtg.grimoire.apps.desktop
+package org.github.mbarberot.mtg.grimoire.app
 
 import javafx.scene.web.WebView
 import netscape.javascript.JSObject
-import tornadofx.View
 
-class MainView : View() {
+class MainView : tornadofx.View() {
     override val root = WebView()
 
     init {

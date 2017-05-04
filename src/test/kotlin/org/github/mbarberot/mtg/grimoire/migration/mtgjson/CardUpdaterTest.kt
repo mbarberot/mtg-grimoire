@@ -44,7 +44,6 @@ class CardUpdaterTest {
         CardUpdater(cardStore, tagGenerator).updateCards(listOf(set))
 
         verify(cardStore, times(1)).addCard(Card(
-                null,
                 "111222",
                 "foo",
                 "{1}{W}{U}",

@@ -42,7 +42,7 @@ task stage(dependsOn: ['clean', 'build', 'installDist'])
 build.mustRunAfter clean
 
 buildscript {
-    ext.kotlin_version = '1.1.2'
+    ext.kotlin_version = '1.1.2-2'
 
     repositories {
         mavenCentral()
@@ -57,7 +57,7 @@ sourceSets {
 }
 
 //noinspection GroovyUnusedAssignment
-mainClassName = 'org.github.mbarberot.mtg.grimoire.apps.rest.RestApp'
+mainClassName = 'org.github.mbarberot.mtg.grimoire.apps.desktop.DesktopAppKt'
 
 jacocoTestReport {
     reports {

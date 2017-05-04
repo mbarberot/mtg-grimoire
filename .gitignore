@@ -1,7 +1,4 @@
 .gradle
 .idea
-build/
+build
 classes
-docker/db/*
-docker/json/*
-.docker/build/.gradle/*

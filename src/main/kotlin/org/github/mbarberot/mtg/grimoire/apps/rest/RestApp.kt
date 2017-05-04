@@ -3,6 +3,7 @@ package org.github.mbarberot.mtg.grimoire.apps.rest
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.bind
+import com.github.salomonbrys.kodein.conf.global
 import com.github.salomonbrys.kodein.provider
 import com.mongodb.MongoClient
 import com.mongodb.MongoClientURI
@@ -16,14 +17,17 @@ import org.jongo.marshall.jackson.JacksonMapper
 
 fun main(args: Array<String>) {
     val jongoInstance = connectMongo()
-
     val grimoire = Grimoire()
-            .registerModule(
-                    Kodein.Module {
-                        bind<CardStore>() with provider { MongoCardStore(jongoInstance) }
-                        bind<VersionStore>() with provider { MongoVersionStore(jongoInstance) }
-                    })
-            .launch()
+
+    with(Kodein.global) {
+        addImport(Kodein.Module {
+            bind<CardStore>() with provider { MongoCardStore(jongoInstance) }
+            bind<VersionStore>() with provider { MongoVersionStore(jongoInstance) }
+        })
+        addImport(grimoire.coreModule)
+    }
+
+    grimoire.launch()
 
     Router(grimoire).initialize()
 }

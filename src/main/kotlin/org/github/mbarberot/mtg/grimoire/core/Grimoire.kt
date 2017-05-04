@@ -10,21 +10,14 @@ import org.github.mbarberot.mtg.grimoire.core.resources.CardResource
 
 
 class Grimoire {
-    private val inject: Kodein = Kodein {
+
+    val coreModule = Kodein.Module {
         bind<MTGApi>() with provider { MTGApi() }
+        bind<CardResource>() with provider { CardResource(instance()) }
     }
-
-    fun registerModule(module: Kodein.Module): Grimoire {
-        with(inject) {
-            registerModule(module)
-        }
-        return this
-    }
-
+    
     fun launch(): Grimoire {
-        Thread(MigrationRunner(inject)).run()
+        Thread(MigrationRunner()).run()
         return this
     }
-
-    fun getCardResource(): CardResource = CardResource(inject.instance())
 }

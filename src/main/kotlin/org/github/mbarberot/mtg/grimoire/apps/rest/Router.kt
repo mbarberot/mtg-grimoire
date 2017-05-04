@@ -1,8 +1,12 @@
 package org.github.mbarberot.mtg.grimoire.apps.rest
 
+import com.github.salomonbrys.kodein.Kodein
+import com.github.salomonbrys.kodein.conf.global
+import com.github.salomonbrys.kodein.instance
 import org.github.mbarberot.mtg.grimoire.apps.rest.json.JsonEngine
 import org.github.mbarberot.mtg.grimoire.apps.rest.json.JsonView
 import org.github.mbarberot.mtg.grimoire.core.Grimoire
+import org.github.mbarberot.mtg.grimoire.core.resources.CardResource
 import spark.Service as Spark
 
 class Router(val grimoire: Grimoire) {
@@ -31,7 +35,7 @@ class Router(val grimoire: Grimoire) {
     }
 
     private fun apiCardsRoutes() {
-        val cardResource = grimoire.getCardResource()
+        val cardResource : CardResource = Kodein.global.instance()
         with(http) {
             get("/api/cards/:id", { request, response ->
                 jsonView(response).render { cardResource.getCard(request.params("id")) }

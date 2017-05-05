@@ -12,20 +12,67 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
+        var DEFAULT_RESULT = "Nothing here !";
+        var DEFAULT_CODE = "result = GrimoireApi.sayHello(\"Roger\");";
+        
+        function resetAll() {
+            resetResults();
+            resetCode();
+        }
+        
+        function resetCode() {
+            $("#code").get(0).value = DEFAULT_CODE;
+        }
+        
+        function resetResults() {
+            $("#results").text(DEFAULT_RESULT);
+        }
+        
         $(document).ready(function() {
-            $("#hello").click(function() {
-                $("#result").text("" + GrimoireApi.sayHello("Roger"));
+            $("#form").submit(function(e) {
+                e.preventDefault();
             });
+            
+            $("#run").click(function() {
+                resetResults();
+                
+                var codeToRun = $("#code").get(0).value
+                                
+                eval(codeToRun);
+                
+                $("#results").text(result);
+            });
+            
+            $("#reset").click(resetAll);
+            $("#reset-code").click(resetCode);
+            $("#reset-results").click(resetResults);
+            
+            resetAll();
         });
     </script>
 </head>
 <body>
 <div id="main">
     <div class="ui container">
-        <a href="#" class="ui primary button" id="hello">Say hello</a>
-        <div id="result" class="ui blue message">
-            Click a button !
-        </div>
+        <h1 class="ui dividing header">Test UI</h1>
+        <form id="form" class="ui form">
+            <div class="field">
+                <label for="code">Code to run</label>
+                <textarea id="code"></textarea>
+            </div>
+            <div class="field">
+                <div class="ui basic buttons">
+                    <button class="ui button" id="run">Run</button>
+                    <button class="ui button" id="reset-code">Reset code</button>
+                    <button class="ui button" id="reset-results">Reset results</button>
+                    <button class="ui button" id="reset">Reset all</button>
+                </div>
+            </div>
+            <div class="field">
+                <label for="results">Results :</label>
+                <div id="results" class="ui segment"></div>            
+            </div>
+        </form>
     </div>
 </div>
 </body>

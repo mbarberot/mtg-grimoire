@@ -1,0 +1,7 @@
+default.nix
+./scripts/build.sh
+./scripts/test.sh
+pom.xml
+.gitignore
+src/main/kotlin/org/github/mbarberot/mtg/grimoire/MtgGrimoireVersion.kt
+src/main/kotlin/org/github/mbarberot/mtg/grimoire/kriollo/Generated.kt

@@ -5,13 +5,11 @@ with (import <nixpkgs> {});
 mkShell {
     buildInputs = [
         jq
-        jq
         maven
         jdk21
         kotlin
     ];
     shellHook = ''
         export JAVA_HOME=${jdk21.home}
-        export MAVEN_CONFIG="-s $PWD/.m2/settings.xml"
     '';
 }

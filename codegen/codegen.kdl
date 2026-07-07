@@ -81,6 +81,9 @@ scripts {
 
 maven {
     enabled "true"
+    filtering { 
+        enabled "false"
+    }
 }
 
 tests {

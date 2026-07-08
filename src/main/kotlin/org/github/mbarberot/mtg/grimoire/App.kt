@@ -11,9 +11,11 @@ import org.github.mbarberot.mtg.grimoire.components.jade.helpers.ManaHelper
 import org.github.mbarberot.mtg.grimoire.components.migration.InMemoryVersionStore
 import org.github.mbarberot.mtg.grimoire.components.migration.MigrationRunner
 import org.github.mbarberot.mtg.grimoire.components.migration.VersionStore
+import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.CardUpdater
 import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGApi
 import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGMigration
 import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.RestMTGApi
+import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.TagGenerator
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import org.koin.mp.KoinPlatform
@@ -37,12 +39,15 @@ object App {
                 module {
                     single<CardStore> { InMemoryCardStore() }
                     single { CardView(get()) }
+                    single { CardsView(get()) }
                     single { CardSearch(get()) }
                     single { GetCardRoute(get(), get()) }
                     single { GetCardsRoute(get(), get()) }
                 },
                 module {
                     single<VersionStore> { InMemoryVersionStore() }
+                    single { TagGenerator() }
+                    single { CardUpdater(get(), get()) }
                     single { MTGMigration(get(), get()) }
                     single { MigrationRunner(get(), get()) }
                 },

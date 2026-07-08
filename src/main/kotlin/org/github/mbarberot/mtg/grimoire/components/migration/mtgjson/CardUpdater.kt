@@ -1,10 +1,10 @@
 package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 
 import org.github.mbarberot.mtg.grimoire.components.cards.Card
-import org.github.mbarberot.mtg.grimoire.components.cards.InMemoryCardStore
+import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
 
 class CardUpdater(
-    private val cardStore: InMemoryCardStore,
+    private val cardStore: CardStore,
     private val tagGenerator: TagGenerator = TagGenerator()
 ) {
 

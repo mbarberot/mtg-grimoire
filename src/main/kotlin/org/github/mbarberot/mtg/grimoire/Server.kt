@@ -20,7 +20,7 @@ class Server(
             configureServer(config)
 
             config.routes.get("/", indexRoute::handle)
-            config.routes.get("/api/cards/:id", getCardRoute::handle)
+            config.routes.get("/api/cards/{id}", getCardRoute::handle)
             config.routes.get("/api/cards", getCardsRoute::handle)
         }
 
@@ -34,7 +34,7 @@ class Server(
 
     private fun configureStaticFiles(config: JavalinConfig) {
         config.staticFiles.add { staticFiles ->
-            staticFiles.hostedPath = "/public"
+            staticFiles.hostedPath = "/"
             staticFiles.directory = "/public"
             staticFiles.location = Location.CLASSPATH
         }

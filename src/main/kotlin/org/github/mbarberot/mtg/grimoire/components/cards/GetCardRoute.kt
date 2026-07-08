@@ -4,7 +4,7 @@ import io.javalin.http.Context
 
 
 class GetCardRoute(
-    val cardStore: InMemoryCardStore,
+    val cardStore: CardStore,
     val cardView: CardView
 )  {
     fun handle(ctx: Context) {

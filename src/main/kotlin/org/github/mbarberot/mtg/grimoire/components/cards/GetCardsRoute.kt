@@ -8,10 +8,10 @@ class GetCardsRoute(
     val cardsView: CardsView,
 ) {
     fun handle(ctx: Context) {
-        val query = ctx.queryParam("q") ?: "*"
+        val query = ctx.queryParam("q") ?: ""
         val page = ctx.queryParam("page")?.toInt() ?: 1
         val search = cardSearch.search(query, page)
 
-        ctx.result(cardsView.render(search))
+        ctx.html(cardsView.render(search))
     }
 }

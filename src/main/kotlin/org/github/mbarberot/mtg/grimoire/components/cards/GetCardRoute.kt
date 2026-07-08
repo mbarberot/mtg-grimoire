@@ -12,10 +12,10 @@ class GetCardRoute(
 
         if(card == null) {
             ctx.status(404)
-            ctx.result("Card not found")
+            ctx.html("Card not found")
             return
         }
 
-        ctx.result(cardView.render(card))
+        ctx.html(cardView.render(card))
     }
 }

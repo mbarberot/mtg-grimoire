@@ -20,8 +20,8 @@ class Server(
             configureServer(config)
 
             config.routes.get("/", indexRoute::handle)
-            config.routes.get("/api/cards/{id}", getCardRoute::handle)
             config.routes.get("/api/cards", getCardsRoute::handle)
+            config.routes.get("/api/cards/{id}", getCardRoute::handle)
         }
 
         app.start()

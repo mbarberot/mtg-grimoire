@@ -1,55 +1,58 @@
 package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.doReturn
-import com.nhaarman.mockito_kotlin.mock
+import org.assertj.core.api.Assertions.assertThat
 import org.github.mbarberot.mtg.grimoire.components.cards.Card
-import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.Mockito.times
-import org.mockito.Mockito.verify
-import org.mockito.junit.MockitoJUnitRunner
-import java.util.Collections.singletonList
+import org.github.mbarberot.mtg.grimoire.components.cards.InMemoryCardStore
+import kotlin.test.Test
 
-@RunWith(MockitoJUnitRunner::class)
+fun makeMTGSet(name: String, cardCount: Int = 10): MTGSet {
+    return MTGSet(
+        name = name,
+        code = name.uppercase().substring(0, 3),
+        releaseDate = "2026-01-01T12:00:00Z",
+        type = "STD",
+        cards = buildList {
+            IntRange(0, cardCount).forEach { i ->
+                add(
+                    MTGCard(
+                        multiverseid = i,
+                        name = "Card $i",
+                        manaCost = "{1}{W}{U}",
+                        text = "Test card $i",
+                        power = "4",
+                        toughness = "5",
+                        type = "Creature"
+                    )
+                )
+            }
+        },
+    )
+}
+
 class CardUpdaterTest {
+
     @Test
     fun testLoadCards() {
-        val card = mock<MTGCard> {
-            on { name } doReturn "foo"
-            on { multiverseid } doReturn 111222
-            on { manaCost } doReturn "{1}{W}{U}"
-            on { text } doReturn "Some text"
-            on { power } doReturn "4"
-            on { toughness } doReturn "5"
-            on { type } doReturn "Creature"
-        }
-
-        val set = mock<MTGSet> {
-            on { name } doReturn "Kaladesh"
-            on { cards } doReturn singletonList(card)
-        }
-
-        val tagGenerator = mock<TagGenerator> {
-            on { generateTags(any()) } doReturn emptyList<String>()
-        }
-        
-        val cardStore = mock<CardStore>()
+        val set = makeMTGSet("Test Set", 10)
+        val tagGenerator = TagGenerator()
+        val cardStore = InMemoryCardStore()
 
         CardUpdater(cardStore, tagGenerator).updateCards(listOf(set))
 
-        verify(cardStore, times(1)).addCard(Card(
-                "foo",
-                "111222",
-                "{1}{W}{U}",
-                "Kaladesh",
-                "Some text",
-                "4",
-                "5",
-                "Creature",
-                emptyList()
-        ))
+        assertThat(cardStore.getCardById("1"))
+            .isEqualTo(
+                Card(
+                    "1",
+                    "Test Set",
+                    "Card 1",
+                    "Creature",
+                    "{1}{W}{U}",
+                    "Test card 1",
+                    "4",
+                    "5",
+                    emptySet()
+                )
+            )
     }
 }
 

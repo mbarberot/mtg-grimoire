@@ -1,19 +1,13 @@
 package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 
-import java.util.*
-
 
 class TagGenerator {
-    fun generateTags(card: MTGCard) : List<String> {
-        val tags : ArrayList<String> = ArrayList()
-        
-        generateAbilityTags(tags, card.text ?: "")
-        
-        return tags
-    }
-
-    private fun generateAbilityTags(tags: ArrayList<String>, rawText: String) {
-        val text = rawText.toLowerCase()
-        if(text.contains("flying")) tags.add("flying")
+    fun generateTags(card: MTGCard): Set<String> {
+        val rawText = (card.text ?: "").lowercase()
+        return buildSet {
+            if (rawText.contains("flying")) {
+                add("flying")
+            }
+        }
     }
 }

@@ -1,8 +1,8 @@
 package org.github.mbarberot.mtg.grimoire.business.searches
 
 data class SearchMetadata(
-        val resultsCount: Long,
+        val resultsCount: Int,
         val pageSize: Int,
-        val currentPage: Long,
+        val currentPage: Int,
         val query: String
 )

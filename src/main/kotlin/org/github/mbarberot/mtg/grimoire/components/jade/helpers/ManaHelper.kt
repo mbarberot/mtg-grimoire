@@ -12,7 +12,7 @@ class ManaHelper {
 
     fun convert(manaCost: String?, size: Int): String {
         return Regex("\\{([0-9wrbgupc/]+)\\}")
-                .findAll(manaCost?.toLowerCase() ?: "")
+                .findAll(manaCost?.lowercase() ?: "")
                 .map { convertToMana(it.groupValues[1], size) }
                 .joinToString(" ")
     }

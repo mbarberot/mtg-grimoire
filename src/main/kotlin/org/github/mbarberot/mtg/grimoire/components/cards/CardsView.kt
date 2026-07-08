@@ -4,6 +4,8 @@ import de.neuland.jade4j.JadeConfiguration
 import org.github.mbarberot.mtg.grimoire.business.searches.SearchMetadata
 import org.github.mbarberot.mtg.grimoire.business.searches.SearchResult
 import org.github.mbarberot.mtg.grimoire.components.jade.JadeView
+import kotlin.math.max
+import kotlin.math.min
 
 class CardsView(jade: JadeConfiguration) : JadeView(jade) {
     fun render(search: SearchResult): String {
@@ -24,8 +26,8 @@ class CardsView(jade: JadeConfiguration) : JadeView(jade) {
 
     private fun generateLinks(metadata: SearchMetadata): Map<String, Any> {
         val pageCount = getPageCount(metadata)
-        val start = Math.max(1, metadata.currentPage - 3)
-        val end = Math.min(metadata.currentPage + 3, pageCount)
+        val start = max(1, metadata.currentPage - 3)
+        val end = min(metadata.currentPage + 3, pageCount)
         
         return mapOf(
                 Pair("first", link(metadata.query, 1)),
@@ -36,7 +38,7 @@ class CardsView(jade: JadeConfiguration) : JadeView(jade) {
         )
     }
 
-    private fun link(query: String, page: Long, name: String = "", isCurrentPage: Boolean = false): Any {
+    private fun link(query: String, page: Int, name: String = "", isCurrentPage: Boolean = false): Any {
         return mapOf(
                 Pair("href", "/api/cards?q=$query&page=$page"),
                 Pair("name", name),

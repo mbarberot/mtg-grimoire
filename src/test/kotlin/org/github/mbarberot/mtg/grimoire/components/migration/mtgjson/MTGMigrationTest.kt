@@ -1,52 +1,54 @@
 package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 
-import com.nhaarman.mockito_kotlin.*
-import org.bson.types.ObjectId
+import org.github.mbarberot.mtg.grimoire.components.cards.InMemoryCardStore
 import org.github.mbarberot.mtg.grimoire.components.migration.Version
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
+
+class TestMTGApi(
+    private val version: String,
+    private val sets: List<MTGSet>,
+) : MTGApi {
+
+    override fun getSets(): List<MTGSet> {
+        return sets
+    }
+
+    override fun getVersion(): String {
+        return version
+    }
+
+
+}
 
 class MTGMigrationTest {
 
     @Test
     fun run_needUpdate() {
-        val sets = emptyList<MTGSet>()
-        val mtgApi = mock<MTGApi> {
-            on { getVersion() } doReturn "4.5.6"
-            on { getSets() } doReturn sets
-        }
-        val cardUpdater = mock<CardUpdater>()
-        val version = mock<Version> {
-            on { _id } doReturn ObjectId("58a7254f4849f576c48263dc")
-            on { mtgVersion } doReturn "0.0.0"
-            on { dbVersion } doReturn "1.0.0"
-        }
+        val sets = listOf(makeMTGSet("Test Set", 10))
+        val cardStore = InMemoryCardStore()
+        val cardUpdater = CardUpdater(cardStore, TagGenerator())
 
-        assertEquals(
-                Version(ObjectId("58a7254f4849f576c48263dc"), "1.0.0", "4.5.6"),
-                MTGMigration(version, mtgApi, cardUpdater).run()
-        )
+        val mtgApi = TestMTGApi("4.5.6", sets)
+        val version = Version("1.0.0", "0.0.0")
 
-        verify(cardUpdater, times(1)).updateCards(any())
+        val newVersion = MTGMigration(mtgApi, cardUpdater).run(version)
+
+        assertEquals(Version("1.0.0", "4.5.6"), newVersion)
+        assertEquals(10, cardStore.countAll());
     }
 
     @Test
     fun run_noUpdate() {
-        val mtgApi = mock<MTGApi> {
-            on { getVersion() } doReturn "4.5.6"
-        }
-        val cardUpdater = mock<CardUpdater>()
-        val version = mock<Version> {
-            on { _id } doReturn ObjectId("58a7254f4849f576c48263de")
-            on { mtgVersion } doReturn "4.5.6"
-            on { dbVersion } doReturn "1.0.0"
-        }
+        val mtgApi = TestMTGApi("4.5.6", listOf(makeMTGSet("Test Set", 10)))
+        val cardStore = InMemoryCardStore()
+        val cardUpdater = CardUpdater(cardStore, TagGenerator())
+        val version = Version("1.0.0", "4.5.6")
 
         assertEquals(
-                Version(ObjectId("58a7254f4849f576c48263de"), "1.0.0", "4.5.6"),
-                MTGMigration(version, mtgApi, cardUpdater).run()
+            Version("1.0.0", "4.5.6"),
+            MTGMigration(mtgApi, cardUpdater).run(version)
         )
-
-        verify(cardUpdater, times(0)).updateCards(any())
+        assertEquals(0, cardStore.countAll());
     }
 }

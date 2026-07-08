@@ -1,7 +1,6 @@
 package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGCard
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 data class MTGSet(

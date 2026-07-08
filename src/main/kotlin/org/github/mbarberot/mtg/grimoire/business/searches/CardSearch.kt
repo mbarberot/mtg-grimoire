@@ -1,12 +1,14 @@
 package org.github.mbarberot.mtg.grimoire.business.searches
 
-import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
+import org.github.mbarberot.mtg.grimoire.components.cards.InMemoryCardStore
 
-class CardSearch(val cardStore: CardStore) {
-    fun search(query: String, page: Long = 1, size: Int = 10): SearchResult {
+class CardSearch(val cardStore: InMemoryCardStore) {
+    fun search(query: String, page: Int = 1, size: Int = 10): SearchResult {
+        val resultsCount = cardStore.countCards(query)
         return SearchResult(
                 cardStore.searchCards(query, page, size),
-                SearchMetadata(cardStore.countCards(query), size, page, query))
+                SearchMetadata(resultsCount, size, page, query)
+        )
     }
 }
 

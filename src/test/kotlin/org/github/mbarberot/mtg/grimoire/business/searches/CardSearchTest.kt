@@ -1,34 +1,37 @@
 package org.github.mbarberot.mtg.grimoire.business.searches
 
-import com.nhaarman.mockito_kotlin.doReturn
-import com.nhaarman.mockito_kotlin.mock
+
 import org.github.mbarberot.mtg.grimoire.components.cards.Card
-import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
-import org.junit.Assert.assertEquals
-import org.junit.Test
-import java.util.*
+import org.github.mbarberot.mtg.grimoire.components.cards.InMemoryCardStore
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class CardSearchTest {
+
     @Test
     fun testSearch() {
         val cards = listOfCards(15)
 
-        val model = mock<CardStore> {
-            on { searchCards("toto") } doReturn cards
-            on { countCards("toto") } doReturn cards.size.toLong()
-        }
+        val model = InMemoryCardStore(cards)
 
-        val (results, metadata) = CardSearch(model).search("toto")
-        assertEquals(cards, results)
-        assertEquals(SearchMetadata(cards.size.toLong(), 10, 1, "toto"), metadata)
+        val (results, metadata) = CardSearch(model).search("4")
+
+        assertEquals(2, results.size)
+        assertEquals(listOf(cards[3], cards[13]), results)
+        assertEquals(SearchMetadata(2, 10, 1, "4"), metadata)
     }
 
-    fun listOfCards(length: Int): Collection<Card> {
-        val cards = ArrayList<Card>()
-        for (i in 1..length) {
-            cards.add(mock<Card> {})
+    fun listOfCards(length: Int): List<Card> {
+        return buildList {
+            for (i in 1..length) {
+                add(Card(
+                    multiverseId = "id-$i",
+                    name = "Card $i",
+                    set = "Test Set",
+                    type = "Test",
+                ))
+            }
         }
-        return cards
     }
 }
 

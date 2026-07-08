@@ -1,14 +1,14 @@
 package org.github.mbarberot.mtg.grimoire.components.jade.helpers
 
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ManaHelperTest {
 
     lateinit var manaHelper: ManaHelper
 
-    @Before
+    @BeforeTest
     fun setUp() {
         manaHelper = ManaHelper()
     }

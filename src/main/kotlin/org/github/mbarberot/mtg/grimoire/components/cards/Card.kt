@@ -1,13 +1,13 @@
 package org.github.mbarberot.mtg.grimoire.components.cards
 
 data class Card(
-        val name: String,
-        val multiverseId: String,
-        val manaCost : String?,
-        val set: String,
-        val text: String?,
-        val power: String?,
-        val toughness: String?,
-        val type: String,
-        val tags: Collection<String>
+    val multiverseId: String,
+    val set: String,
+    val name: String,
+    val type: String,
+    val manaCost: String? = null,
+    val text: String? = null,
+    val power: String? = null,
+    val toughness: String? = null,
+    val tags: Set<String> = setOf()
 )

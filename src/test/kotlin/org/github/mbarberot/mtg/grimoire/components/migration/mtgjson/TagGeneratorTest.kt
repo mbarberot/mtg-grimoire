@@ -1,28 +1,32 @@
 package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 
-import com.nhaarman.mockito_kotlin.doReturn
-import com.nhaarman.mockito_kotlin.mock
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class TagGeneratorTest {
     lateinit var generator: TagGenerator
 
-    @Before
+    @BeforeTest
     fun setUp() {
         generator = TagGenerator()
     }
 
     @Test
     fun abilityTags() {
-        val mtgCard = mock<MTGCard> {
-            on { text } doReturn "Flying"
-        }
-        
+        val mtgCard = MTGCard(
+            multiverseid = 1,
+            name = "Flying Mammoth",
+            manaCost = "{1}{W}{U}",
+            text = "Flying",
+            power = "4",
+            toughness = "5",
+            type = "Creature"
+        )
+
         assertEquals(
-                listOf("flying"),
-                generator.generateTags(mtgCard)
+            setOf("flying"),
+            generator.generateTags(mtgCard)
         )
     }
 }

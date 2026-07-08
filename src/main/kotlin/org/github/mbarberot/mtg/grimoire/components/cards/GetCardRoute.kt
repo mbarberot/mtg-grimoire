@@ -1,16 +1,21 @@
 package org.github.mbarberot.mtg.grimoire.components.cards
 
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.conf.global
-import com.github.salomonbrys.kodein.instance
-import org.github.mbarberot.mtg.grimoire.components.cards.CardView
-import spark.Request
-import spark.Response
-import spark.Route
+import io.javalin.http.Context
 
-class GetCardRoute(val cardStore: CardStore) : Route {
-    override fun handle(request: Request, response: Response): String {
-        return CardView(Kodein.global.instance())
-                .render(cardStore.getCardById(request.params(":id")))
+
+class GetCardRoute(
+    val cardStore: InMemoryCardStore,
+    val cardView: CardView
+)  {
+    fun handle(ctx: Context) {
+        val card = cardStore.getCardById(ctx.pathParam("id"))
+
+        if(card == null) {
+            ctx.status(404)
+            ctx.result("Card not found")
+            return
+        }
+
+        ctx.result(cardView.render(card))
     }
 }

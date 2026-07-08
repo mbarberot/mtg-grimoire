@@ -1,14 +1,11 @@
 package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.conf.global
-import com.github.salomonbrys.kodein.instance
 import org.github.mbarberot.mtg.grimoire.components.cards.Card
-import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
+import org.github.mbarberot.mtg.grimoire.components.cards.InMemoryCardStore
 
 class CardUpdater(
-        private val cardStore: CardStore = Kodein.global.instance(),
-        private val tagGenerator: TagGenerator = TagGenerator()
+    private val cardStore: InMemoryCardStore,
+    private val tagGenerator: TagGenerator = TagGenerator()
 ) {
 
     fun updateCards(sets: List<MTGSet>) {
@@ -18,20 +15,22 @@ class CardUpdater(
 
     private fun loadCards(set: MTGSet) {
         set.cards.filter({ card -> card.multiverseid != 0 })
-                .forEach { loadCard(set, it) }
+            .forEach { loadCard(set, it) }
     }
 
     private fun loadCard(set: MTGSet, mtgCard: MTGCard) {
-        cardStore.addCard(Card(
-                mtgCard.name,
-                mtgCard.multiverseid.toString(),
-                mtgCard.manaCost,
-                set.name,
-                mtgCard.text,
-                mtgCard.power,
-                mtgCard.toughness,
-                mtgCard.type,
-                tagGenerator.generateTags(mtgCard)
-        ))
+        cardStore.addCard(
+            Card(
+                multiverseId = mtgCard.multiverseid.toString(),
+                name = mtgCard.name,
+                manaCost = mtgCard.manaCost,
+                set = set.name,
+                text = mtgCard.text,
+                power = mtgCard.power,
+                toughness = mtgCard.toughness,
+                type = mtgCard.type,
+                tags = tagGenerator.generateTags(mtgCard)
+            )
+        )
     }
 }

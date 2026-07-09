@@ -13,7 +13,7 @@ if cards
                 for card in cards
                     tr
                         td.collapsing #{card.name}
-                        td.collapsing!= mana.mana2x(card.manaCost)
+                        td.collapsing #{card.manaCost}
                         td.collapsing #{card.type}
                         td
                             if card.tags
@@ -22,9 +22,10 @@ if cards
                                         .ui.label #{tag}
                         td.collapsing #{card.set}                                        
                         td.collapsing
-                            .ui.primary.button(
-                                ic-get-from="/api/cards/#{card.multiverseId}",
-                                ic-target="#card"
+                            button.ui.primary.button(
+                                hx-get="/api/cards/#{card.multiverseId}",
+                                hx-target="#card"
+                                hx-trigger="click"
                                 ) View details
                                 i.angle.double.right.icon
             tfoot
@@ -33,19 +34,19 @@ if cards
                         .ui.right.floated.metadata.menu
                             if metadata.pagination
                                 a.icon.item(
-                                    ic-get-from!=metadata.pagination.first.href
-                                    ic-target="#search-results"
+                                    hx-get!=metadata.pagination.first.href
+                                    hx-target="#search-results"
                                     )
                                     i.step.backward.icon
                                 for link in metadata.pagination.pages
                                     a.item(
-                                        ic-get-from!=link.href
-                                        ic-target="#search-results"
+                                        hx-get!=link.href
+                                        hx-target="#search-results"
                                         class=link.currentPage ? "active" : ""
                                     ) #{link.name}
                                 a.icon.item(
-                                    ic-get-from!=metadata.pagination.last.href
-                                    ic-target="#search-results"
+                                    hx-get!=metadata.pagination.last.href
+                                    hx-target="#search-results"
                                     ) 
                                     i.step.forward.icon
 else

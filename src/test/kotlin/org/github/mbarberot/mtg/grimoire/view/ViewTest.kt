@@ -1,23 +1,23 @@
 package org.github.mbarberot.mtg.grimoire.view
 
+import org.github.mbarberot.mtg.grimoire.AppConfig
 import org.github.mbarberot.mtg.grimoire.business.searches.SearchMetadata
 import org.github.mbarberot.mtg.grimoire.business.searches.SearchResult
 import org.github.mbarberot.mtg.grimoire.components.cards.Card
 import org.github.mbarberot.mtg.grimoire.components.cards.CardView
 import org.github.mbarberot.mtg.grimoire.components.cards.CardsView
-import org.github.mbarberot.mtg.grimoire.initializeJadeEngine
+import org.github.mbarberot.mtg.grimoire.initializeHandlebars
 import kotlin.test.Test
 
 class ViewTest {
 
     // TODO approval testing
-
-    val jadeConfig = initializeJadeEngine()
+    val handlebarsConfig = initializeHandlebars(AppConfig(devMode = false))
 
     @Test
     fun testSearchView() {
         println(
-            CardsView(jadeConfig).render(
+            CardsView(handlebarsConfig).render(
                 SearchResult(
                     listOf(
                         Card(

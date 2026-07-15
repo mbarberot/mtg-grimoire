@@ -1,0 +1,74 @@
+mtg-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing);
+    border: 1px solid var(--primary);
+    border-radius: var(--base-radius);
+}
+
+mtg-card-name,
+mtg-card-cost,
+mtg-card-image,
+mtg-card-content,
+mtg-card-set,
+mtg-card-type,
+mtg-card-tags,
+mtg-card-text,
+mtg-card-power,
+mtg-card-toughness
+{
+    display: block;
+}
+
+mtg-card > header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: solid 1px var(--primary);
+}
+
+mtg-card-image {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+mtg-card-content {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing);
+    gap: var(--spacing);
+    border-top: 1px solid var(--primary);
+}
+
+mtg-card-tags {
+    display: flex;
+}
+
+mtg-card-tags.centered {
+    justify-content: center;
+}
+
+mtg-card-tag {
+    display: block;
+    padding: .2rem .5rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: .75rem;
+}
+
+mtg-card-attributes {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 0;
+    padding: var(--spacing);
+    border-top: 1px solid var(--primary);
+}
+
+mtg-card-attributes :first-child::after {
+    content: "/"
+}

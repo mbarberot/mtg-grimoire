@@ -1,0 +1,66 @@
+{{#if cards}}
+    <table>
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Mana</th>
+            <th>Type</th>
+            <th>Tags</th>
+            <th>Set</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each cards as |card|}}
+            <tr>
+                <td>{{card.name}}</td>
+                <td>{{{mana card.manaCost}}}</td>
+                <td>{{card.type}}</td>
+                <td>
+                    <mtg-card-tags class="[ centered ]">
+                        {{#each card.tags as |tag|}}
+                            <mtg-card-tag>{{tag}}</mtg-card-tag>
+                        {{/each}}
+                    </mtg-card-tags>
+                </td>
+                <td>{{card.set}}</td>
+                <td>
+                    <a class="[ button ]"
+                       href="#"
+                       hx-get="/api/cards/{{card.multiverseId}}"
+                       hx-target="mtg-result-details">
+                        Détails
+                    </a>
+                </td>
+            </tr>
+        {{/each}}
+
+        </tbody>
+    </table>
+    {{#with pagination}}
+        <footer>
+            <a class="[ button ]"
+               href="#"
+               hx-get="{{first.href}}"
+               hx-target="mtg-results-list">
+                &lt;
+            </a>
+            {{#each pages as |page|}}
+                <a class="[ button ]"
+                   href="#"
+                   hx-get="{{page.href}}"
+                   hx-target="mtg-results-list">
+                    {{page.name}}
+                </a>
+            {{/each}}
+            <a class="[ button ]"
+               href="#"
+               hx-get="{{last.href}}"
+               hx-target="mtg-results-list">
+                &gt;
+            </a>
+        </footer>
+    {{/with}}
+{{else}}
+    <p>Aucun r&eacute;sultat</p>
+{{/if}}

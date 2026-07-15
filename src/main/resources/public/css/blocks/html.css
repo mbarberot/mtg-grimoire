@@ -1,0 +1,15 @@
+
+.button {
+    text-decoration: none;
+    border: solid 1px var(--accent);
+    padding: .2rem .5rem;
+    border-radius: var(--base-radius);
+}
+
+.button:visited {
+    color: var(--accent)
+}
+
+.button:hover {
+    background-color: var(--accent-light);
+}

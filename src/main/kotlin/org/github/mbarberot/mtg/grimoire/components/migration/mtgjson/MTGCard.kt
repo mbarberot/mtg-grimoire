@@ -1,10 +1,8 @@
 package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-
-@JsonIgnoreProperties(ignoreUnknown=true)
 data class MTGCard(
-        val multiverseid: Int,
+        val uuid: String,
+        val multiverseId: Int,
         val name: String,
         val manaCost : String?,
         val power: String?,

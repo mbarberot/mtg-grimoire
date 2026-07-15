@@ -1,9 +1,14 @@
 package org.github.mbarberot.mtg.grimoire.components.index
 
 import io.javalin.http.Context
+import org.github.mbarberot.mtg.grimoire.business.searches.CardSearch
 
-class IndexRoute(val indexView: IndexView) {
+class IndexRoute(
+    private val cardSearch: CardSearch,
+    private val indexView: IndexView,
+) {
     fun handle(ctx: Context) {
-        ctx.html(indexView.render())
+        val (cards, metadata) = cardSearch.search("")
+        ctx.html(indexView.render(cards, metadata))
     }
 }

@@ -3,6 +3,7 @@ package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 import org.assertj.core.api.Assertions.assertThat
 import org.github.mbarberot.mtg.grimoire.components.cards.Card
 import org.github.mbarberot.mtg.grimoire.components.cards.InMemoryCardStore
+import java.util.UUID
 import kotlin.test.Test
 
 fun makeMTGSet(name: String, cardCount: Int = 10): MTGSet {
@@ -15,7 +16,8 @@ fun makeMTGSet(name: String, cardCount: Int = 10): MTGSet {
             IntRange(0, cardCount).forEach { i ->
                 add(
                     MTGCard(
-                        multiverseid = i,
+                        uuid = UUID.randomUUID().toString(),
+                        multiverseId = i,
                         name = "Card $i",
                         manaCost = "{1}{W}{U}",
                         text = "Test card $i",

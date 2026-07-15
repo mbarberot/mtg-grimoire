@@ -1,0 +1,28 @@
+mtg-results {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    gap: var(--spacing);
+}
+
+mtg-results-list {
+    width: 100%;
+}
+
+mtg-results-list table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+mtg-results-list td,
+mtg-results-list th {
+    border-bottom: solid 1px var(--color);
+    padding: var(--spacing);
+}
+
+mtg-results-list footer {
+    display: flex;
+    background-color: transparent;
+    justify-content: center;
+    gap: var(--spacing);
+}

@@ -1,0 +1,108 @@
+@layer global, third-party, composition, utility, block, exception;
+
+@import "reset.css" layer(global);
+@import "mana.css" layer(third-party);
+
+@import "blocks/html.css" layer(blocks);
+@import "blocks/mtg-search.css" layer(blocks);
+@import "blocks/mtg-result.css" layer(blocks);
+@import "blocks/mtg-card.css" layer(blocks);
+
+@font-face {
+    font-family: "mplantin";
+    src: url("/fonts/mplantin.woff") format("woff");
+}
+
+@layer global {
+    :root {
+        /* Look and feel */
+        --spacing: 0.5rem;
+        --base-radius: 5px;
+
+        /* Theme */
+        /* > Palette */
+        --dark-wine: #6f1d1b;
+        --camel: #bb9457;
+        --dark-coffee: #432818;
+        --chocolate-brown: #99582a;
+        --light-apricot: #ffe6a7;
+        /* > Colors */
+        --primary: var(--chocolate-brown);
+        --primary-light: var(--camel);
+        --primary-dark: var(--dark-coffee);
+        --accent: var(--dark-wine);
+        --accent-light: var(--light-apricot);
+        --color: var(--primary-dark);
+        --color-light: var(--accent-light);
+        /* > Fonts */
+        --font-family: "mplantin";
+    }
+
+}
+
+@layer composition {
+    .flow > * {
+        padding: var(--spacing);
+    }
+
+    .flow > * + * {
+        margin-top: var(--spacing);
+    }
+}
+
+@layer utility {
+}
+
+@layer block {
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        gap: var(--spacing);
+
+        color: var(--color);
+        font-family: var(--font-family), sans-serif;
+    }
+
+    main {
+        flex-grow: 1;
+    }
+
+    header {
+        padding: var(--spacing);
+        border-bottom: solid 2px var(--primary);
+    }
+
+    header > h1 {
+        font-size: 1rem;
+    }
+
+    footer {
+        background-color: var(--primary-dark);
+        color: var(--color-light);
+        text-align: center;
+        padding: var(--spacing);
+    }
+
+    layout-main {
+        display: flex;
+        flex-direction: row;
+        gap: var(--spacing);
+        padding: var(--spacing);
+        height: 100%;
+    }
+
+    layout-left {
+        display: block;
+        padding: var(--spacing);
+        flex-grow: 1;
+    }
+
+    layout-right {
+        display: block;
+        padding: var(--spacing);
+        width: 30%;
+    }
+}
+
+@layer exception {}

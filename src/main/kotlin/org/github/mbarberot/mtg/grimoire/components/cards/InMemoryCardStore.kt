@@ -12,16 +12,15 @@ class InMemoryCardStore(initialCards: List<Card> = listOf()): CardStore {
     override fun searchCards(query: String, page: Int, size: Int): Collection<Card> {
         val offset = (page - 1) * size
         return cards.values
-            .filter { it.name.matches(Regex(".*$query.*")) }
-            .drop(offset.toInt())
+            .filter { it.name.matches(Regex(".*$query.*", RegexOption.IGNORE_CASE)) }
+            .drop(offset)
             .take(size)
             .toList()
     }
 
     override fun countCards(query: String): Int {
         return cards.values
-            .map { it.name }
-            .count { it.matches(Regex(".*$query.*")) }
+            .count { it.name.matches(Regex(".*$query.*", RegexOption.IGNORE_CASE)) }
     }
 
     override fun getCardById(id: String): Card? = cards[id]

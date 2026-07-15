@@ -1,0 +1,14 @@
+mtg-search {
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing);
+    gap: var(--spacing);
+}
+
+mtg-search > input {
+    color: var(--primary-dark);
+    border: none;
+    border-bottom: solid 2px var(--primary-dark);
+}
+
+

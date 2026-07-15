@@ -1,0 +1,27 @@
+<mtg-card>
+    <header>
+        <mtg-card-name>{{name}}</mtg-card-name>
+        <mtg-card-cost>{{{mana manaCost}}}</mtg-card-cost>
+    </header>
+    <mtg-card-image>
+        <img src="https://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseId={{card.multiverseId}}"
+        alt=""
+        />
+    </mtg-card-image>
+    <mtg-card-content>
+        <mtg-card-type>{{type}}</mtg-card-type>
+        <mtg-card-set>{{set}}</mtg-card-set>
+        <mtg-card-tags>
+            {{#each tags as |tag|}}
+                <mtg-card-tag>{{tag}}</mtg-card-tag>
+            {{/each}}
+        </mtg-card-tags>
+        <mtg-card-text>{{text}}</mtg-card-text>
+    </mtg-card-content>
+    {{#if power}}
+        <mtg-card-attributes>
+            <mtg-card-power>{{power}}</mtg-card-power>
+            <mtg-card-toughness>{{toughness}}</mtg-card-toughness>
+        </mtg-card-attributes>
+    {{/if}}
+</mtg-card>

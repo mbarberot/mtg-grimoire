@@ -1,4 +1,4 @@
-package org.github.mbarberot.mtg.grimoire.components.jade.helpers
+package org.github.mbarberot.mtg.grimoire.components.template.engine.helpers
 
 class ManaHelper {
 
@@ -12,9 +12,8 @@ class ManaHelper {
 
     fun convert(manaCost: String?, size: Int): String {
         return Regex("\\{([0-9wrbgupc/]+)\\}")
-                .findAll(manaCost?.lowercase() ?: "")
-                .map { convertToMana(it.groupValues[1], size) }
-                .joinToString(" ")
+            .findAll(manaCost?.lowercase() ?: "")
+            .joinToString(" ") { convertToMana(it.groupValues[1], size) }
     }
 
     fun convertToMana(manaSymbol: String, size: Int): String {
@@ -28,11 +27,11 @@ class ManaHelper {
         
         classes.append(" ms-cost")
         
-        if (size > 1 && size < 6) {
+        if (size in 2..<6) {
             classes.append(" ms-${size}x")
         }
         
-        return "<i class=\"$classes\"/>"
+        return "<i class=\"$classes\"></i>"
     }
 
     private fun isHybrid(manaSymbol: String) = 

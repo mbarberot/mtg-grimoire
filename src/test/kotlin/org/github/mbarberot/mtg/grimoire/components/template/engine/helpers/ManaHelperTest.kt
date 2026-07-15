@@ -1,4 +1,4 @@
-package org.github.mbarberot.mtg.grimoire.components.jade.helpers
+package org.github.mbarberot.mtg.grimoire.components.template.engine.helpers
 
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -34,7 +34,7 @@ class ManaHelperTest {
                 "<i class=\"ms ms-1 ms-cost\"/> " +
                 "<i class=\"ms ms-u ms-cost\"/> " +
                 "<i class=\"ms ms-w ms-cost\"/>",
-                manaHelper.mana("{1}{U}{w}")
+                manaHelper.mana("{1}{U}{W}")
         )
     }
 

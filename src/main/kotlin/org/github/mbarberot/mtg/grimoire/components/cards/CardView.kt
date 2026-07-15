@@ -1,10 +1,19 @@
 package org.github.mbarberot.mtg.grimoire.components.cards
 
-import de.neuland.jade4j.JadeConfiguration
-import org.github.mbarberot.mtg.grimoire.components.jade.JadeView
+import com.github.jknack.handlebars.Handlebars
+import com.github.jknack.handlebars.TypeSafeTemplate
+import org.github.mbarberot.mtg.grimoire.compileTypesafe
 
-class CardView(jade: JadeConfiguration) : JadeView(jade) {
+class CardView(private val handlebars: Handlebars) {
     fun render(card: Card): String {
-        return render(mapOf(Pair("card", card)), "parts/card")
+        return handlebars
+            .compileTypesafe(CardTemplate.LOCATION, CardTemplate::class.java)
+            .apply(card)
+    }
+}
+
+interface CardTemplate: TypeSafeTemplate<Card> {
+    companion object {
+        const val LOCATION = "components/card"
     }
 }

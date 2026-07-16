@@ -32,7 +32,7 @@ fun main(args: Array<String>) {
                 single { config() }
                 single { initJackson() }
                 single<Handlebars> { initializeHandlebars(get()) }
-                single<MTGApi> { RestMTGApi(get()) }
+                single<MTGApi> { initializeMTGApi(get(), get()) }
             },
             module {
                 single { IndexView(get()) }
@@ -124,3 +124,12 @@ fun <C, T : TypeSafeTemplate<C>> Handlebars.compileTypesafe(
     location: String,
     typesafeClass: Class<T>,
 ): T = compile(location).`as`(typesafeClass)
+
+
+fun initializeMTGApi(appConfig: AppConfig, mapper: ObjectMapper): MTGApi {
+    return if (appConfig.devMode) {
+        LocalMTGApi(appConfig.devRoot,mapper)
+    } else {
+        RestMTGApi(mapper)
+    }
+}

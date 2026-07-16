@@ -3,14 +3,16 @@ package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import org.github.mbarberot.mtg.grimoire.AppConfig
 import java.net.URI
 
-class RestMTGApi(
+class LocalMTGApi(
+    val baseDir: String,
     val mapper: ObjectMapper = jacksonObjectMapper(),
 ) : MTGApi {
 
     override fun getSets(): List<MTGSet> =
-        URI.create("https://mtgjson.com/api/v5/Modern.json")
+        URI.create("file:///$baseDir/tmp/Sets.test.json")
             .toURL()
             .openStream()
             .use { stream ->
@@ -18,15 +20,6 @@ class RestMTGApi(
                 return sets.data.values.toList()
             }
 
-    override fun getVersion(): String = URI.create("https://mtgjson.com/api/v5/Meta.json")
-            .toURL()
-            .openStream()
-            .use { stream ->
-                val meta = mapper.readValue<MTGMeta>(stream)
-                return meta.data.version
-            }
-}
+    override fun getVersion(): String = "1.0.0"
 
-data class MTGMeta(val data: MTGVersion)
-data class MTGVersion(val version: String)
-data class MTGSets(val data: Map<String, MTGSet>)
+}

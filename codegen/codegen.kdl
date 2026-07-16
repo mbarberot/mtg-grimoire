@@ -41,11 +41,6 @@ project {
             version "4.5.3"
         }
         - {
-            groupId "de.neuland-bfi"
-            artifactId "jade4j"
-            version "1.3.2"
-        }
-        - {
             groupId "io.insert-koin"
             artifactId "koin-core"
             version "4.2.2"
@@ -59,6 +54,11 @@ project {
             groupId "com.github.zafarkhaja"
             artifactId "java-semver"
             version "0.10.2"
+        }
+        - {
+            groupId "org.webjars.npm"
+            artifactId "htmx.org"
+            version "2.0.10"
         }
     }
 }

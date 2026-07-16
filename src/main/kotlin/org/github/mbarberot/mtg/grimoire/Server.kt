@@ -1,42 +1,65 @@
 package org.github.mbarberot.mtg.grimoire
 
 import io.javalin.Javalin
+import io.javalin.apibuilder.ApiBuilder.get
+import io.javalin.apibuilder.ApiBuilder.path
 import io.javalin.config.JavalinConfig
 import io.javalin.http.staticfiles.Location
 import org.github.mbarberot.mtg.grimoire.components.cards.GetCardRoute
 import org.github.mbarberot.mtg.grimoire.components.cards.GetCardsRoute
 import org.github.mbarberot.mtg.grimoire.components.index.IndexRoute
+import org.github.mbarberot.mtg.grimoire.setup.SetupController
 
-private const val DEFAULT_PORT = 8080
 
 class Server(
+    val appConfig: AppConfig,
     val indexRoute: IndexRoute,
     val getCardRoute: GetCardRoute,
     val getCardsRoute: GetCardsRoute,
+    val setupController: SetupController,
 ) {
     fun start() {
         val app = Javalin.create { config ->
             configureStaticFiles(config)
             configureServer(config)
 
-            config.routes.get("/", indexRoute::handle)
-            config.routes.get("/api/cards", getCardsRoute::handle)
-            config.routes.get("/api/cards/{id}", getCardRoute::handle)
+            config.routes.apiBuilder {
+                path("/") {
+                    get(indexRoute::handle)
+                    get("setup", setupController::handle)
+
+                    path("api") {
+                        path("cards") {
+                            get(getCardsRoute::handle)
+                            get("{id}", getCardRoute::handle)
+                        }
+                    }
+                }
+            }
         }
 
         app.start()
     }
 
     private fun configureServer(config: JavalinConfig) {
-        config.jetty.host = "0.0.0.0"
-        config.jetty.port = System.getenv("PORT")?.toInt() ?: DEFAULT_PORT
+        config.jetty.host = appConfig.host
+        config.jetty.port = appConfig.port
     }
 
     private fun configureStaticFiles(config: JavalinConfig) {
+        // Leverage npm & webjars to easily embed any js lib into the app
+        config.staticFiles.enableWebjars()
+
+        // And this is mainly for CSS
         config.staticFiles.add { staticFiles ->
             staticFiles.hostedPath = "/"
-            staticFiles.directory = "/public"
-            staticFiles.location = Location.CLASSPATH
+            if (appConfig.devMode) {
+                staticFiles.directory = "${appConfig.devRoot}/src/main/resources/public"
+                staticFiles.location = Location.EXTERNAL
+            } else {
+                staticFiles.directory = "/public"
+                staticFiles.location = Location.CLASSPATH
+            }
         }
     }
 }

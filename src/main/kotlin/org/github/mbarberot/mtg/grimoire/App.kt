@@ -23,6 +23,7 @@ import org.github.mbarberot.mtg.grimoire.setup.SetupView
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import org.koin.mp.KoinPlatform
+import java.lang.System
 
 
 fun main(args: Array<String>) {
@@ -64,6 +65,7 @@ fun main(args: Array<String>) {
                         get(),
                         get(),
                         get(),
+                        get(),
                     )
                 }
             }
@@ -74,11 +76,22 @@ fun main(args: Array<String>) {
     KoinPlatform.getKoin().get<Server>().start()
 }
 
+private const val DEFAULT_HOST = "127.0.0.1"
+private const val DEFAULT_PORT = 8080
+
 fun config(): AppConfig =
-    AppConfig(devMode = System.getProperty("app.devMode") == "true")
+    AppConfig(
+        host = "0.0.0.0",
+        port = System.getenv("PORT")?.toInt() ?: DEFAULT_PORT,
+        devMode = System.getProperty("app.devMode") == "true",
+        devRoot = "${System.getProperty("user.dir")}/mtg-grimoire",
+    )
 
 data class AppConfig(
-    val devMode: Boolean = false
+    val host: String = DEFAULT_HOST,
+    val port: Int = DEFAULT_PORT,
+    val devMode: Boolean = false,
+    val devRoot: String = "",
 )
 
 fun initJackson(): ObjectMapper {
@@ -89,7 +102,7 @@ fun initJackson(): ObjectMapper {
 
 fun initializeHandlebars(appConfig: AppConfig): Handlebars {
     val loader = if(appConfig.devMode) {
-        FileTemplateLoader("${System.getProperty("user.dir")}/mtg-grimoire/src/main/resources/templates")
+        FileTemplateLoader("${appConfig.devRoot}/src/main/resources/templates")
     } else {
         ClassPathTemplateLoader("/templates")
     }

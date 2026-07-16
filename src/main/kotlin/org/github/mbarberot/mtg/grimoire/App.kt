@@ -13,17 +13,16 @@ import org.github.mbarberot.mtg.grimoire.business.searches.CardSearch
 import org.github.mbarberot.mtg.grimoire.components.cards.*
 import org.github.mbarberot.mtg.grimoire.components.index.IndexRoute
 import org.github.mbarberot.mtg.grimoire.components.index.IndexView
-import org.github.mbarberot.mtg.grimoire.components.template.engine.helpers.ManaHelper
 import org.github.mbarberot.mtg.grimoire.components.migration.InMemoryVersionStore
 import org.github.mbarberot.mtg.grimoire.components.migration.MigrationRunner
 import org.github.mbarberot.mtg.grimoire.components.migration.VersionStore
 import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.*
+import org.github.mbarberot.mtg.grimoire.components.template.engine.helpers.ManaHelper
 import org.github.mbarberot.mtg.grimoire.setup.SetupController
 import org.github.mbarberot.mtg.grimoire.setup.SetupView
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import org.koin.mp.KoinPlatform
-import java.lang.System
 
 
 fun main(args: Array<String>) {
@@ -54,7 +53,7 @@ fun main(args: Array<String>) {
             module {
                 single<VersionStore> { InMemoryVersionStore() }
                 single { TagGenerator() }
-                single { CardUpdater(get(), get()) }
+                single { CardUpdater(get(), get(), get()) }
                 single { MTGMigration(get(), get()) }
                 single { MigrationRunner(get(), get()) }
             },
@@ -76,8 +75,7 @@ fun main(args: Array<String>) {
     KoinPlatform.getKoin().get<Server>().start()
 }
 
-private const val DEFAULT_HOST = "127.0.0.1"
-private const val DEFAULT_PORT = 8080
+
 
 fun config(): AppConfig =
     AppConfig(
@@ -85,14 +83,8 @@ fun config(): AppConfig =
         port = System.getenv("PORT")?.toInt() ?: DEFAULT_PORT,
         devMode = System.getProperty("app.devMode") == "true",
         devRoot = "${System.getProperty("user.dir")}/mtg-grimoire",
+        language = "French"
     )
-
-data class AppConfig(
-    val host: String = DEFAULT_HOST,
-    val port: Int = DEFAULT_PORT,
-    val devMode: Boolean = false,
-    val devRoot: String = "",
-)
 
 fun initJackson(): ObjectMapper {
     val mapper = jacksonObjectMapper()
@@ -101,7 +93,7 @@ fun initJackson(): ObjectMapper {
 }
 
 fun initializeHandlebars(appConfig: AppConfig): Handlebars {
-    val loader = if(appConfig.devMode) {
+    val loader = if (appConfig.devMode) {
         FileTemplateLoader("${appConfig.devRoot}/src/main/resources/templates")
     } else {
         ClassPathTemplateLoader("/templates")
@@ -110,15 +102,25 @@ fun initializeHandlebars(appConfig: AppConfig): Handlebars {
     return Handlebars(loader)
         .setCharset(Charsets.UTF_8)
         .registerHelper("mana", ManaHandlebarsHelper())
+        .registerHelper("cardImage", CardImageHelper())
 }
 
-class ManaHandlebarsHelper: Helper<String> {
+class CardImageHelper : Helper<Card> {
+    override fun apply(card: Card?, options: Options?): String {
+        val imageSrc = "https://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=${card?.multiverseId ?: ""}"
+        return """
+            <img src="$imageSrc" alt="" />
+        """
+    }
+}
+
+class ManaHandlebarsHelper : Helper<String> {
     override fun apply(context: String?, options: Options?): String {
         return ManaHelper().mana(context)
     }
 }
 
-fun <C, T : TypeSafeTemplate<C>>Handlebars.compileTypesafe(
+fun <C, T : TypeSafeTemplate<C>> Handlebars.compileTypesafe(
     location: String,
     typesafeClass: Class<T>,
 ): T = compile(location).`as`(typesafeClass)

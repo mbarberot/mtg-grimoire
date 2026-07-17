@@ -1,6 +1,6 @@
-package org.github.mbarberot.mtg.grimoire.components.template.engine.helpers
+package org.github.mbarberot.mtg.grimoire.templating.mana
 
-class ManaHelper {
+class ManaConverter {
 
     fun mana2x(manaCost: String?): String {
         return convert(manaCost, 2)

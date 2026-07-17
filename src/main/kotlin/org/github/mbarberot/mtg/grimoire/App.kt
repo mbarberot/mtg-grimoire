@@ -1,14 +1,6 @@
 package org.github.mbarberot.mtg.grimoire
 
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.github.jknack.handlebars.Handlebars
-import com.github.jknack.handlebars.Helper
-import com.github.jknack.handlebars.Options
-import com.github.jknack.handlebars.TypeSafeTemplate
-import com.github.jknack.handlebars.io.ClassPathTemplateLoader
-import com.github.jknack.handlebars.io.FileTemplateLoader
 import org.github.mbarberot.mtg.grimoire.business.searches.CardSearch
 import org.github.mbarberot.mtg.grimoire.components.cards.*
 import org.github.mbarberot.mtg.grimoire.components.index.IndexRoute
@@ -17,12 +9,10 @@ import org.github.mbarberot.mtg.grimoire.components.migration.InMemoryVersionSto
 import org.github.mbarberot.mtg.grimoire.components.migration.MigrationRunner
 import org.github.mbarberot.mtg.grimoire.components.migration.VersionStore
 import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.*
-import org.github.mbarberot.mtg.grimoire.components.template.engine.helpers.ManaHelper
-import org.github.mbarberot.mtg.grimoire.mtgapi.api.MTGApi
-import org.github.mbarberot.mtg.grimoire.mtgapi.initializeMTGApi
 import org.github.mbarberot.mtg.grimoire.mtgapi.provideMTGApi
 import org.github.mbarberot.mtg.grimoire.setup.SetupController
 import org.github.mbarberot.mtg.grimoire.setup.SetupView
+import org.github.mbarberot.mtg.grimoire.templating.provideTemplateEngine
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import org.koin.mp.KoinPlatform
@@ -33,8 +23,8 @@ fun main(args: Array<String>) {
         modules(
             module {
                 single { config() }
-                single<Handlebars> { initializeHandlebars(get()) }
             },
+            provideTemplateEngine(),
             provideMTGApi(),
             module {
                 single { IndexView(get()) }
@@ -96,38 +86,4 @@ fun config(): AppConfig {
         userStorage = userStorage
     )
 }
-
-fun initializeHandlebars(appConfig: AppConfig): Handlebars {
-    val loader = if (appConfig.devMode) {
-        FileTemplateLoader("${appConfig.devRoot}/src/main/resources/templates")
-    } else {
-        ClassPathTemplateLoader("/templates")
-    }
-
-    return Handlebars(loader)
-        .setCharset(Charsets.UTF_8)
-        .registerHelper("mana", ManaHandlebarsHelper())
-        .registerHelper("cardImage", CardImageHelper())
-}
-
-class CardImageHelper : Helper<Card> {
-    override fun apply(card: Card?, options: Options?): String {
-        val imageSrc =
-            "https://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=${card?.multiverseId ?: ""}"
-        return """
-            <img src="$imageSrc" alt="" />
-        """
-    }
-}
-
-class ManaHandlebarsHelper : Helper<String> {
-    override fun apply(context: String?, options: Options?): String {
-        return ManaHelper().mana(context)
-    }
-}
-
-fun <C, T : TypeSafeTemplate<C>> Handlebars.compileTypesafe(
-    location: String,
-    typesafeClass: Class<T>,
-): T = compile(location).`as`(typesafeClass)
 

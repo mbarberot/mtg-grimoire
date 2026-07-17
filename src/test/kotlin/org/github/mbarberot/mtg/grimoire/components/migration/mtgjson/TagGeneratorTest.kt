@@ -1,5 +1,7 @@
 package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 
+import org.github.mbarberot.mtg.grimoire.mtgapi.api.MTGCard
+import org.github.mbarberot.mtg.grimoire.mtgapi.api.MTGForeignData
 import java.util.UUID
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -21,15 +23,15 @@ class TagGeneratorTest {
             power = "4",
             toughness = "5",
             setCode = "LRW",
-           foreignData = listOf(
-               MTGForeignData(
-                   multiverseId = 1,
-                   name = "Mammouth volant",
-                   text = "Vol",
-                   language = "French",
-                   type = "Creature",
-               )
-           )
+            foreignData = listOf(
+                MTGForeignData(
+                    multiverseId = 1,
+                    name = "Mammouth volant",
+                    text = "Vol",
+                    language = "French",
+                    type = "Creature",
+                )
+            )
         )
 
         assertEquals(

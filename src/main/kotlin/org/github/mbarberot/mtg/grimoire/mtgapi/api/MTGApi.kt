@@ -1,4 +1,4 @@
-package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
+package org.github.mbarberot.mtg.grimoire.mtgapi.api
 
 interface MTGApi {
     fun getVersion(): String

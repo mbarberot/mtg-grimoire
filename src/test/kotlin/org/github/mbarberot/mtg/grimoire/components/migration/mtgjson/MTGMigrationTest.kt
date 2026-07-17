@@ -3,6 +3,9 @@ package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 import org.github.mbarberot.mtg.grimoire.AppConfig
 import org.github.mbarberot.mtg.grimoire.components.cards.InMemoryCardStore
 import org.github.mbarberot.mtg.grimoire.components.migration.Version
+import org.github.mbarberot.mtg.grimoire.mtgapi.api.MTGApi
+import org.github.mbarberot.mtg.grimoire.mtgapi.api.MTGCard
+import org.github.mbarberot.mtg.grimoire.mtgapi.api.MTGSet
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

@@ -8,5 +8,6 @@ data class AppConfig(
     val port: Int = DEFAULT_PORT,
     val devMode: Boolean = false,
     val devRoot: String = "",
-    val language: String = "French"
+    val language: String = "French",
+    val userStorage: String
 )

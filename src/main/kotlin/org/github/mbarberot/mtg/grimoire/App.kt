@@ -18,6 +18,9 @@ import org.github.mbarberot.mtg.grimoire.components.migration.MigrationRunner
 import org.github.mbarberot.mtg.grimoire.components.migration.VersionStore
 import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.*
 import org.github.mbarberot.mtg.grimoire.components.template.engine.helpers.ManaHelper
+import org.github.mbarberot.mtg.grimoire.mtgapi.api.MTGApi
+import org.github.mbarberot.mtg.grimoire.mtgapi.initializeMTGApi
+import org.github.mbarberot.mtg.grimoire.mtgapi.provideMTGApi
 import org.github.mbarberot.mtg.grimoire.setup.SetupController
 import org.github.mbarberot.mtg.grimoire.setup.SetupView
 import org.koin.core.context.startKoin
@@ -30,10 +33,9 @@ fun main(args: Array<String>) {
         modules(
             module {
                 single { config() }
-                single { initJackson() }
                 single<Handlebars> { initializeHandlebars(get()) }
-                single<MTGApi> { initializeMTGApi(get(), get()) }
             },
+            provideMTGApi(),
             module {
                 single { IndexView(get()) }
                 single { IndexRoute(get(), get()) }
@@ -76,19 +78,23 @@ fun main(args: Array<String>) {
 }
 
 
-fun config(): AppConfig =
-    AppConfig(
+fun config(): AppConfig {
+    val devMode = System.getProperty("app.devMode") == "true"
+
+    val userStorage = if (devMode) {
+        "${System.getProperty("user.dir")}/dev/user"
+    } else {
+        "${System.getProperty("user.home")}/Documents/Grimoire"
+    }
+
+    return AppConfig(
         host = "0.0.0.0",
         port = System.getenv("PORT")?.toInt() ?: DEFAULT_PORT,
-        devMode = System.getProperty("app.devMode") == "true",
+        devMode = devMode,
         devRoot = "${System.getProperty("user.dir")}/mtg-grimoire",
-        language = "French"
+        language = "French",
+        userStorage = userStorage
     )
-
-fun initJackson(): ObjectMapper {
-    val mapper = jacksonObjectMapper()
-    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-    return mapper
 }
 
 fun initializeHandlebars(appConfig: AppConfig): Handlebars {
@@ -125,11 +131,3 @@ fun <C, T : TypeSafeTemplate<C>> Handlebars.compileTypesafe(
     typesafeClass: Class<T>,
 ): T = compile(location).`as`(typesafeClass)
 
-
-fun initializeMTGApi(appConfig: AppConfig, mapper: ObjectMapper): MTGApi {
-    return if (appConfig.devMode) {
-        MTGApiImpl(baseUrl = "file://${appConfig.devRoot}/dev/mtgjson", mapper)
-    } else {
-        MTGApiImpl(baseUrl = "https://mtgjson.com", mapper)
-    }
-}

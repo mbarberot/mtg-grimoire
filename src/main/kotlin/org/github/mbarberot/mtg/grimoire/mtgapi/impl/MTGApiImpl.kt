@@ -1,8 +1,11 @@
-package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
+package org.github.mbarberot.mtg.grimoire.mtgapi.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import org.github.mbarberot.mtg.grimoire.mtgapi.api.MTGApi
+import org.github.mbarberot.mtg.grimoire.mtgapi.api.MTGCard
+import org.github.mbarberot.mtg.grimoire.mtgapi.api.MTGSet
 import java.net.URI
 
 class MTGApiImpl(

@@ -1,24 +1,26 @@
 package org.github.mbarberot.mtg.grimoire
 
-import com.github.jknack.handlebars.Handlebars
-import org.github.mbarberot.mtg.grimoire.business.searches.CardSearch
-import org.github.mbarberot.mtg.grimoire.components.cards.*
+import org.github.mbarberot.mtg.grimoire.app.version.storage.api.VersionStore
+import org.github.mbarberot.mtg.grimoire.app.version.storage.impl.InMemoryVersionStore
+import org.github.mbarberot.mtg.grimoire.cards.provideCardModule
 import org.github.mbarberot.mtg.grimoire.components.index.IndexRoute
 import org.github.mbarberot.mtg.grimoire.components.index.IndexView
-import org.github.mbarberot.mtg.grimoire.components.migration.InMemoryVersionStore
 import org.github.mbarberot.mtg.grimoire.components.migration.MigrationRunner
-import org.github.mbarberot.mtg.grimoire.components.migration.VersionStore
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.*
+import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.CardUpdater
+import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGMigration
+import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.TagGenerator
+import org.github.mbarberot.mtg.grimoire.components.setup.SetupController
+import org.github.mbarberot.mtg.grimoire.components.setup.SetupView
 import org.github.mbarberot.mtg.grimoire.mtgapi.provideMTGApi
-import org.github.mbarberot.mtg.grimoire.setup.SetupController
-import org.github.mbarberot.mtg.grimoire.setup.SetupView
+import org.github.mbarberot.mtg.grimoire.server.Server
+import org.github.mbarberot.mtg.grimoire.server.provideServer
 import org.github.mbarberot.mtg.grimoire.templating.provideTemplateEngine
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import org.koin.mp.KoinPlatform
 
 
-fun main(args: Array<String>) {
+fun main() {
     startKoin {
         modules(
             module {
@@ -34,14 +36,7 @@ fun main(args: Array<String>) {
                 single { SetupView(get()) }
                 single { SetupController(get()) }
             },
-            module {
-                single<CardStore> { InMemoryCardStore() }
-                single { CardView(get()) }
-                single { CardsView(get()) }
-                single { CardSearch(get()) }
-                single { GetCardRoute(get(), get()) }
-                single { GetCardsRoute(get(), get()) }
-            },
+            provideCardModule(),
             module {
                 single<VersionStore> { InMemoryVersionStore() }
                 single { TagGenerator() }
@@ -49,17 +44,7 @@ fun main(args: Array<String>) {
                 single { MTGMigration(get(), get()) }
                 single { MigrationRunner(get(), get()) }
             },
-            module {
-                single {
-                    Server(
-                        get(),
-                        get(),
-                        get(),
-                        get(),
-                        get(),
-                    )
-                }
-            }
+            provideServer()
         )
     }
 
@@ -70,20 +55,26 @@ fun main(args: Array<String>) {
 
 fun config(): AppConfig {
     val devMode = System.getProperty("app.devMode") == "true"
+    val port = System.getenv("PORT")?.toInt() ?: DEFAULT_PORT
 
-    val userStorage = if (devMode) {
-        "${System.getProperty("user.dir")}/dev/user"
+    return if (devMode) {
+        AppConfig(
+            host = "0.0.0.0",
+            port = port,
+            devMode = true,
+            devRoot = "${System.getProperty("user.dir")}/mtg-grimoire",
+            language = "French",
+            userStorage = "${System.getProperty("user.dir")}/dev/user"
+        )
     } else {
-        "${System.getProperty("user.home")}/Documents/Grimoire"
+        AppConfig(
+            host = LOCALHOST,
+            port = port,
+            devMode = false,
+            language = "French",
+            userStorage = "${System.getProperty("user.home")}/Documents/Grimoire"
+        )
     }
-
-    return AppConfig(
-        host = "0.0.0.0",
-        port = System.getenv("PORT")?.toInt() ?: DEFAULT_PORT,
-        devMode = devMode,
-        devRoot = "${System.getProperty("user.dir")}/mtg-grimoire",
-        language = "French",
-        userStorage = userStorage
-    )
 }
+
 

@@ -1,7 +1,7 @@
 package org.github.mbarberot.mtg.grimoire.components.index
 
 import io.javalin.http.Context
-import org.github.mbarberot.mtg.grimoire.business.searches.CardSearch
+import org.github.mbarberot.mtg.grimoire.cards.domain.search.CardSearch
 
 class IndexRoute(
     private val cardSearch: CardSearch,

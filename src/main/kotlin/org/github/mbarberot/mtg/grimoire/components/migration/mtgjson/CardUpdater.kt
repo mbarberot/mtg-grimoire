@@ -1,8 +1,8 @@
 package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 
 import org.github.mbarberot.mtg.grimoire.AppConfig
-import org.github.mbarberot.mtg.grimoire.components.cards.Card
-import org.github.mbarberot.mtg.grimoire.components.cards.CardStore
+import org.github.mbarberot.mtg.grimoire.cards.domain.Card
+import org.github.mbarberot.mtg.grimoire.cards.storage.api.CardStore
 import org.github.mbarberot.mtg.grimoire.mtgapi.api.MTGCard
 
 class CardUpdater(

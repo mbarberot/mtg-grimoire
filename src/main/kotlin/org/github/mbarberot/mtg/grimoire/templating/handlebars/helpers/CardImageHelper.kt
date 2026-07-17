@@ -2,7 +2,7 @@ package org.github.mbarberot.mtg.grimoire.templating.handlebars.helpers
 
 import com.github.jknack.handlebars.Helper
 import com.github.jknack.handlebars.Options
-import org.github.mbarberot.mtg.grimoire.components.cards.Card
+import org.github.mbarberot.mtg.grimoire.cards.domain.Card
 
 class CardImageHelper : Helper<Card> {
     override fun apply(card: Card?, options: Options?): String {

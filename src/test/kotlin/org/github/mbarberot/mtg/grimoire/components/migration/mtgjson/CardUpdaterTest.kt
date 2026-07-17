@@ -2,8 +2,8 @@ package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 
 import org.assertj.core.api.Assertions.assertThat
 import org.github.mbarberot.mtg.grimoire.AppConfig
-import org.github.mbarberot.mtg.grimoire.components.cards.Card
-import org.github.mbarberot.mtg.grimoire.components.cards.InMemoryCardStore
+import org.github.mbarberot.mtg.grimoire.cards.domain.Card
+import org.github.mbarberot.mtg.grimoire.cards.storage.impl.InMemoryCardStore
 import org.github.mbarberot.mtg.grimoire.mtgapi.api.MTGCard
 import org.github.mbarberot.mtg.grimoire.mtgapi.api.MTGForeignData
 import org.github.mbarberot.mtg.grimoire.mtgapi.api.MTGSet

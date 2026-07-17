@@ -1,7 +1,7 @@
 package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 
 import com.github.zafarkhaja.semver.Version.parse
-import org.github.mbarberot.mtg.grimoire.components.migration.Version
+import org.github.mbarberot.mtg.grimoire.app.version.domain.Version
 import org.github.mbarberot.mtg.grimoire.mtgapi.api.MTGApi
 import java.util.logging.Logger
 

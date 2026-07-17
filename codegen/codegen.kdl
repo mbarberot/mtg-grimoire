@@ -80,7 +80,10 @@ nix {
 git {
     enabled "true"
     ignore {
-        - "dev/"
+        - "dev/mtgjson/api/v5/**"
+        - "!dev/mtgjson/api/v5/.gitkeep"
+        - "dev/user/**"
+        - "!dev/user/.gitkeep"
     }
 }
 

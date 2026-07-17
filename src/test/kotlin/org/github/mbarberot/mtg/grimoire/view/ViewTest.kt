@@ -4,7 +4,6 @@ import org.github.mbarberot.mtg.grimoire.AppConfig
 import org.github.mbarberot.mtg.grimoire.business.searches.SearchMetadata
 import org.github.mbarberot.mtg.grimoire.business.searches.SearchResult
 import org.github.mbarberot.mtg.grimoire.components.cards.Card
-import org.github.mbarberot.mtg.grimoire.components.cards.CardView
 import org.github.mbarberot.mtg.grimoire.components.cards.CardsView
 import org.github.mbarberot.mtg.grimoire.initializeHandlebars
 import kotlin.test.Test
@@ -33,25 +32,6 @@ class ViewTest {
                         )
                     ),
                     SearchMetadata(30, 10, 2, "toto")
-                )
-            )
-        )
-    }
-
-    @Test
-    fun testCardView() {
-        println(
-            CardView(jadeConfig).render(
-                Card(
-                    "Foo",
-                    "1",
-                    "{1}",
-                    "Kaladesh",
-                    "Some text",
-                    "4",
-                    "5",
-                    "Creature",
-                    setOf()
                 )
             )
         )

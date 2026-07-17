@@ -1,33 +1,44 @@
 package org.github.mbarberot.mtg.grimoire.components.migration.mtgjson
 
 import org.assertj.core.api.Assertions.assertThat
+import org.github.mbarberot.mtg.grimoire.AppConfig
 import org.github.mbarberot.mtg.grimoire.components.cards.Card
 import org.github.mbarberot.mtg.grimoire.components.cards.InMemoryCardStore
 import java.util.UUID
 import kotlin.test.Test
 
-fun makeMTGSet(name: String, cardCount: Int = 10): MTGSet {
+fun makeMTGCards(cardCount: Int = 10): List<MTGCard> {
+    return buildList {
+        IntRange(1, cardCount).forEach { i ->
+            add(
+                MTGCard(
+                    uuid = UUID.randomUUID().toString(),
+                    manaCost = "{1}{W}{U}",
+                    power = "4",
+                    toughness = "5",
+                    setCode = "Test",
+                    foreignData = listOf(
+                        MTGForeignData(
+                            language = "French",
+                            multiverseId = i,
+                            name = "Card $i",
+                            text = "Test card $i",
+                            type = "Creature",
+                        )
+                    )
+                )
+            )
+        }
+    }
+}
+
+fun makeMTGSet(name: String): MTGSet {
     return MTGSet(
         name = name,
         code = name.uppercase().substring(0, 3),
-        releaseDate = "2026-01-01T12:00:00Z",
-        type = "STD",
-        cards = buildList {
-            IntRange(0, cardCount).forEach { i ->
-                add(
-                    MTGCard(
-                        uuid = UUID.randomUUID().toString(),
-                        multiverseId = i,
-                        name = "Card $i",
-                        manaCost = "{1}{W}{U}",
-                        text = "Test card $i",
-                        power = "4",
-                        toughness = "5",
-                        type = "Creature"
-                    )
-                )
-            }
-        },
+        translations = mapOf(
+            Pair("French", name)
+        )
     )
 }
 
@@ -35,17 +46,17 @@ class CardUpdaterTest {
 
     @Test
     fun testLoadCards() {
-        val set = makeMTGSet("Test Set", 10)
+        val cards = makeMTGCards(10)
         val tagGenerator = TagGenerator()
         val cardStore = InMemoryCardStore()
 
-        CardUpdater(cardStore, tagGenerator).updateCards(listOf(set))
+        CardUpdater(AppConfig(), cardStore, tagGenerator).updateCards(cards)
 
         assertThat(cardStore.getCardById("1"))
             .isEqualTo(
                 Card(
                     "1",
-                    "Test Set",
+                    "Test",
                     "Card 1",
                     "Creature",
                     "{1}{W}{U}",

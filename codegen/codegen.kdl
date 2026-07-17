@@ -1,9 +1,10 @@
 
 project {
+    type "application"
     groupId "org.github.mbarberot"
     name "mtg-grimoire"
     version "2026.0.0"
-    mainClass "App"
+    mainClass "AppKt"
 
     libs {
         jackson {

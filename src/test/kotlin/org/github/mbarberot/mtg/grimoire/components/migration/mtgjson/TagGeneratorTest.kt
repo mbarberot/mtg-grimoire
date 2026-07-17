@@ -17,18 +17,24 @@ class TagGeneratorTest {
     fun abilityTags() {
         val mtgCard = MTGCard(
             uuid = UUID.randomUUID().toString(),
-            multiverseId = 1,
-            name = "Flying Mammoth",
             manaCost = "{1}{W}{U}",
-            text = "Flying",
             power = "4",
             toughness = "5",
-            type = "Creature"
+            setCode = "LRW",
+           foreignData = listOf(
+               MTGForeignData(
+                   multiverseId = 1,
+                   name = "Mammouth volant",
+                   text = "Vol",
+                   language = "French",
+                   type = "Creature",
+               )
+           )
         )
 
         assertEquals(
-            setOf("flying"),
-            generator.generateTags(mtgCard)
+            setOf("vol"),
+            generator.generateTags(mtgCard.foreignData[0])
         )
     }
 }

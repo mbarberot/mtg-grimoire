@@ -21,7 +21,6 @@ data class MTGCard(
     val manaCost: String?,
     val power: String?,
     val toughness: String?,
-    val type: String,
     val setCode: String,
     val foreignData: List<MTGForeignData>,
 )

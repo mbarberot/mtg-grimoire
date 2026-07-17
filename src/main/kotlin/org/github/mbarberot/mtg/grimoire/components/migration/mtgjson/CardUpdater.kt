@@ -10,16 +10,16 @@ class CardUpdater(
     private val tagGenerator: TagGenerator = TagGenerator(),
 ) {
 
-    fun updateCards(sets: List<MTGSet>) {
+    fun updateCards(cards: List<MTGCard>) {
         cardStore.removeAll()
-        sets.forEach { set -> loadCards(set) }
+        loadCards(cards)
     }
 
-    private fun loadCards(set: MTGSet) {
-        set.cards.forEach { loadCard(set, it) }
+    private fun loadCards(cards: List<MTGCard>) {
+        cards.forEach { loadCard(it) }
     }
 
-    private fun loadCard(set: MTGSet, mtgCard: MTGCard) {
+    private fun loadCard(mtgCard: MTGCard) {
         val languageData = mtgCard.foreignData.find { it.language == appConfig.language }
         if (languageData != null) {
             cardStore.addCard(
@@ -27,7 +27,7 @@ class CardUpdater(
                     multiverseId = languageData.multiverseId.toString(),
                     name = languageData.name,
                     manaCost = mtgCard.manaCost,
-                    set = set.name,
+                    set = mtgCard.setCode,
                     text = languageData.text,
                     power = mtgCard.power,
                     toughness = mtgCard.toughness,

@@ -79,9 +79,7 @@ nix {
 git {
     enabled "true"
     ignore {
-        - ".gradle"
-        - "build"
-        - "docker"
+        - "dev/"
     }
 }
 

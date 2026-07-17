@@ -76,7 +76,6 @@ fun main(args: Array<String>) {
 }
 
 
-
 fun config(): AppConfig =
     AppConfig(
         host = "0.0.0.0",
@@ -107,7 +106,8 @@ fun initializeHandlebars(appConfig: AppConfig): Handlebars {
 
 class CardImageHelper : Helper<Card> {
     override fun apply(card: Card?, options: Options?): String {
-        val imageSrc = "https://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=${card?.multiverseId ?: ""}"
+        val imageSrc =
+            "https://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=${card?.multiverseId ?: ""}"
         return """
             <img src="$imageSrc" alt="" />
         """
@@ -128,8 +128,8 @@ fun <C, T : TypeSafeTemplate<C>> Handlebars.compileTypesafe(
 
 fun initializeMTGApi(appConfig: AppConfig, mapper: ObjectMapper): MTGApi {
     return if (appConfig.devMode) {
-        LocalMTGApi(appConfig.devRoot,mapper)
+        MTGApiImpl(baseUrl = "file://${appConfig.devRoot}/dev/mtgjson", mapper)
     } else {
-        RestMTGApi(mapper)
+        MTGApiImpl(baseUrl = "https://mtgjson.com", mapper)
     }
 }

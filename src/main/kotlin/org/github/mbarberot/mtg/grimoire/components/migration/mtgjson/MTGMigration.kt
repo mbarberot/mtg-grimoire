@@ -18,7 +18,8 @@ class MTGMigration(
         
         LOG.info { "Actual version : $actualMtgVersion /vs/ Last version : $lastMtgVersion" }
         if (actualMtgVersion.isLowerThan(lastMtgVersion)) {
-            cardUpdater.updateCards(api.getSets())
+            val cards = api.getCards("LRW")
+            cardUpdater.updateCards(cards)
         }
 
         return Version(

@@ -4,9 +4,7 @@
 # Maven
 target/
 # Custom rules defined in Kriollo configuration
-.gradle
-build
-docker
+dev/
 # Jetbrains/Intellij files
 /.idea
 *.iml

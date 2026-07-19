@@ -12,7 +12,6 @@ class CardUpdater(
 ) {
 
     fun updateCards(cards: List<MTGCard>) {
-        cardStore.removeAll()
         loadCards(cards)
     }
 

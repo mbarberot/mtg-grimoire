@@ -27,9 +27,38 @@ class JdbiCardStore(private val jdbi: Jdbi) : CardStore {
                 .bind("query", "%${query.lowercase()}%")
                 .bind("offset", (page - 1) * size)
                 .bind("limit", size)
-                .mapTo<Card>()
+                .mapTo<JdbiCard>()
                 .list()
+                .map { card -> buildCard(card) }
         }
+    }
+
+    private fun buildCard(dbValue: JdbiCard): Card {
+        val tags = jdbi.withHandleUnchecked { handle ->
+            handle.createQuery(
+                """
+               SELECT t.name
+               FROM cardTags ct
+               INNER JOIN tags t on t.name = ct.tagName 
+               WHERE ct.cardId = :multiverseId
+           """.trimIndent()
+            )
+                .bind("multiverseId", dbValue.multiverseId)
+                .mapTo<String>()
+                .set()
+        }
+
+        return Card(
+            multiverseId = dbValue.multiverseId,
+            set = dbValue.setCode,
+            name = dbValue.name,
+            type = dbValue.type,
+            manaCost = dbValue.manaCost,
+            text = dbValue.text,
+            power = dbValue.power,
+            toughness = dbValue.toughness,
+            tags = tags
+        )
     }
 
     override fun countCards(query: String): Int {
@@ -57,30 +86,71 @@ class JdbiCardStore(private val jdbi: Jdbi) : CardStore {
             """.trimIndent()
             )
                 .bind("id", id)
-                .mapTo<Card>()
-                .one()
+                .mapTo<JdbiCard>()
+                .list()
+                .firstOrNull()
+                ?.let { card -> buildCard(card) }
         }
     }
 
     override fun addCard(card: Card) {
+        addSet(card.set) // TODO full set data here plz :)
+        createOrUpdateCard(card)
+        createOrUpdateTags(card.multiverseId, card.tags)
+    }
+
+    private fun addSet(setCode: String) {
         jdbi.useHandleUnchecked { handle ->
             handle.createUpdate(
                 """
-                INSERT INTO cards (multiverseId, `set`, name, type, manaCost, text, power, toughness, tags)
-                VALUES (:multiverseId, :set, :name, :type, :manaCost, :text, :power, :toughness, :tags)
-            """.trimIndent()
+                        MERGE INTO sets (code)
+                        VALUES (:code)
+                    """.trimIndent()
+            )
+                .bind("code", setCode)
+                .execute()
+        }
+    }
+
+    private fun createOrUpdateCard(card: Card) {
+        jdbi.useHandleUnchecked { handle ->
+            handle.createUpdate(
+                """
+                        MERGE INTO cards (multiverseId, setCode, name, type, manaCost, text, power, toughness)
+                        VALUES (:multiverseId, :setCode, :name, :type, :manaCost, :text, :power, :toughness)
+                    """.trimIndent()
             )
                 .bind("multiverseId", card.multiverseId)
-                .bind("set", card.set)
+                .bind("setCode", card.set)
                 .bind("name", card.name)
                 .bind("type", card.type)
                 .bind("manaCost", card.manaCost)
                 .bind("text", card.text)
                 .bind("power", card.power)
                 .bind("toughness", card.toughness)
-                .bind("tags", card.tags.joinToString(","))
                 .execute()
         }
+    }
+
+    private fun createOrUpdateTags(multiverseId: String, tags: Set<String>) {
+        jdbi.useHandleUnchecked { handle ->
+            tags.forEach { tag ->
+                handle.createUpdate("MERGE INTO tags (name) VALUES (:name)")
+                    .bind("name", tag)
+                    .execute()
+
+                handle.createUpdate(
+                    """
+                    MERGE INTO cardTags (cardId, tagName) 
+                    VALUES (:multiverseId, :tag)
+                    """.trimIndent()
+                )
+                    .bind("multiverseId", multiverseId)
+                    .bind("tag", tag)
+                    .execute()
+            }
+        }
+
     }
 
     override fun removeAll() {
@@ -99,3 +169,14 @@ class JdbiCardStore(private val jdbi: Jdbi) : CardStore {
     }
 
 }
+
+data class JdbiCard(
+    val multiverseId: String,
+    val setCode: String,
+    val name: String,
+    val type: String,
+    val manaCost: String?,
+    val text: String?,
+    val power: String?,
+    val toughness: String?,
+)

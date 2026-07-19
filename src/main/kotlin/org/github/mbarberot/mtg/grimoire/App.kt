@@ -11,6 +11,7 @@ import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGMigrati
 import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.TagGenerator
 import org.github.mbarberot.mtg.grimoire.components.setup.SetupController
 import org.github.mbarberot.mtg.grimoire.components.setup.SetupView
+import org.github.mbarberot.mtg.grimoire.database.provideDatabaseStorage
 import org.github.mbarberot.mtg.grimoire.mtgapi.provideMTGApi
 import org.github.mbarberot.mtg.grimoire.server.Server
 import org.github.mbarberot.mtg.grimoire.server.provideServer
@@ -26,6 +27,7 @@ fun main() {
             module {
                 single { config() }
             },
+            provideDatabaseStorage(),
             provideTemplateEngine(),
             provideMTGApi(),
             module {
@@ -64,7 +66,7 @@ fun config(): AppConfig {
             devMode = true,
             devRoot = "${System.getProperty("user.dir")}/mtg-grimoire",
             language = "French",
-            userStorage = "${System.getProperty("user.dir")}/dev/user"
+            userStorage = "${System.getProperty("user.dir")}/mtg-grimoire/dev/user/Grimoire"
         )
     } else {
         AppConfig(

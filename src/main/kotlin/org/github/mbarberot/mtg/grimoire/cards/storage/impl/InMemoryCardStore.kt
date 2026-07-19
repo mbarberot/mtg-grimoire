@@ -32,7 +32,9 @@ class InMemoryCardStore(initialCards: List<Card> = listOf()): CardStore {
         cards[card.multiverseId] = card
     }
 
-    override fun removeAll() = cards.clear()
+    override fun removeAll() {
+        cards.clear()
+    }
 
     override fun countAll(): Int = cards.size
 

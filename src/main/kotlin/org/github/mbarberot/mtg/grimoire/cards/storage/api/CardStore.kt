@@ -7,6 +7,6 @@ interface CardStore {
     fun countCards(query: String): Int
     fun getCardById(id: String): Card?
     fun addCard(card: Card)
-    fun removeAll(): Any?
+    fun removeAll()
     fun countAll(): Int
 }

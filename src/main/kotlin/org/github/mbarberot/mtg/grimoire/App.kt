@@ -64,9 +64,9 @@ fun config(): AppConfig {
             host = "0.0.0.0",
             port = port,
             devMode = true,
-            devRoot = "${System.getProperty("user.dir")}/mtg-grimoire",
+            devRoot = "${System.getProperty("user.dir")}",
             language = "French",
-            userStorage = "${System.getProperty("user.dir")}/mtg-grimoire/dev/user/Grimoire"
+            userStorage = "${System.getProperty("user.dir")}/dev/user/Grimoire"
         )
     } else {
         AppConfig(

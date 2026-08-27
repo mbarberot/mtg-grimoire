@@ -1,10 +1,9 @@
 package org.github.mbarberot.mtg.grimoire.server
 
 import io.javalin.Javalin
-import io.javalin.apibuilder.ApiBuilder
-import io.javalin.apibuilder.ApiBuilder.get
-import io.javalin.apibuilder.ApiBuilder.path
-import io.javalin.config.JavalinConfig
+import io.javalin.apibuilder.ApiBuilder.*
+import io.javalin.http.Context
+import io.javalin.http.Handler
 import io.javalin.http.staticfiles.Location
 import org.github.mbarberot.mtg.grimoire.AppConfig
 import org.github.mbarberot.mtg.grimoire.cards.server.GetCardRoute
@@ -53,9 +52,11 @@ class Server(
 
             config.routes.apiBuilder {
                 path("/") {
-                    get(indexRoute::handle)
+                    before("/") { ctx -> ctx.redirect("/app") }
                     get("setup", setupController::handle)
-
+                    path("app") {
+                        get(indexRoute::handle)
+                    }
                     path("api") {
                         path("cards") {
                             get(getCardsRoute::handle)

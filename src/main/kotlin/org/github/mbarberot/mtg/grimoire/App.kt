@@ -1,20 +1,21 @@
 package org.github.mbarberot.mtg.grimoire
 
-import org.github.mbarberot.mtg.grimoire.app.version.storage.api.VersionStore
-import org.github.mbarberot.mtg.grimoire.app.version.storage.impl.InMemoryVersionStore
 import org.github.mbarberot.mtg.grimoire.cards.provideCardModule
 import org.github.mbarberot.mtg.grimoire.components.index.IndexRoute
 import org.github.mbarberot.mtg.grimoire.components.index.IndexView
-import org.github.mbarberot.mtg.grimoire.components.migration.MigrationRunner
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.CardUpdater
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.MTGMigration
-import org.github.mbarberot.mtg.grimoire.components.migration.mtgjson.TagGenerator
+import org.github.mbarberot.mtg.grimoire.app.version.domain.MigrationRunner
 import org.github.mbarberot.mtg.grimoire.components.setup.SetupController
 import org.github.mbarberot.mtg.grimoire.components.setup.SetupView
+import org.github.mbarberot.mtg.grimoire.app.config.AppConfig
+import org.github.mbarberot.mtg.grimoire.app.config.CardLanguage.FRENCH
+import org.github.mbarberot.mtg.grimoire.app.config.DEFAULT_PORT
+import org.github.mbarberot.mtg.grimoire.app.config.LOCALHOST
+import org.github.mbarberot.mtg.grimoire.app.version.provideVersionModule
 import org.github.mbarberot.mtg.grimoire.database.provideDatabaseStorage
 import org.github.mbarberot.mtg.grimoire.mtgapi.provideMTGApi
 import org.github.mbarberot.mtg.grimoire.server.Server
 import org.github.mbarberot.mtg.grimoire.server.provideServer
+import org.github.mbarberot.mtg.grimoire.tags.domain.provideTags
 import org.github.mbarberot.mtg.grimoire.templating.provideTemplateEngine
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
@@ -39,12 +40,9 @@ fun main() {
                 single { SetupController(get()) }
             },
             provideCardModule(),
+            provideVersionModule(),
+            provideTags(),
             module {
-                single<VersionStore> { InMemoryVersionStore() }
-                single { TagGenerator() }
-                single { CardUpdater(get(), get(), get()) }
-                single { MTGMigration(get(), get()) }
-                single { MigrationRunner(get(), get()) }
             },
             provideServer()
         )
@@ -65,7 +63,7 @@ fun config(): AppConfig {
             port = port,
             devMode = true,
             devRoot = "${System.getProperty("user.dir")}",
-            language = "French",
+            language = FRENCH,
             userStorage = "${System.getProperty("user.dir")}/dev/user/Grimoire"
         )
     } else {
@@ -73,7 +71,7 @@ fun config(): AppConfig {
             host = LOCALHOST,
             port = port,
             devMode = false,
-            language = "French",
+            language = FRENCH,
             userStorage = "${System.getProperty("user.home")}/Documents/Grimoire"
         )
     }

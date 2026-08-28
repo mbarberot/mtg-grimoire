@@ -1,8 +1,6 @@
 package org.github.mbarberot.mtg.grimoire.database
 
-import org.github.mbarberot.mtg.grimoire.AppConfig
-import org.github.mbarberot.mtg.grimoire.cards.storage.api.CardStore
-import org.github.mbarberot.mtg.grimoire.database.stores.JdbiCardStore
+import org.github.mbarberot.mtg.grimoire.app.config.AppConfig
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.KotlinPlugin
 import org.jdbi.v3.core.kotlin.useHandleUnchecked
@@ -14,7 +12,6 @@ import kotlin.io.path.createDirectories
 fun provideDatabaseStorage() =
     module {
         single { initJdbi(get()) }
-        single<CardStore> { JdbiCardStore(get()) }
     }
 
 fun initJdbi(appConfig: AppConfig): Jdbi {

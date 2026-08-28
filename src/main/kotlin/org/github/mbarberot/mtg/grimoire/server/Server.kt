@@ -2,10 +2,8 @@ package org.github.mbarberot.mtg.grimoire.server
 
 import io.javalin.Javalin
 import io.javalin.apibuilder.ApiBuilder.*
-import io.javalin.http.Context
-import io.javalin.http.Handler
 import io.javalin.http.staticfiles.Location
-import org.github.mbarberot.mtg.grimoire.AppConfig
+import org.github.mbarberot.mtg.grimoire.app.config.AppConfig
 import org.github.mbarberot.mtg.grimoire.cards.server.GetCardRoute
 import org.github.mbarberot.mtg.grimoire.cards.server.GetCardsRoute
 import org.github.mbarberot.mtg.grimoire.components.index.IndexRoute

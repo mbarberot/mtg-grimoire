@@ -1,5 +1,7 @@
 package org.github.mbarberot.mtg.grimoire.cards.domain
 
+import kotlin.collections.Set
+
 data class Card(
     val multiverseId: String,
     val set: String,

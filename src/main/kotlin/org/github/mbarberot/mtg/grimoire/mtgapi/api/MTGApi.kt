@@ -1,34 +1,10 @@
 package org.github.mbarberot.mtg.grimoire.mtgapi.api
 
+import org.github.mbarberot.mtg.grimoire.cards.domain.Card
+import org.github.mbarberot.mtg.grimoire.cards.domain.Set
+
 interface MTGApi {
     fun getVersion(): String
-    fun getSets(): List<MTGSet>
-    fun getCards(setCode: String): List<MTGCard>
+    fun getSets(): List<Set>
+    fun getCards(setCode: String): List<Card>
 }
-
-data class MTGSet(
-    val name: String,
-    val code: String,
-    private val translations: Map<String,String?>,
-) {
-    fun getLocalizedName(language: String): String? {
-        return translations[language]
-    }
-}
-
-data class MTGCard(
-    val uuid: String,
-    val manaCost: String?,
-    val power: String?,
-    val toughness: String?,
-    val setCode: String,
-    val foreignData: List<MTGForeignData>,
-)
-
-data class MTGForeignData(
-    val language: String,
-    val multiverseId: Int,
-    val name: String,
-    val text: String?,
-    val type: String?,
-)

@@ -1,4 +1,4 @@
-package org.github.mbarberot.mtg.grimoire.database.stores
+package org.github.mbarberot.mtg.grimoire.cards.storage.impl
 
 import org.github.mbarberot.mtg.grimoire.cards.domain.Card
 import org.github.mbarberot.mtg.grimoire.cards.storage.api.CardStore

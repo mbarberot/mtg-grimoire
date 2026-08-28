@@ -3,7 +3,7 @@ package org.github.mbarberot.mtg.grimoire.templating
 import com.github.jknack.handlebars.Handlebars
 import com.github.jknack.handlebars.io.ClassPathTemplateLoader
 import com.github.jknack.handlebars.io.FileTemplateLoader
-import org.github.mbarberot.mtg.grimoire.AppConfig
+import org.github.mbarberot.mtg.grimoire.app.config.AppConfig
 import org.github.mbarberot.mtg.grimoire.templating.api.TemplateEngine
 import org.github.mbarberot.mtg.grimoire.templating.handlebars.helpers.CardImageHelper
 import org.github.mbarberot.mtg.grimoire.templating.handlebars.HandlebarsTemplateEngine
